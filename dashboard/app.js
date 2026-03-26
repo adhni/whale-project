@@ -21,8 +21,18 @@ const GROUP_COLORS = {
 
 const state = {
   trendVisibleGroups: new Set(),
+  trendData: null,
+  trendHoverIndex: null,
+  yearOptions: ["all"],
+  sourceOptions: ["all"],
   selectedYear: "all",
   selectedGroup: "all",
+  selectedSource: "all",
+  selectedEntryId: null,
+  mapRows: [],
+  map: null,
+  pointLayer: null,
+  mapRenderer: null,
 };
 
 const elements = {
@@ -34,17 +44,34 @@ const elements = {
   statTimeSpan: document.getElementById("statTimeSpan"),
   trendLegend: document.getElementById("trendLegend"),
   trendChart: document.getElementById("trendChart"),
+  trendTooltip: document.getElementById("trendTooltip"),
   trendNote: document.getElementById("trendNote"),
   groupRankings: document.getElementById("groupRankings"),
   sourceList: document.getElementById("sourceList"),
   recentList: document.getElementById("recentList"),
-  yearSelect: document.getElementById("yearSelect"),
+  yearSlider: document.getElementById("yearSlider"),
+  yearSliderValue: document.getElementById("yearSliderValue"),
+  yearTicks: document.getElementById("yearTicks"),
   groupSelect: document.getElementById("groupSelect"),
-  mapCanvas: document.getElementById("mapCanvas"),
+  sourceSelect: document.getElementById("sourceSelect"),
+  activeFilters: document.getElementById("activeFilters"),
+  resetFiltersButton: document.getElementById("resetFiltersButton"),
+  leafletMap: document.getElementById("leafletMap"),
   mapLegend: document.getElementById("mapLegend"),
   filteredPoints: document.getElementById("filteredPoints"),
   filteredYears: document.getElementById("filteredYears"),
+  detailTitle: document.getElementById("detailTitle"),
+  detailSubtitle: document.getElementById("detailSubtitle"),
+  detailGroupBadge: document.getElementById("detailGroupBadge"),
+  detailSourceBadge: document.getElementById("detailSourceBadge"),
+  detailCount: document.getElementById("detailCount"),
+  detailDate: document.getElementById("detailDate"),
+  detailCoords: document.getElementById("detailCoords"),
+  detailYear: document.getElementById("detailYear"),
 };
+
+const MAX_MAP_POINTS = 12000;
+const DASHBOARD_MIN_YEAR = 2000;
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(Number(value));
@@ -139,10 +166,67 @@ function buildTrendData(monthlyRows, groupRows) {
   return { months, series, rankedGroups };
 }
 
+function syncYearSlider() {
+  const index = state.yearOptions.indexOf(state.selectedYear);
+  elements.yearSlider.value = String(index >= 0 ? index : 0);
+  elements.yearSliderValue.textContent =
+    state.selectedYear === "all" ? "All years" : state.selectedYear;
+}
+
+function resetFilters() {
+  state.selectedYear = "all";
+  state.selectedGroup = "all";
+  state.selectedSource = "all";
+  state.selectedEntryId = null;
+  elements.groupSelect.value = "all";
+  elements.sourceSelect.value = "all";
+  syncYearSlider();
+  updateMapViews();
+}
+
+function getSourceLabel(row) {
+  return row.data_source_witness || row.data_source_name || "Unknown";
+}
+
+function getFilteredMapRows(mapRows) {
+  return mapRows.filter((row) => {
+    const yearOk = state.selectedYear === "all" || row.created_year === state.selectedYear;
+    const groupOk = state.selectedGroup === "all" || row.whale_group === state.selectedGroup;
+    const sourceOk = state.selectedSource === "all" || getSourceLabel(row) === state.selectedSource;
+    return yearOk && groupOk && sourceOk;
+  });
+}
+
+function renderFilterSummary() {
+  const filters = [];
+  if (state.selectedYear !== "all") {
+    filters.push(["Year", state.selectedYear]);
+  }
+  if (state.selectedGroup !== "all") {
+    filters.push(["Group", state.selectedGroup]);
+  }
+  if (state.selectedSource !== "all") {
+    filters.push(["Source", state.selectedSource]);
+  }
+
+  if (!filters.length) {
+    elements.activeFilters.innerHTML = `<span class="filter-pill"><strong>Scope</strong> Dashboard view uses all records from ${DASHBOARD_MIN_YEAR}+.</span>`;
+  } else {
+    elements.activeFilters.innerHTML = filters
+      .map(
+        ([label, value]) =>
+          `<span class="filter-pill"><strong>${label}</strong> ${value}</span>`,
+      )
+      .join("");
+  }
+
+  elements.resetFiltersButton.disabled = filters.length === 0;
+}
+
 function renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows) {
   const months = monthlyRows.map((row) => row.created_month).sort();
   elements.statCleanRows.textContent = formatNumber(cleanSummary.total_rows);
-  elements.statMapRows.textContent = formatNumber(aggregateSummary.map_rows);
+  elements.statMapRows.textContent = formatNumber(mapRows.length);
   elements.statGroups.textContent = formatNumber(groupRows.length);
   elements.statTimeSpan.textContent = months.length
     ? `${formatMonth(months[0])} to ${formatMonth(months[months.length - 1])}`
@@ -153,7 +237,7 @@ function renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, map
     `${formatNumber(cleanSummary.invalid_dates)} invalid dates`,
     `${formatNumber(cleanSummary.invalid_coordinates)} invalid coordinates`,
   ];
-  elements.statusPill.textContent = `Derived from ${formatNumber(mapRows.length)} mapped sightings • ${invalidBits.join(" • ")}`;
+  elements.statusPill.textContent = `Dashboard view: ${formatNumber(mapRows.length)} mapped sightings from ${DASHBOARD_MIN_YEAR}+ • ${invalidBits.join(" • ")}`;
 }
 
 function renderTrendLegend(trendData) {
@@ -190,9 +274,10 @@ function renderTrendLegend(trendData) {
 }
 
 function renderTrendChart(trendData) {
+  state.trendData = trendData;
   const svg = elements.trendChart;
   const width = 960;
-  const height = 360;
+  const height = 420;
   const padding = { top: 28, right: 100, bottom: 40, left: 56 };
   const innerWidth = width - padding.left - padding.right;
   const innerHeight = height - padding.top - padding.bottom;
@@ -224,6 +309,13 @@ function renderTrendChart(trendData) {
     })
     .join("");
 
+  const hoverIndex = state.trendHoverIndex;
+  const hoverMonth = hoverIndex === null ? null : trendData.months[hoverIndex];
+  const focusLine =
+    hoverMonth === null
+      ? ""
+      : `<line x1="${xForIndex(hoverIndex)}" y1="${padding.top}" x2="${xForIndex(hoverIndex)}" y2="${height - padding.bottom}" stroke="rgba(246,185,107,0.5)" stroke-dasharray="5 7" />`;
+
   const paths = visibleGroups
     .map((group) => {
       const values = trendData.months.map((month) => trendData.series[group]?.[month] || 0);
@@ -233,8 +325,13 @@ function renderTrendChart(trendData) {
       const lastValue = values[values.length - 1];
       const labelX = width - padding.right + 12;
       const labelY = yForValue(lastValue);
+      const focusPoint =
+        hoverMonth === null
+          ? ""
+          : `<circle cx="${xForIndex(hoverIndex)}" cy="${yForValue(values[hoverIndex])}" r="4.5" fill="${getColor(group)}" stroke="#eaf8f4" stroke-width="1.5" />`;
       return `
         <path d="${path}" fill="none" stroke="${getColor(group)}" stroke-width="3" stroke-linecap="round" />
+        ${focusPoint}
         <text x="${labelX}" y="${labelY + 4}" fill="${getColor(group)}" font-size="12">${group}</text>
       `;
     })
@@ -245,17 +342,81 @@ function renderTrendChart(trendData) {
     ${gridLines}
     <line x1="${padding.left}" y1="${height - padding.bottom}" x2="${width - padding.right}" y2="${height - padding.bottom}" stroke="rgba(236,247,243,0.16)" />
     <line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${height - padding.bottom}" stroke="rgba(236,247,243,0.16)" />
+    ${focusLine}
     ${paths}
     ${xLabels}
   `;
 
-  elements.trendNote.textContent = `Showing ${visibleGroups.length} group${visibleGroups.length === 1 ? "" : "s"} across ${trendData.months.length} monthly points. Totals reflect positive sightings from 2018 onward.`;
+  elements.trendNote.textContent = `Showing ${visibleGroups.length} group${visibleGroups.length === 1 ? "" : "s"} across ${trendData.months.length} monthly points. Hover for a monthly breakdown, or click the chart to snap the map to that year.`;
+}
+
+function renderTrendTooltip(clientX, clientY) {
+  if (!state.trendData || state.trendHoverIndex === null) {
+    elements.trendTooltip.classList.add("hidden");
+    return;
+  }
+
+  const month = state.trendData.months[state.trendHoverIndex];
+  const rows = [...state.trendVisibleGroups]
+    .map((group) => ({
+      group,
+      value: state.trendData.series[group]?.[month] || 0,
+    }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 6);
+
+  elements.trendTooltip.innerHTML = `
+    <p class="tooltip-month">${formatMonth(month)}</p>
+    ${rows
+      .map(
+        (row) => `
+          <div class="tooltip-row">
+            <span class="tooltip-label">
+              <span class="swatch" style="background:${getColor(row.group)}"></span>
+              ${row.group}
+            </span>
+            <strong>${formatNumber(row.value)}</strong>
+          </div>
+        `,
+      )
+      .join("")}
+  `;
+  elements.trendTooltip.style.left = `${clientX}px`;
+  elements.trendTooltip.style.top = `${clientY}px`;
+  elements.trendTooltip.classList.remove("hidden");
+}
+
+function attachTrendInteractions() {
+  elements.trendChart.onmousemove = (event) => {
+    if (!state.trendData) return;
+    const rect = elements.trendChart.getBoundingClientRect();
+    const width = 960;
+    const paddingLeft = 56;
+    const paddingRight = 100;
+    const innerWidth = width - paddingLeft - paddingRight;
+    const x = ((event.clientX - rect.left) / rect.width) * width;
+    const relative = Math.max(0, Math.min(innerWidth, x - paddingLeft));
+    const ratio = innerWidth === 0 ? 0 : relative / innerWidth;
+    const index = Math.round(ratio * Math.max(state.trendData.months.length - 1, 0));
+    state.trendHoverIndex = index;
+    renderTrendChart(state.trendData);
+    renderTrendTooltip(event.clientX - rect.left, event.clientY - rect.top);
+  };
+
+  elements.trendChart.onmouseleave = () => {
+    state.trendHoverIndex = null;
+    elements.trendTooltip.classList.add("hidden");
+    if (state.trendData) {
+      renderTrendChart(state.trendData);
+    }
+  };
 }
 
 function renderGroupRankings(groupRows) {
   const maxTotal = Math.max(...groupRows.map((row) => Number(row.total_sighted)), 1);
   const markup = [...groupRows]
     .sort((a, b) => Number(b.total_sighted) - Number(a.total_sighted))
+    .slice(0, 6)
     .map((row) => {
       const percent = (Number(row.total_sighted) / maxTotal) * 100;
       return `
@@ -281,7 +442,7 @@ function renderGroupRankings(groupRows) {
 function renderSources(mapRows) {
   const counts = new Map();
   mapRows.forEach((row) => {
-    const key = row.data_source_witness || row.data_source_name || "Unknown";
+    const key = getSourceLabel(row);
     counts.set(key, (counts.get(key) || 0) + 1);
   });
 
@@ -322,27 +483,122 @@ function renderRecent(mapRows) {
     .join("");
 }
 
+function renderMapSidePanels(filteredRows) {
+  renderSources(filteredRows);
+  renderRecent(filteredRows);
+}
+
+function renderDetailCard(row) {
+  if (!row) {
+    elements.detailTitle.textContent = "No matching sightings";
+    elements.detailSubtitle.textContent =
+      "Adjust the filters or click reset to bring more observations back into view.";
+    elements.detailGroupBadge.textContent = "No selection";
+    elements.detailSourceBadge.textContent = "-";
+    elements.detailCount.textContent = "-";
+    elements.detailDate.textContent = "-";
+    elements.detailCoords.textContent = "-";
+    elements.detailYear.textContent = "-";
+    return;
+  }
+
+  elements.detailTitle.textContent = row.species_normalized || "Unknown species";
+  elements.detailSubtitle.textContent =
+    "This card follows the last point you clicked on the map.";
+  elements.detailGroupBadge.textContent = row.whale_group;
+  elements.detailSourceBadge.textContent = getSourceLabel(row);
+  elements.detailCount.textContent = formatNumber(row.no_sighted);
+  elements.detailDate.textContent = row.created_iso
+    ? row.created_iso.replace("T", " ")
+    : "Unknown";
+  elements.detailCoords.textContent = `${Number(row.latitude).toFixed(2)}, ${Number(
+    row.longitude,
+  ).toFixed(2)}`;
+  elements.detailYear.textContent = row.created_year || "-";
+}
+
+function getSelectedOrDefaultRow(filteredRows) {
+  if (!filteredRows.length) {
+    return null;
+  }
+
+  const selected =
+    state.selectedEntryId === null
+      ? null
+      : filteredRows.find((row) => row.entry_id === state.selectedEntryId) || null;
+
+  if (selected) {
+    return selected;
+  }
+
+  const latest = [...filteredRows].sort((a, b) =>
+    String(b.created_iso).localeCompare(String(a.created_iso)),
+  )[0];
+  state.selectedEntryId = latest?.entry_id || null;
+  return latest || null;
+}
+
 function renderMapControls(groupRows, mapRows) {
   const years = [...new Set(mapRows.map((row) => row.created_year).filter(Boolean))].sort();
   const groups = groupRows.map((row) => row.whale_group);
+  const sources = [...new Set(mapRows.map((row) => getSourceLabel(row)).filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b),
+  );
 
-  elements.yearSelect.innerHTML = `<option value="all">All years</option>${years.map((year) => `<option value="${year}">${year}</option>`).join("")}`;
+  state.yearOptions = ["all", ...years];
+  state.sourceOptions = ["all", ...sources];
+  elements.yearSlider.min = "0";
+  elements.yearSlider.max = String(state.yearOptions.length - 1);
+  elements.yearSlider.step = "1";
+  elements.yearTicks.innerHTML = `
+    <span>All</span>
+    <span>${years[0] || ""}</span>
+    <span>${years[Math.floor(years.length / 2)] || ""}</span>
+    <span>${years[years.length - 1] || ""}</span>
+  `;
   elements.groupSelect.innerHTML = `<option value="all">All groups</option>${groups.map((group) => `<option value="${group}">${group}</option>`).join("")}`;
+  elements.sourceSelect.innerHTML = `<option value="all">All sources</option>${sources.map((source) => `<option value="${source}">${source}</option>`).join("")}`;
 
-  state.selectedYear = years[years.length - 1] || "all";
+  state.selectedYear = "all";
   state.selectedGroup = "all";
-  elements.yearSelect.value = state.selectedYear;
+  state.selectedSource = "all";
   elements.groupSelect.value = state.selectedGroup;
+  elements.sourceSelect.value = state.selectedSource;
+  syncYearSlider();
 
-  elements.yearSelect.addEventListener("change", () => {
-    state.selectedYear = elements.yearSelect.value;
-    drawMap(mapRows);
-  });
+  elements.yearSlider.oninput = () => {
+    const index = Number(elements.yearSlider.value);
+    state.selectedYear = state.yearOptions[index] || "all";
+    syncYearSlider();
+    updateMapViews();
+  };
 
-  elements.groupSelect.addEventListener("change", () => {
+  elements.groupSelect.onchange = () => {
     state.selectedGroup = elements.groupSelect.value;
-    drawMap(mapRows);
-  });
+    state.selectedEntryId = null;
+    updateMapViews();
+  };
+
+  elements.sourceSelect.onchange = () => {
+    state.selectedSource = elements.sourceSelect.value;
+    state.selectedEntryId = null;
+    updateMapViews();
+  };
+
+  elements.trendChart.onclick = () => {
+    if (!state.trendData || state.trendHoverIndex === null) return;
+    const month = state.trendData.months[state.trendHoverIndex];
+    const year = month.slice(0, 4);
+    if (state.yearOptions.includes(year)) {
+      state.selectedYear = year;
+      syncYearSlider();
+      updateMapViews();
+    }
+  };
+
+  elements.resetFiltersButton.onclick = () => {
+    resetFilters();
+  };
 
   elements.mapLegend.innerHTML = groups
     .slice(0, 10)
@@ -355,90 +611,120 @@ function renderMapControls(groupRows, mapRows) {
     .join("");
 }
 
-function drawMap(mapRows) {
-  const canvas = elements.mapCanvas;
-  const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
-  const padding = 36;
-
-  const filtered = mapRows.filter((row) => {
-    const yearOk = state.selectedYear === "all" || row.created_year === state.selectedYear;
-    const groupOk = state.selectedGroup === "all" || row.whale_group === state.selectedGroup;
-    return yearOk && groupOk;
-  });
-
-  const allLats = mapRows.map((row) => Number(row.latitude));
-  const allLons = mapRows.map((row) => Number(row.longitude));
-  const minLat = Math.min(...allLats);
-  const maxLat = Math.max(...allLats);
-  const minLon = Math.min(...allLons);
-  const maxLon = Math.max(...allLons);
-
-  const xForLon = (lon) => padding + ((lon - minLon) / (maxLon - minLon || 1)) * (width - padding * 2);
-  const yForLat = (lat) => height - padding - ((lat - minLat) / (maxLat - minLat || 1)) * (height - padding * 2);
-
-  ctx.clearRect(0, 0, width, height);
-
-  const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, "#113d4b");
-  gradient.addColorStop(1, "#04161c");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  ctx.strokeStyle = "rgba(171, 231, 226, 0.08)";
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 6; i += 1) {
-    const y = padding + (i / 5) * (height - padding * 2);
-    ctx.beginPath();
-    ctx.moveTo(padding, y);
-    ctx.lineTo(width - padding, y);
-    ctx.stroke();
-  }
-  for (let i = 0; i < 7; i += 1) {
-    const x = padding + (i / 6) * (width - padding * 2);
-    ctx.beginPath();
-    ctx.moveTo(x, padding);
-    ctx.lineTo(x, height - padding);
-    ctx.stroke();
+function ensureMap() {
+  if (state.map || typeof L === "undefined") {
+    return;
   }
 
-  filtered.forEach((row) => {
-    const x = xForLon(Number(row.longitude));
-    const y = yForLat(Number(row.latitude));
+  state.map = L.map(elements.leafletMap, {
+    zoomControl: true,
+    worldCopyJump: false,
+    preferCanvas: true,
+  }).setView([36, -124], 3);
+
+  state.mapRenderer = L.canvas({ padding: 0.5 });
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 9,
+    minZoom: 2,
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(state.map);
+}
+
+function buildPopup(row) {
+  return `
+    <div class="popup-title">${row.species_normalized || "Unknown species"}</div>
+    <p class="popup-meta">
+      ${row.whale_group}<br>
+      ${formatNumber(row.no_sighted)} sighted<br>
+      ${row.created_iso ? row.created_iso.replace("T", " ") : "Unknown time"}<br>
+      ${row.data_source_witness || row.data_source_name || "Unknown source"}
+    </p>
+  `;
+}
+
+function renderLeafletMap(mapRows) {
+  ensureMap();
+
+  const filtered = getFilteredMapRows(mapRows);
+  const selectedRow = getSelectedOrDefaultRow(filtered);
+
+  const pointsToDraw = [...filtered]
+    .sort((a, b) => String(b.created_iso).localeCompare(String(a.created_iso)))
+    .slice(0, MAX_MAP_POINTS);
+
+  if (state.pointLayer) {
+    state.pointLayer.remove();
+  }
+
+  state.pointLayer = L.layerGroup();
+
+  const bounds = [];
+  pointsToDraw.forEach((row) => {
+    const lat = Number(row.latitude);
+    const lon = Number(row.longitude);
     const count = Number(row.no_sighted);
-    const radius = Math.min(6, Math.max(1.4, Math.sqrt(count) * 0.45));
-    const color = getColor(row.whale_group);
+    const isSelected = row.entry_id === state.selectedEntryId;
+    const marker = L.circleMarker([lat, lon], {
+      renderer: state.mapRenderer,
+      radius: isSelected
+        ? Math.min(12, Math.max(4, Math.sqrt(count) * 0.62))
+        : Math.min(10, Math.max(3, Math.sqrt(count) * 0.55)),
+      color: getColor(row.whale_group),
+      weight: isSelected ? 2.4 : 1,
+      opacity: 0.9,
+      fillColor: getColor(row.whale_group),
+      fillOpacity: isSelected ? 0.62 : 0.35,
+    });
 
-    ctx.beginPath();
-    ctx.fillStyle = `${color}66`;
-    ctx.arc(x, y, radius + 1.8, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
+    marker.bindPopup(buildPopup(row), { className: "whale-popup" });
+    marker.on("click", () => {
+      state.selectedEntryId = row.entry_id;
+      renderDetailCard(row);
+      renderLeafletMap(state.mapRows);
+    });
+    marker.addTo(state.pointLayer);
+    bounds.push([lat, lon]);
   });
 
-  ctx.fillStyle = "rgba(236,247,243,0.88)";
-  ctx.font = '600 13px "Trebuchet MS", sans-serif';
-  ctx.fillText("Longitude", width / 2 - 28, height - 12);
-  ctx.save();
-  ctx.translate(12, height / 2 + 30);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText("Latitude", 0, 0);
-  ctx.restore();
+  state.pointLayer.addTo(state.map);
 
-  elements.filteredPoints.textContent = formatNumber(filtered.length);
-  const yearLabel = state.selectedYear === "all" ? "All" : state.selectedYear;
-  elements.filteredYears.textContent = yearLabel;
+  if (bounds.length) {
+    state.map.fitBounds(bounds, { padding: [28, 28], maxZoom: 6 });
+  }
+
+  elements.filteredPoints.textContent =
+    filtered.length > MAX_MAP_POINTS
+      ? `${formatNumber(pointsToDraw.length)} / ${formatNumber(filtered.length)}`
+      : formatNumber(filtered.length);
+  elements.filteredYears.textContent =
+    state.selectedYear === "all"
+      ? state.selectedSource === "all"
+        ? "All years"
+        : state.selectedSource
+      : state.selectedGroup === "all" && state.selectedSource === "all"
+        ? state.selectedYear
+        : [state.selectedYear, state.selectedGroup !== "all" ? state.selectedGroup : null, state.selectedSource !== "all" ? state.selectedSource : null]
+            .filter(Boolean)
+            .join(" • ");
+
+  renderDetailCard(selectedRow);
+}
+
+function updateMapViews() {
+  renderFilterSummary();
+  renderLeafletMap(state.mapRows);
+  renderMapSidePanels(getFilteredMapRows(state.mapRows));
 }
 
 async function renderDashboard() {
+  if (window.location.protocol === "file:") {
+    throw new Error("This dashboard was opened as a local file");
+  }
+
   elements.statusPill.textContent = "Loading data";
 
-  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows] = await Promise.all([
+  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, rawMapRows] = await Promise.all([
     loadJson(DATA_PATHS.cleanSummary),
     loadJson(DATA_PATHS.aggregateSummary),
     loadCsv(DATA_PATHS.monthly),
@@ -446,24 +732,46 @@ async function renderDashboard() {
     loadCsv(DATA_PATHS.map),
   ]);
 
+  const mapRows = rawMapRows.filter((row) => Number(row.created_year || 0) >= DASHBOARD_MIN_YEAR);
+  state.mapRows = mapRows;
+
   renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows);
   const trendData = buildTrendData(monthlyRows, groupRows);
   renderTrendLegend(trendData);
   renderTrendChart(trendData);
+  attachTrendInteractions();
   renderGroupRankings(groupRows);
-  renderSources(mapRows);
-  renderRecent(mapRows);
   renderMapControls(groupRows, mapRows);
-  drawMap(mapRows);
-  elements.statusPill.textContent = "Dashboard ready";
+  updateMapViews();
+  elements.statusPill.textContent = `Ready • ${formatNumber(mapRows.length)} mapped sightings from ${DASHBOARD_MIN_YEAR}+`;
+}
+
+function renderLoadError(error) {
+  const protocolHint =
+    window.location.protocol === "file:"
+      ? "Open a terminal in /Users/adhni/Desktop/whale-project and run: python3 -m http.server 8000. Then open http://localhost:8000/dashboard/."
+      : "Run a local server from the repo root so the dashboard can fetch the processed files.";
+
+  const message = `${error.message}. ${protocolHint}`;
+  elements.statusPill.textContent = "Load failed";
+  elements.trendNote.textContent = message;
+  elements.groupRankings.innerHTML = `<p class="empty-state">${message}</p>`;
+  elements.sourceList.innerHTML = `<p class="empty-state">${message}</p>`;
+  elements.recentList.innerHTML = `<p class="empty-state">${message}</p>`;
+  elements.mapLegend.innerHTML = `<p class="empty-state">${message}</p>`;
+  elements.filteredPoints.textContent = "-";
+  elements.filteredYears.textContent = "-";
+  elements.trendTooltip.classList.add("hidden");
+  if (state.pointLayer) {
+    state.pointLayer.remove();
+  }
 }
 
 async function boot() {
   try {
     await renderDashboard();
   } catch (error) {
-    elements.statusPill.textContent = "Load failed";
-    elements.groupRankings.innerHTML = `<p class="empty-state">${error.message}. Run a local server from the repo root so the dashboard can fetch the processed files.</p>`;
+    renderLoadError(error);
   }
 }
 

@@ -213,7 +213,7 @@ body {
 }
 
 .panel-large {
-  min-height: 520px;
+  min-height: 620px;
 }
 
 .panel-wide {
@@ -259,7 +259,8 @@ body {
 }
 
 .chart-frame {
-  min-height: 340px;
+  position: relative;
+  min-height: 380px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background:
@@ -268,10 +269,61 @@ body {
   border: 1px solid rgba(156, 194, 188, 0.12);
 }
 
+.chart-frame-tall {
+  min-height: 430px;
+}
+
 #trendChart {
   width: 100%;
   height: 100%;
   display: block;
+  cursor: crosshair;
+}
+
+.chart-tooltip {
+  position: absolute;
+  min-width: 190px;
+  max-width: 260px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(4, 25, 31, 0.92);
+  border: 1px solid rgba(156, 194, 188, 0.16);
+  color: var(--text);
+  pointer-events: none;
+  transform: translate(14px, -50%);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+}
+
+.chart-tooltip.hidden {
+  display: none;
+}
+
+.tooltip-month {
+  margin: 0 0 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+}
+
+.tooltip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 7px;
+  font-size: 0.9rem;
+}
+
+.tooltip-row strong {
+  font-weight: 600;
+}
+
+.tooltip-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .rank-list,
@@ -341,10 +393,110 @@ body {
     linear-gradient(180deg, rgba(5, 40, 50, 0.96), rgba(3, 18, 24, 0.96));
 }
 
-#mapCanvas {
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.12);
+}
+
+.filter-summary {
+  display: grid;
+  gap: 8px;
+}
+
+.filter-summary-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.filter-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(124, 224, 205, 0.08);
+  border: 1px solid rgba(124, 224, 205, 0.16);
+  font-size: 0.88rem;
+}
+
+.filter-pill strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.compact-button {
+  padding: 10px 14px;
+  white-space: nowrap;
+}
+
+.compact-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+#leafletMap {
   width: 100%;
-  height: auto;
+  height: 560px;
   display: block;
+}
+
+.leaflet-container {
+  background: #08222a;
+  font-family: var(--font-body);
+}
+
+.leaflet-control-zoom a {
+  background: rgba(5, 31, 38, 0.92);
+  color: var(--text);
+  border-bottom-color: rgba(156, 194, 188, 0.12);
+}
+
+.leaflet-control-attribution {
+  background: rgba(4, 25, 31, 0.72);
+  color: var(--muted);
+}
+
+.leaflet-control-attribution a {
+  color: var(--accent);
+}
+
+.whale-popup .leaflet-popup-content-wrapper,
+.whale-popup .leaflet-popup-tip {
+  background: rgba(4, 25, 31, 0.94);
+  color: var(--text);
+  border: 1px solid rgba(156, 194, 188, 0.14);
+}
+
+.whale-popup .leaflet-popup-content {
+  margin: 14px 16px;
+  min-width: 200px;
+}
+
+.popup-title {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.popup-meta {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .map-overlay {
@@ -353,6 +505,7 @@ body {
   bottom: 16px;
   display: flex;
   gap: 12px;
+  z-index: 500;
 }
 
 .overlay-card {
@@ -371,6 +524,87 @@ body {
   font-family: var(--font-display);
 }
 
+.map-detail-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: min(290px, calc(100% - 32px));
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(4, 25, 31, 0.86);
+  border: 1px solid rgba(156, 194, 188, 0.16);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+  z-index: 500;
+}
+
+.map-detail-kicker {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.map-detail-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.map-detail-subtitle {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.map-detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(156, 194, 188, 0.14);
+  font-size: 0.84rem;
+}
+
+.map-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.map-detail-grid div {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.12);
+}
+
+.map-detail-grid dt {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.map-detail-grid dd {
+  margin: 8px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
 .control-row {
   display: flex;
   gap: 12px;
@@ -380,6 +614,55 @@ body {
 .control {
   display: grid;
   gap: 8px;
+}
+
+.timeline-control {
+  min-width: 260px;
+  display: grid;
+  gap: 10px;
+}
+
+.timeline-current {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.timeline-control input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(124, 224, 205, 0.25), rgba(246, 185, 107, 0.4));
+  outline: none;
+}
+
+.timeline-control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f7fbf7;
+  border: 2px solid #0c5563;
+  cursor: pointer;
+}
+
+.timeline-control input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f7fbf7;
+  border: 2px solid #0c5563;
+  cursor: pointer;
+}
+
+.timeline-ticks {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .control select {
@@ -467,7 +750,17 @@ body {
     flex-wrap: wrap;
   }
 
+  .map-detail-card {
+    position: static;
+    width: auto;
+    margin: 12px;
+  }
+
   .control select {
     min-width: 140px;
+  }
+
+  .timeline-control {
+    min-width: 100%;
   }
 }

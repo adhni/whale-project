@@ -3,8 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Whale Project Dashboard</title>
+    <title>Whale Watch Atlas</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
     <link rel="stylesheet" href="./styles.css" />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+    ></script>
     <script defer src="./app.js"></script>
   </head>
   <body>
@@ -13,12 +23,12 @@
     <div class="page-shell">
       <header class="hero panel">
         <div class="hero-copy">
-          <p class="eyebrow">Whale Observation Dashboard</p>
-          <h1>Turn the raw sightings feed into an actual monitoring surface.</h1>
+          <p class="eyebrow">Whale Watch Atlas</p>
+          <h1>Track where whale activity concentrates across coasts and seasons.</h1>
           <p class="hero-text">
             This dashboard sits on top of the cleaned and aggregated whale data
-            pipeline. It highlights species pressure, monthly momentum, source
-            concentration, and the geographic shape of the observations.
+            pipeline. It turns the sightings feed into a clearer view of
+            pressure, seasonality, source concentration, and regional movement.
           </p>
         </div>
         <div class="hero-side">
@@ -53,6 +63,85 @@
       </section>
 
       <main class="dashboard-grid">
+        <section class="panel panel-wide">
+          <div class="panel-head panel-head-wrap">
+            <div>
+              <p class="panel-kicker">Spatial field</p>
+              <h2>Live sightings map</h2>
+            </div>
+            <div class="control-row">
+              <label class="control">
+                <span>Year Window</span>
+                <div class="timeline-control">
+                  <div class="timeline-current" id="yearSliderValue">All years</div>
+                  <input id="yearSlider" type="range" min="0" max="0" step="1" value="0" />
+                  <div class="timeline-ticks" id="yearTicks"></div>
+                </div>
+              </label>
+              <label class="control">
+                <span>Group</span>
+                <select id="groupSelect"></select>
+              </label>
+              <label class="control">
+                <span>Source</span>
+                <select id="sourceSelect"></select>
+              </label>
+            </div>
+          </div>
+          <div class="filter-bar">
+            <div class="filter-summary">
+              <span class="filter-summary-label">Active filters</span>
+              <div class="filter-chip-row" id="activeFilters"></div>
+            </div>
+            <button class="ghost-button compact-button" id="resetFiltersButton" type="button">
+              Reset Filters
+            </button>
+          </div>
+          <div class="map-stage">
+            <div id="leafletMap" aria-label="Interactive whale sightings map"></div>
+            <aside class="map-detail-card" id="mapDetailCard">
+              <p class="map-detail-kicker">Selected sighting</p>
+              <h3 id="detailTitle">Choose a point on the map</h3>
+              <p class="map-detail-subtitle" id="detailSubtitle">
+                Click a marker to inspect the observation in more detail.
+              </p>
+              <div class="map-detail-badges">
+                <span class="detail-badge" id="detailGroupBadge">No selection</span>
+                <span class="detail-badge" id="detailSourceBadge">-</span>
+              </div>
+              <dl class="map-detail-grid">
+                <div>
+                  <dt>Seen</dt>
+                  <dd id="detailCount">-</dd>
+                </div>
+                <div>
+                  <dt>Date</dt>
+                  <dd id="detailDate">-</dd>
+                </div>
+                <div>
+                  <dt>Coords</dt>
+                  <dd id="detailCoords">-</dd>
+                </div>
+                <div>
+                  <dt>Year</dt>
+                  <dd id="detailYear">-</dd>
+                </div>
+              </dl>
+            </aside>
+            <div class="map-overlay">
+              <div class="overlay-card">
+                <span class="overlay-label">Points Drawn</span>
+                <strong id="filteredPoints">-</strong>
+              </div>
+              <div class="overlay-card">
+                <span class="overlay-label">Map Window</span>
+                <strong id="filteredYears">-</strong>
+              </div>
+            </div>
+          </div>
+          <div class="legend-row" id="mapLegend"></div>
+        </section>
+
         <section class="panel panel-large">
           <div class="panel-head">
             <div>
@@ -61,8 +150,9 @@
             </div>
             <div class="chip-row" id="trendLegend"></div>
           </div>
-          <div class="chart-frame">
-            <svg id="trendChart" viewBox="0 0 960 360" role="img" aria-label="Monthly whale sightings trend chart"></svg>
+          <div class="chart-frame chart-frame-tall">
+            <svg id="trendChart" viewBox="0 0 960 420" role="img" aria-label="Monthly whale sightings trend chart"></svg>
+            <div class="chart-tooltip hidden" id="trendTooltip"></div>
           </div>
           <div class="panel-note" id="trendNote"></div>
         </section>
@@ -71,43 +161,10 @@
           <div class="panel-head">
             <div>
               <p class="panel-kicker">Pressure</p>
-              <h2>Group totals and dominant species</h2>
+              <h2>Group Snapshot</h2>
             </div>
           </div>
           <div class="rank-list" id="groupRankings"></div>
-        </section>
-
-        <section class="panel panel-wide">
-          <div class="panel-head panel-head-wrap">
-            <div>
-              <p class="panel-kicker">Spatial field</p>
-              <h2>Observation cloud</h2>
-            </div>
-            <div class="control-row">
-              <label class="control">
-                <span>Year</span>
-                <select id="yearSelect"></select>
-              </label>
-              <label class="control">
-                <span>Group</span>
-                <select id="groupSelect"></select>
-              </label>
-            </div>
-          </div>
-          <div class="map-stage">
-            <canvas id="mapCanvas" width="960" height="560"></canvas>
-            <div class="map-overlay">
-              <div class="overlay-card">
-                <span class="overlay-label">Filtered points</span>
-                <strong id="filteredPoints">-</strong>
-              </div>
-              <div class="overlay-card">
-                <span class="overlay-label">Visible years</span>
-                <strong id="filteredYears">-</strong>
-              </div>
-            </div>
-          </div>
-          <div class="legend-row" id="mapLegend"></div>
         </section>
 
         <section class="panel">
