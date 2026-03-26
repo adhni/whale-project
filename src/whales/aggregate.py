@@ -38,6 +38,15 @@ def format_number(value: float) -> str:
     return str(value)
 
 
+def get_source_label(row: dict[str, str]) -> str:
+    return (
+        row.get("source_normalized", "").strip()
+        or row.get("data_source_witness", "").strip()
+        or row.get("data_source_name", "").strip()
+        or "Unknown"
+    )
+
+
 def build_map_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     map_rows: list[dict[str, str]] = []
     for row in rows:
@@ -57,6 +66,8 @@ def build_map_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
                 "no_sighted": row.get("no_sighted_clean", ""),
                 "species_normalized": row.get("species_normalized", ""),
                 "whale_group": row.get("whale_group", ""),
+                "source_normalized": get_source_label(row),
+                "region": row.get("region", ""),
                 "data_source_witness": row.get("data_source_witness", ""),
                 "data_source_name": row.get("data_source_name", ""),
             }
@@ -65,7 +76,7 @@ def build_map_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
 
 
 def build_monthly_rows(rows: list[dict[str, str]], min_year: int) -> list[dict[str, str]]:
-    monthly: dict[tuple[str, str], dict[str, float | int]] = defaultdict(
+    monthly: dict[tuple[str, str, str], dict[str, float | int]] = defaultdict(
         lambda: {"observation_count": 0, "total_sighted": 0.0}
     )
 
@@ -73,6 +84,7 @@ def build_monthly_rows(rows: list[dict[str, str]], min_year: int) -> list[dict[s
         month = row.get("created_month", "")
         year = row.get("created_year", "")
         whale_group = row.get("whale_group", "")
+        source_label = get_source_label(row)
         count = parse_float(row.get("no_sighted_clean", ""))
 
         if not month or not year or not whale_group:
@@ -84,16 +96,17 @@ def build_monthly_rows(rows: list[dict[str, str]], min_year: int) -> list[dict[s
         if count is None:
             continue
 
-        key = (month, whale_group)
+        key = (month, whale_group, source_label)
         monthly[key]["observation_count"] += 1
         monthly[key]["total_sighted"] += count
 
     monthly_rows: list[dict[str, str]] = []
-    for (month, whale_group), metrics in sorted(monthly.items()):
+    for (month, whale_group, source_label), metrics in sorted(monthly.items()):
         monthly_rows.append(
             {
                 "created_month": month,
                 "whale_group": whale_group,
+                "source_label": source_label,
                 "observation_count": str(metrics["observation_count"]),
                 "total_sighted": format_number(float(metrics["total_sighted"])),
             }

@@ -405,6 +405,12 @@ body {
   border: 1px solid rgba(156, 194, 188, 0.12);
 }
 
+.region-bar {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
 .filter-summary {
   display: grid;
   gap: 8px;
@@ -418,6 +424,12 @@ body {
 }
 
 .filter-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.region-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -437,6 +449,25 @@ body {
 .filter-pill strong {
   color: var(--accent);
   font-weight: 600;
+}
+
+.region-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.14);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.region-chip.active {
+  color: #03252c;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent), #ddf6e7);
 }
 
 .compact-button {

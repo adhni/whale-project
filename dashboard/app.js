@@ -25,11 +25,15 @@ const state = {
   trendHoverIndex: null,
   yearOptions: ["all"],
   sourceOptions: ["all"],
+  regionOptions: ["all"],
   selectedYear: "all",
   selectedGroup: "all",
   selectedSource: "all",
+  selectedRegion: "all",
   selectedEntryId: null,
   mapRows: [],
+  monthlyRows: [],
+  groupRows: [],
   map: null,
   pointLayer: null,
   mapRenderer: null,
@@ -56,6 +60,7 @@ const elements = {
   sourceSelect: document.getElementById("sourceSelect"),
   activeFilters: document.getElementById("activeFilters"),
   resetFiltersButton: document.getElementById("resetFiltersButton"),
+  regionPresets: document.getElementById("regionPresets"),
   leafletMap: document.getElementById("leafletMap"),
   mapLegend: document.getElementById("mapLegend"),
   filteredPoints: document.getElementById("filteredPoints"),
@@ -68,10 +73,23 @@ const elements = {
   detailDate: document.getElementById("detailDate"),
   detailCoords: document.getElementById("detailCoords"),
   detailYear: document.getElementById("detailYear"),
+  detailRegion: document.getElementById("detailRegion"),
 };
 
 const MAX_MAP_POINTS = 12000;
 const DASHBOARD_MIN_YEAR = 2000;
+const REGION_ORDER = [
+  "all",
+  "Puget Sound",
+  "Salish Sea",
+  "California Coast",
+  "US East Coast",
+  "Alaska South Coast",
+  "Hawaii",
+  "Offshore Pacific",
+  "Other Region",
+  "Unknown Region",
+];
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(Number(value));
@@ -149,21 +167,50 @@ function getColor(group) {
 }
 
 function buildTrendData(monthlyRows, groupRows) {
-  const months = [...new Set(monthlyRows.map((row) => row.created_month))].sort();
+  const scopedRows = monthlyRows.filter(
+    (row) => state.selectedSource === "all" || row.source_label === state.selectedSource,
+  );
+  const months = [...new Set(scopedRows.map((row) => row.created_month))].sort();
   const series = {};
 
-  monthlyRows.forEach((row) => {
-    if (!series[row.whale_group]) {
-      series[row.whale_group] = {};
-    }
-    series[row.whale_group][row.created_month] = Number(row.total_sighted);
-  });
+  scopedRows.forEach((row) => {
+      if (!series[row.whale_group]) {
+        series[row.whale_group] = {};
+      }
+      if (!series[row.whale_group][row.created_month]) {
+        series[row.whale_group][row.created_month] = 0;
+      }
+      series[row.whale_group][row.created_month] += Number(row.total_sighted);
+    });
 
   const rankedGroups = [...groupRows]
-    .sort((a, b) => Number(b.total_sighted) - Number(a.total_sighted))
+    .map((row) => ({
+      whale_group: row.whale_group,
+      total_sighted: months.reduce(
+        (sum, month) => sum + (series[row.whale_group]?.[month] || 0),
+        0,
+      ),
+    }))
+    .filter((row) => row.total_sighted > 0)
+    .sort((a, b) => b.total_sighted - a.total_sighted)
     .map((row) => row.whale_group);
 
   return { months, series, rankedGroups };
+}
+
+function rebuildTrendChart(monthlyRows, groupRows) {
+  const trendData = buildTrendData(monthlyRows, groupRows);
+
+  if (state.trendVisibleGroups.size) {
+    const available = new Set(trendData.rankedGroups);
+    state.trendVisibleGroups = new Set(
+      [...state.trendVisibleGroups].filter((group) => available.has(group)),
+    );
+  }
+
+  state.trendHoverIndex = null;
+  renderTrendLegend(trendData);
+  renderTrendChart(trendData);
 }
 
 function syncYearSlider() {
@@ -177,15 +224,17 @@ function resetFilters() {
   state.selectedYear = "all";
   state.selectedGroup = "all";
   state.selectedSource = "all";
+  state.selectedRegion = "all";
   state.selectedEntryId = null;
   elements.groupSelect.value = "all";
   elements.sourceSelect.value = "all";
   syncYearSlider();
+  rebuildTrendChart(state.monthlyRows, state.groupRows);
   updateMapViews();
 }
 
 function getSourceLabel(row) {
-  return row.data_source_witness || row.data_source_name || "Unknown";
+  return row.source_normalized || row.data_source_witness || row.data_source_name || "Unknown";
 }
 
 function getFilteredMapRows(mapRows) {
@@ -193,7 +242,8 @@ function getFilteredMapRows(mapRows) {
     const yearOk = state.selectedYear === "all" || row.created_year === state.selectedYear;
     const groupOk = state.selectedGroup === "all" || row.whale_group === state.selectedGroup;
     const sourceOk = state.selectedSource === "all" || getSourceLabel(row) === state.selectedSource;
-    return yearOk && groupOk && sourceOk;
+    const regionOk = state.selectedRegion === "all" || row.region === state.selectedRegion;
+    return yearOk && groupOk && sourceOk && regionOk;
   });
 }
 
@@ -208,6 +258,9 @@ function renderFilterSummary() {
   if (state.selectedSource !== "all") {
     filters.push(["Source", state.selectedSource]);
   }
+  if (state.selectedRegion !== "all") {
+    filters.push(["Region", state.selectedRegion]);
+  }
 
   if (!filters.length) {
     elements.activeFilters.innerHTML = `<span class="filter-pill"><strong>Scope</strong> Dashboard view uses all records from ${DASHBOARD_MIN_YEAR}+.</span>`;
@@ -221,6 +274,25 @@ function renderFilterSummary() {
   }
 
   elements.resetFiltersButton.disabled = filters.length === 0;
+}
+
+function renderRegionPresets() {
+  elements.regionPresets.innerHTML = state.regionOptions
+    .map((region) => {
+      const label = region === "all" ? "All regions" : region;
+      const active = state.selectedRegion === region ? "active" : "";
+      return `<button type="button" class="region-chip ${active}" data-region="${region}">${label}</button>`;
+    })
+    .join("");
+
+  elements.regionPresets.querySelectorAll("[data-region]").forEach((button) => {
+    button.onclick = () => {
+      state.selectedRegion = button.dataset.region || "all";
+      state.selectedEntryId = null;
+      renderRegionPresets();
+      updateMapViews();
+    };
+  });
 }
 
 function renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows) {
@@ -347,7 +419,9 @@ function renderTrendChart(trendData) {
     ${xLabels}
   `;
 
-  elements.trendNote.textContent = `Showing ${visibleGroups.length} group${visibleGroups.length === 1 ? "" : "s"} across ${trendData.months.length} monthly points. Hover for a monthly breakdown, or click the chart to snap the map to that year.`;
+  const sourceLabel =
+    state.selectedSource === "all" ? "all sources" : state.selectedSource;
+  elements.trendNote.textContent = `Showing ${visibleGroups.length} group${visibleGroups.length === 1 ? "" : "s"} across ${trendData.months.length} monthly points for ${sourceLabel}. Hover for a monthly breakdown, or click the chart to snap the map to that year.`;
 }
 
 function renderTrendTooltip(clientX, clientY) {
@@ -476,7 +550,7 @@ function renderRecent(mapRows) {
           <span>${formatMonth(row.created_month)}</span>
         </div>
         <p class="recent-meta">
-          ${row.whale_group} • ${formatNumber(row.no_sighted)} sighted • ${row.data_source_witness || row.data_source_name || "Unknown source"}
+          ${row.whale_group} • ${formatNumber(row.no_sighted)} sighted • ${getSourceLabel(row)}
         </p>
       </article>
     `)
@@ -499,6 +573,7 @@ function renderDetailCard(row) {
     elements.detailDate.textContent = "-";
     elements.detailCoords.textContent = "-";
     elements.detailYear.textContent = "-";
+    elements.detailRegion.textContent = "-";
     return;
   }
 
@@ -515,6 +590,7 @@ function renderDetailCard(row) {
     row.longitude,
   ).toFixed(2)}`;
   elements.detailYear.textContent = row.created_year || "-";
+  elements.detailRegion.textContent = row.region || "-";
 }
 
 function getSelectedOrDefaultRow(filteredRows) {
@@ -544,9 +620,13 @@ function renderMapControls(groupRows, mapRows) {
   const sources = [...new Set(mapRows.map((row) => getSourceLabel(row)).filter(Boolean))].sort((a, b) =>
     a.localeCompare(b),
   );
+  const regions = REGION_ORDER.filter(
+    (region) => region === "all" || mapRows.some((row) => row.region === region),
+  );
 
   state.yearOptions = ["all", ...years];
   state.sourceOptions = ["all", ...sources];
+  state.regionOptions = regions;
   elements.yearSlider.min = "0";
   elements.yearSlider.max = String(state.yearOptions.length - 1);
   elements.yearSlider.step = "1";
@@ -562,9 +642,11 @@ function renderMapControls(groupRows, mapRows) {
   state.selectedYear = "all";
   state.selectedGroup = "all";
   state.selectedSource = "all";
+  state.selectedRegion = "all";
   elements.groupSelect.value = state.selectedGroup;
   elements.sourceSelect.value = state.selectedSource;
   syncYearSlider();
+  renderRegionPresets();
 
   elements.yearSlider.oninput = () => {
     const index = Number(elements.yearSlider.value);
@@ -582,6 +664,7 @@ function renderMapControls(groupRows, mapRows) {
   elements.sourceSelect.onchange = () => {
     state.selectedSource = elements.sourceSelect.value;
     state.selectedEntryId = null;
+    rebuildTrendChart(state.monthlyRows, state.groupRows);
     updateMapViews();
   };
 
@@ -638,7 +721,8 @@ function buildPopup(row) {
       ${row.whale_group}<br>
       ${formatNumber(row.no_sighted)} sighted<br>
       ${row.created_iso ? row.created_iso.replace("T", " ") : "Unknown time"}<br>
-      ${row.data_source_witness || row.data_source_name || "Unknown source"}
+      ${getSourceLabel(row)}<br>
+      ${row.region || "Unknown Region"}
     </p>
   `;
 }
@@ -700,11 +784,13 @@ function renderLeafletMap(mapRows) {
   elements.filteredYears.textContent =
     state.selectedYear === "all"
       ? state.selectedSource === "all"
-        ? "All years"
+        ? state.selectedRegion === "all"
+          ? "All years"
+          : state.selectedRegion
         : state.selectedSource
-      : state.selectedGroup === "all" && state.selectedSource === "all"
+      : state.selectedGroup === "all" && state.selectedSource === "all" && state.selectedRegion === "all"
         ? state.selectedYear
-        : [state.selectedYear, state.selectedGroup !== "all" ? state.selectedGroup : null, state.selectedSource !== "all" ? state.selectedSource : null]
+        : [state.selectedYear, state.selectedGroup !== "all" ? state.selectedGroup : null, state.selectedSource !== "all" ? state.selectedSource : null, state.selectedRegion !== "all" ? state.selectedRegion : null]
             .filter(Boolean)
             .join(" • ");
 
@@ -736,9 +822,9 @@ async function renderDashboard() {
   state.mapRows = mapRows;
 
   renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows);
-  const trendData = buildTrendData(monthlyRows, groupRows);
-  renderTrendLegend(trendData);
-  renderTrendChart(trendData);
+  state.monthlyRows = monthlyRows;
+  state.groupRows = groupRows;
+  rebuildTrendChart(monthlyRows, groupRows);
   attachTrendInteractions();
   renderGroupRankings(groupRows);
   renderMapControls(groupRows, mapRows);

@@ -22,6 +22,8 @@ class AggregateTests(unittest.TestCase):
                 "no_sighted_clean": "3",
                 "species_normalized": "Orca",
                 "whale_group": "Orca",
+                "source_normalized": "Cascadia",
+                "region": "Puget Sound",
                 "data_source_witness": "source-a",
                 "data_source_name": "api",
                 "has_valid_coordinates": "true",
@@ -44,6 +46,8 @@ class AggregateTests(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["entry_id"], "1")
         self.assertEqual(result[0]["whale_group"], "Orca")
+        self.assertEqual(result[0]["source_normalized"], "Cascadia")
+        self.assertEqual(result[0]["region"], "Puget Sound")
 
     def test_build_monthly_rows_groups_by_month_and_whale_group(self) -> None:
         rows = [
@@ -51,6 +55,8 @@ class AggregateTests(unittest.TestCase):
                 "created_month": "2024-01",
                 "created_year": "2024",
                 "whale_group": "Orca",
+                "data_source_witness": "source-a",
+                "data_source_name": "",
                 "no_sighted_clean": "3",
                 "is_positive_count": "true",
             },
@@ -58,13 +64,26 @@ class AggregateTests(unittest.TestCase):
                 "created_month": "2024-01",
                 "created_year": "2024",
                 "whale_group": "Orca",
+                "data_source_witness": "source-a",
+                "data_source_name": "",
                 "no_sighted_clean": "2",
+                "is_positive_count": "true",
+            },
+            {
+                "created_month": "2024-01",
+                "created_year": "2024",
+                "whale_group": "Orca",
+                "data_source_witness": "source-b",
+                "data_source_name": "",
+                "no_sighted_clean": "7",
                 "is_positive_count": "true",
             },
             {
                 "created_month": "2017-12",
                 "created_year": "2017",
                 "whale_group": "Orca",
+                "data_source_witness": "source-a",
+                "data_source_name": "",
                 "no_sighted_clean": "9",
                 "is_positive_count": "true",
             },
@@ -78,8 +97,16 @@ class AggregateTests(unittest.TestCase):
                 {
                     "created_month": "2024-01",
                     "whale_group": "Orca",
+                    "source_label": "source-a",
                     "observation_count": "2",
                     "total_sighted": "5",
+                },
+                {
+                    "created_month": "2024-01",
+                    "whale_group": "Orca",
+                    "source_label": "source-b",
+                    "observation_count": "1",
+                    "total_sighted": "7",
                 }
             ],
         )

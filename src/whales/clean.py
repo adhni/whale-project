@@ -70,6 +70,56 @@ def normalize_species(value: str) -> str:
     return text
 
 
+def normalize_source(witness: str, source_name: str) -> str:
+    raw = (witness or "").strip() or (source_name or "").strip()
+    if not raw:
+        return "Unknown"
+
+    text = raw.lower()
+
+    if "spotter" in text:
+        return "Spotter"
+    if "cascadia" in text:
+        return "Cascadia"
+    if "whalemap" in text or "whale map" in text:
+        return "Whale Map"
+    if "whalewebak" in text:
+        return "Whale Alert Alaska Web"
+    if "whaleweborca" in text:
+        return "Whale Alert Orca Web"
+    if "newandriodwa" in text or "whaleandroid" in text or "android" in text:
+        return "Whale Alert Mobile"
+    if "whalealert" in text:
+        return "Whale Alert"
+    if "marinalife" in text:
+        return "Marina Life"
+    if "florida fish" in text or "fwri" in text:
+        return "Florida FWRI"
+
+    return raw
+
+
+def classify_region(latitude: float | None, longitude: float | None) -> str:
+    if latitude is None or longitude is None:
+        return "Unknown Region"
+
+    if 47.0 <= latitude <= 49.2 and -123.6 <= longitude <= -121.4:
+        return "Puget Sound"
+    if 48.0 <= latitude <= 50.5 and -126.2 <= longitude <= -122.4:
+        return "Salish Sea"
+    if 32.0 <= latitude <= 39.7 and -125.5 <= longitude <= -117.0:
+        return "California Coast"
+    if 54.0 <= latitude <= 61.5 and -170.0 <= longitude <= -130.0:
+        return "Alaska South Coast"
+    if 25.0 <= latitude <= 45.5 and -82.5 <= longitude <= -65.0:
+        return "US East Coast"
+    if 18.0 <= latitude <= 23.5 and -161.5 <= longitude <= -154.0:
+        return "Hawaii"
+    if 0.0 <= latitude <= 70.5 and -177.5 <= longitude <= -100.0:
+        return "Offshore Pacific"
+    return "Other Region"
+
+
 def classify_whale_group(species: str) -> str:
     text = species.lower()
     if not text:
@@ -145,6 +195,11 @@ def clean_rows(rows: Iterable[dict[str, str]]) -> tuple[list[dict[str, str]], Cl
 
         species = normalize_species(row.get("type", ""))
         whale_group = classify_whale_group(species)
+        source_normalized = normalize_source(
+            row.get("data_source_witness", ""),
+            row.get("data_source_name", ""),
+        )
+        region = classify_region(latitude, longitude)
         group_counts[whale_group] += 1
 
         cleaned_rows.append(
@@ -160,7 +215,9 @@ def clean_rows(rows: Iterable[dict[str, str]]) -> tuple[list[dict[str, str]], Cl
                 "has_valid_count": str(count is not None).lower(),
                 "is_positive_count": str(bool(count is not None and count > 0)).lower(),
                 "species_normalized": species,
+                "source_normalized": source_normalized,
                 "whale_group": whale_group,
+                "region": region,
             }
         )
 

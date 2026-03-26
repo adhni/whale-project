@@ -6,8 +6,10 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from whales.clean import classify_whale_group
+from whales.clean import classify_region
 from whales.clean import clean_rows
 from whales.clean import normalize_species
+from whales.clean import normalize_source
 from whales.clean import parse_count
 from whales.clean import parse_created
 
@@ -40,6 +42,18 @@ class CleanTests(unittest.TestCase):
             "Dolphins & Porpoises",
         )
 
+    def test_source_normalization_collapses_known_variants(self) -> None:
+        self.assertEqual(normalize_source("whalealertoa", ""), "Whale Alert")
+        self.assertEqual(normalize_source("cascadiaWebMap", ""), "Cascadia")
+        self.assertEqual(normalize_source("SpotterUser", "Spotter-API"), "Spotter")
+        self.assertEqual(normalize_source("newandriodwa", ""), "Whale Alert Mobile")
+
+    def test_region_classification_uses_spatial_buckets(self) -> None:
+        self.assertEqual(classify_region(48.1, -122.4), "Puget Sound")
+        self.assertEqual(classify_region(34.2, -120.1), "California Coast")
+        self.assertEqual(classify_region(41.9, -71.2), "US East Coast")
+        self.assertEqual(classify_region(None, None), "Unknown Region")
+
     def test_clean_rows_adds_expected_fields(self) -> None:
         rows = [
             {
@@ -48,6 +62,8 @@ class CleanTests(unittest.TestCase):
                 "longitude": "-123.096",
                 "no_sighted": "1",
                 "type": "Humpback Sighting:",
+                "data_source_witness": "whalealertoa",
+                "data_source_name": "Spotter-API",
             },
             {
                 "created": "2020-01-23T17:05:50.501Z",
@@ -55,6 +71,8 @@ class CleanTests(unittest.TestCase):
                 "longitude": "",
                 "no_sighted": "N/A",
                 "type": "",
+                "data_source_witness": "",
+                "data_source_name": "",
             },
         ]
 
@@ -66,9 +84,12 @@ class CleanTests(unittest.TestCase):
             normalize_species("Humpback Sighting:"),
         )
         self.assertEqual(cleaned[0]["whale_group"], "Humpback Whale")
+        self.assertEqual(cleaned[0]["source_normalized"], "Whale Alert")
+        self.assertEqual(cleaned[0]["region"], "California Coast")
         self.assertEqual(cleaned[0]["has_valid_coordinates"], "true")
         self.assertEqual(cleaned[1]["has_valid_count"], "false")
         self.assertEqual(cleaned[1]["whale_group"], "Unknown")
+        self.assertEqual(cleaned[1]["region"], "Unknown Region")
         self.assertEqual(summary.total_rows, 2)
         self.assertEqual(summary.invalid_coordinates, 1)
         self.assertEqual(summary.invalid_counts, 1)
