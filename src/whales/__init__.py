@@ -1,0 +1,1 @@
+"""Whale sightings project package."""
