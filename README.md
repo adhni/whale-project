@@ -2,6 +2,8 @@
 
 Starter repo for a richer whale sightings pipeline and app.
 
+See [ROADMAP.md](ROADMAP.md) for the next dashboard and pipeline improvements.
+
 ## Structure
 
 - `data/raw/`: raw source CSV
