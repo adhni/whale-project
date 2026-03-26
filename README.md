@@ -23,6 +23,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000/dashboard/`.
 
+To run the Streamlit app locally:
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
 ## Current Pipeline
 
 The first pass cleaner:
@@ -45,3 +52,11 @@ The aggregation step:
 
 The static dashboard lives in `dashboard/` and reads from the generated files in
 `data/processed/`.
+
+## Streamlit Deploy
+
+This repo is prepared for Streamlit Community Cloud with:
+
+- root entrypoint: `streamlit_app.py`
+- dependency file: `requirements.txt`
+- config file: `.streamlit/config.toml`
