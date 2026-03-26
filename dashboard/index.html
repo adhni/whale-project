@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Whale Project Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="backdrop backdrop-a"></div>
+    <div class="backdrop backdrop-b"></div>
+    <div class="page-shell">
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Whale Observation Dashboard</p>
+          <h1>Turn the raw sightings feed into an actual monitoring surface.</h1>
+          <p class="hero-text">
+            This dashboard sits on top of the cleaned and aggregated whale data
+            pipeline. It highlights species pressure, monthly momentum, source
+            concentration, and the geographic shape of the observations.
+          </p>
+        </div>
+        <div class="hero-side">
+          <div class="status-pill" id="statusPill">Loading data</div>
+          <button class="ghost-button" id="reloadButton" type="button">
+            Reload Data
+          </button>
+        </div>
+      </header>
+
+      <section class="stats-grid" id="statsGrid">
+        <article class="stat-card panel">
+          <span class="stat-label">Clean Rows</span>
+          <strong class="stat-value" id="statCleanRows">-</strong>
+          <span class="stat-foot">Rows available after cleaning</span>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-label">Map-ready</span>
+          <strong class="stat-value" id="statMapRows">-</strong>
+          <span class="stat-foot">Positive sightings with coordinates</span>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-label">Tracked Groups</span>
+          <strong class="stat-value" id="statGroups">-</strong>
+          <span class="stat-foot">Grouped categories in the pipeline</span>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-label">Time Span</span>
+          <strong class="stat-value" id="statTimeSpan">-</strong>
+          <span class="stat-foot">From the derived dashboard data</span>
+        </article>
+      </section>
+
+      <main class="dashboard-grid">
+        <section class="panel panel-large">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Momentum</p>
+              <h2>Monthly sightings by whale group</h2>
+            </div>
+            <div class="chip-row" id="trendLegend"></div>
+          </div>
+          <div class="chart-frame">
+            <svg id="trendChart" viewBox="0 0 960 360" role="img" aria-label="Monthly whale sightings trend chart"></svg>
+          </div>
+          <div class="panel-note" id="trendNote"></div>
+        </section>
+
+        <section class="panel panel-side">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Pressure</p>
+              <h2>Group totals and dominant species</h2>
+            </div>
+          </div>
+          <div class="rank-list" id="groupRankings"></div>
+        </section>
+
+        <section class="panel panel-wide">
+          <div class="panel-head panel-head-wrap">
+            <div>
+              <p class="panel-kicker">Spatial field</p>
+              <h2>Observation cloud</h2>
+            </div>
+            <div class="control-row">
+              <label class="control">
+                <span>Year</span>
+                <select id="yearSelect"></select>
+              </label>
+              <label class="control">
+                <span>Group</span>
+                <select id="groupSelect"></select>
+              </label>
+            </div>
+          </div>
+          <div class="map-stage">
+            <canvas id="mapCanvas" width="960" height="560"></canvas>
+            <div class="map-overlay">
+              <div class="overlay-card">
+                <span class="overlay-label">Filtered points</span>
+                <strong id="filteredPoints">-</strong>
+              </div>
+              <div class="overlay-card">
+                <span class="overlay-label">Visible years</span>
+                <strong id="filteredYears">-</strong>
+              </div>
+            </div>
+          </div>
+          <div class="legend-row" id="mapLegend"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Sources</p>
+              <h2>Witness and feed concentration</h2>
+            </div>
+          </div>
+          <div class="source-list" id="sourceList"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Recency</p>
+              <h2>Latest sightings snapshot</h2>
+            </div>
+          </div>
+          <div class="recent-list" id="recentList"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
