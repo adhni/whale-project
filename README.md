@@ -62,6 +62,8 @@ This repo is prepared to deploy the HTML dashboard as a static site.
 - committed dashboard data snapshot: `data/processed/`
 - Render blueprint: `render.yaml`
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/adhni/whale-project)
+
 ## Streamlit Deploy
 
 This repo is prepared for Streamlit Community Cloud with:
