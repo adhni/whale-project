@@ -5,3 +5,8 @@ __pycache__/
 .pytest_cache/
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/acartia-summary.json
+!data/processed/aggregate-summary.json
+!data/processed/group-summary.csv
+!data/processed/map-points.csv
+!data/processed/monthly-group-totals.csv

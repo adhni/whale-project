@@ -1,0 +1,1107 @@
+created_month,whale_group,source_label,observation_count,total_sighted
+2020-01,Dolphins & Porpoises,Spotter,104,44984
+2020-01,Dolphins & Porpoises,Whale Alert,1,2
+2020-01,Gray Whale,Spotter,37,83
+2020-01,Gray Whale,Whale Alert,16,29
+2020-01,Humpback Whale,Spotter,1,1
+2020-01,Humpback Whale,Whale Alert,7,12
+2020-01,Humpback Whale,Whale Alert Alaska Web,1,10
+2020-01,Humpback Whale,Whale Alert Mobile,1,1
+2020-01,Humpback Whale,Whale Alert Orca Web,1,1
+2020-01,Large Baleen Whale,Spotter,3,6
+2020-01,Orca,Spotter,1,12
+2020-01,Orca,Whale Alert,2,62
+2020-01,Orca,Whale Alert Alaska Web,1,6
+2020-01,Other Marine Mammals,Marina Life,2,2
+2020-01,Other Marine Mammals,Whale Alert,20,30
+2020-01,Other Whales,Spotter,1,1
+2020-01,Right Whale,Whale Alert,5,7
+2020-01,Right Whale,Whale Alert Mobile,3,6
+2020-02,Dolphins & Porpoises,Spotter,81,36474
+2020-02,Gray Whale,Spotter,43,86
+2020-02,Gray Whale,Whale Alert,30,52
+2020-02,Gray Whale,Whale Alert Mobile,2,3
+2020-02,Humpback Whale,Spotter,26,294
+2020-02,Humpback Whale,Whale Alert,6,12
+2020-02,Humpback Whale,Whale Alert Mobile,3,6
+2020-02,Large Baleen Whale,Spotter,1,1
+2020-02,Large Baleen Whale,Whale Alert Mobile,1,2
+2020-02,Orca,Spotter,1,5
+2020-02,Orca,Whale Alert,3,34
+2020-02,Orca,Whale Alert Mobile,2,2
+2020-02,Other Marine Mammals,Spotter,2,2
+2020-02,Other Marine Mammals,Whale Alert,25,51
+2020-02,Other Marine Mammals,Whale Alert Mobile,1,1
+2020-02,Other Whales,Whale Alert,1,2
+2020-02,Right Whale,Whale Alert,5,7
+2020-02,Right Whale,Whale Alert Mobile,5,7
+2020-03,Dolphins & Porpoises,Spotter,31,9781
+2020-03,Dolphins & Porpoises,Whale Alert,1,25
+2020-03,Gray Whale,Spotter,31,89
+2020-03,Gray Whale,Whale Alert,28,80
+2020-03,Gray Whale,Whale Alert Mobile,6,12
+2020-03,Humpback Whale,Spotter,11,18
+2020-03,Humpback Whale,Whale Alert,13,22
+2020-03,Humpback Whale,Whale Alert Alaska Web,2,4
+2020-03,Humpback Whale,Whale Alert Mobile,1,7
+2020-03,Large Baleen Whale,Spotter,1,1
+2020-03,Large Baleen Whale,Whale Alert,3,3
+2020-03,Large Baleen Whale,Whale Alert Mobile,9,94
+2020-03,Orca,Whale Alert,5,22
+2020-03,Orca,Whale Alert Mobile,1,3
+2020-03,Other Marine Mammals,Cascadia,3,3
+2020-03,Other Marine Mammals,Whale Alert,40,81
+2020-03,Other Marine Mammals,Whale Alert Alaska Web,2,4
+2020-03,Other Marine Mammals,Whale Alert Mobile,12,43
+2020-03,Other Marine Mammals,Whale Alert Orca Web,4,4
+2020-03,Right Whale,Whale Alert,18,39
+2020-03,Right Whale,Whale Alert Alaska Web,1,1
+2020-03,Right Whale,Whale Alert Mobile,24,61
+2020-04,Dolphins & Porpoises,Whale Alert,4,96
+2020-04,Gray Whale,Whale Alert,14,61
+2020-04,Humpback Whale,Whale Alert,248,642
+2020-04,Humpback Whale,Whale Alert Mobile,5,7
+2020-04,Large Baleen Whale,Whale Alert Mobile,5,6
+2020-04,Orca,Whale Alert,8,46
+2020-04,Orca,Whale Alert Mobile,7,66
+2020-04,Other Marine Mammals,Whale Alert,35,60
+2020-04,Other Marine Mammals,Whale Alert Alaska Web,1,1
+2020-04,Other Marine Mammals,Whale Alert Mobile,7,7
+2020-04,Other Whales,Whale Alert Mobile,1,4
+2020-04,Right Whale,Whale Alert,2,51
+2020-04,Right Whale,Whale Alert Mobile,4,5
+2020-04,Southern Resident Orca,Cascadia,2,2
+2020-05,Dolphins & Porpoises,Whale Alert,4,150
+2020-05,Gray Whale,Whale Alert,7,12
+2020-05,Gray Whale,Whale Alert Mobile,1,1
+2020-05,Humpback Whale,LaneyWhite,2,6
+2020-05,Humpback Whale,Whale Alert,190,483
+2020-05,Humpback Whale,Whale Alert Alaska Web,6,8
+2020-05,Humpback Whale,Whale Alert Mobile,11,100
+2020-05,Large Baleen Whale,LaneyWhite,1,1
+2020-05,Large Baleen Whale,Whale Alert,2,2
+2020-05,Large Baleen Whale,Whale Alert Mobile,5,5
+2020-05,Orca,Cascadia,3,8
+2020-05,Orca,Whale Alert,4,17
+2020-05,Orca,Whale Alert Mobile,2,14
+2020-05,Other Marine Mammals,Whale Alert,18,86
+2020-05,Other Whales,LaneyWhite,1,1
+2020-05,Right Whale,Whale Alert,1,1
+2020-05,Right Whale,Whale Alert Mobile,1,1
+2020-05,Unknown,Whale Alert,10,12
+2020-06,Dolphins & Porpoises,Whale Alert,7,102
+2020-06,Dolphins & Porpoises,Whale Alert Mobile,1,1
+2020-06,Gray Whale,Whale Alert,8,23
+2020-06,Humpback Whale,LaneyWhite,1,1
+2020-06,Humpback Whale,Whale Alert,236,372
+2020-06,Humpback Whale,Whale Alert Alaska Web,4,16
+2020-06,Humpback Whale,Whale Alert Mobile,19,38
+2020-06,Humpback Whale,mbnms_user,7,10
+2020-06,Large Baleen Whale,LaneyWhite,1,1
+2020-06,Large Baleen Whale,Whale Alert,28,54
+2020-06,Large Baleen Whale,Whale Alert Mobile,1,1
+2020-06,Orca,Whale Alert,10,50
+2020-06,Orca,Whale Alert Alaska Web,2,2
+2020-06,Orca,Whale Alert Mobile,1,5
+2020-06,Other Marine Mammals,Whale Alert,30,41
+2020-06,Other Marine Mammals,Whale Alert Mobile,4,13
+2020-06,Other Marine Mammals,mbnms_user,3,4
+2020-06,Other Whales,Whale Alert,1,3
+2020-06,Right Whale,Spotter,3,3
+2020-06,Right Whale,Whale Alert,1,1
+2020-06,Right Whale,Whale Alert Mobile,1,2
+2020-06,Unknown,Cascadia,2,30
+2020-06,Unknown,Whale Alert,14,17
+2020-07,Dolphins & Porpoises,Spotter,2,350
+2020-07,Dolphins & Porpoises,Whale Alert,1,4
+2020-07,Dolphins & Porpoises,Whale Alert Mobile,2,7
+2020-07,Gray Whale,Whale Alert,15,17
+2020-07,Gray Whale,Whale Alert Mobile,1,2
+2020-07,Humpback Whale,Whale Alert,414,887
+2020-07,Humpback Whale,Whale Alert Alaska Web,18,63
+2020-07,Humpback Whale,Whale Alert Mobile,11,20
+2020-07,Humpback Whale,mbnms_user,2,2
+2020-07,Large Baleen Whale,Spotter,3,5
+2020-07,Large Baleen Whale,Whale Alert,35,74
+2020-07,Large Baleen Whale,Whale Alert Mobile,2,4
+2020-07,Orca,Whale Alert,18,60
+2020-07,Orca,Whale Alert Mobile,7,52
+2020-07,Other Marine Mammals,Whale Alert,46,99
+2020-07,Other Marine Mammals,Whale Alert Alaska Web,1,1
+2020-07,Other Marine Mammals,Whale Alert Mobile,7,11
+2020-07,Other Whales,Whale Alert,2,7
+2020-07,Right Whale,New England Aquarium (NEAq),1,1
+2020-07,Right Whale,Spotter,5,6
+2020-07,Right Whale,United States Coast Guard (USCG),1,1
+2020-07,Right Whale,Whale Alert,3,3
+2020-07,Unknown,Cascadia,1,5
+2020-08,Dolphins & Porpoises,Spotter,7,1034
+2020-08,Dolphins & Porpoises,Whale Alert,4,33
+2020-08,Gray Whale,Whale Alert,5,7
+2020-08,Gray Whale,Whale Alert Mobile,1,33
+2020-08,Humpback Whale,Whale Alert,325,569
+2020-08,Humpback Whale,Whale Alert Alaska Web,13,18
+2020-08,Humpback Whale,Whale Alert Mobile,6,9
+2020-08,Large Baleen Whale,Spotter,5,29
+2020-08,Large Baleen Whale,Whale Alert,37,185
+2020-08,Large Baleen Whale,Whale Alert Mobile,22,33
+2020-08,Orca,Whale Alert,12,80
+2020-08,Orca,Whale Alert Mobile,1,6
+2020-08,Other Marine Mammals,Whale Alert,50,120
+2020-08,Other Marine Mammals,Whale Alert Mobile,25,27
+2020-08,Other Whales,Whale Alert,1,1
+2020-08,Right Whale,Canadian Coast Guard (CCG),1,3
+2020-08,Right Whale,New England Aquarium (NEAq),2,2
+2020-08,Right Whale,Spotter,10,11
+2020-08,Right Whale,United States Coast Guard (USCG),1,1
+2020-08,Right Whale,Whale Alert,2,2
+2020-09,Dolphins & Porpoises,Whale Alert,3,9
+2020-09,Gray Whale,Whale Alert,3,5
+2020-09,Humpback Whale,Whale Alert,124,259
+2020-09,Humpback Whale,Whale Alert Mobile,6,12
+2020-09,Large Baleen Whale,Whale Alert,36,119
+2020-09,Large Baleen Whale,Whale Alert Mobile,1,1
+2020-09,Orca,Whale Alert,16,105
+2020-09,Orca,Whale Alert Mobile,3,102
+2020-09,Other Marine Mammals,Cascadia,2,88
+2020-09,Other Marine Mammals,Whale Alert,42,92
+2020-09,Other Marine Mammals,Whale Alert Mobile,3,6
+2020-09,Other Whales,Whale Alert Mobile,1,1
+2020-09,Right Whale,New England Aquarium (NEAq),7,8
+2020-09,Right Whale,Spotter,25,25
+2020-09,Right Whale,United States Coast Guard (USCG),1,2
+2020-09,Right Whale,Whale Alert,1,1
+2020-09,Right Whale,Whale Alert Mobile,4,19
+2020-09,Southern Resident Orca,Cascadia,24,360
+2020-10,Dolphins & Porpoises,Whale Alert Mobile,1,30
+2020-10,Gray Whale,Whale Alert,5,9
+2020-10,Humpback Whale,Cascadia,1,1
+2020-10,Humpback Whale,Whale Alert,117,399
+2020-10,Humpback Whale,Whale Alert Alaska Web,18,20
+2020-10,Humpback Whale,Whale Alert Mobile,12,41
+2020-10,Large Baleen Whale,Whale Alert,35,77
+2020-10,Large Baleen Whale,Whale Alert Mobile,2,2
+2020-10,Orca,Cascadia,1,3
+2020-10,Orca,Whale Alert,9,108
+2020-10,Orca,Whale Alert Mobile,6,13
+2020-10,Other Marine Mammals,Whale Alert,13,24
+2020-10,Other Marine Mammals,Whale Alert Mobile,1,1
+2020-10,Right Whale,New England Aquarium (NEAq),3,3
+2020-10,Right Whale,Spotter,12,13
+2020-10,Right Whale,United States Coast Guard (USCG),1,1
+2020-10,Southern Resident Orca,Cascadia,16,283
+2020-11,Gray Whale,Whale Alert,2,7
+2020-11,Humpback Whale,Spotter,3,4
+2020-11,Humpback Whale,Whale Alert,76,212
+2020-11,Large Baleen Whale,Whale Alert,24,42
+2020-11,Large Baleen Whale,Whale Alert Mobile,3,4
+2020-11,Orca,Cascadia,1,1
+2020-11,Orca,Whale Alert,16,164
+2020-11,Other Marine Mammals,Cascadia,1,24
+2020-11,Other Marine Mammals,Whale Alert,18,38
+2020-11,Other Marine Mammals,Whale Alert Mobile,2,21
+2020-11,Right Whale,Center for Coastal Studies (CCS),1,1
+2020-11,Right Whale,NOAA|Greater Atlantic Regional Fisheries Office (GARFO),1,1
+2020-11,Right Whale,New England Aquarium (NEAq),1,3
+2020-11,Right Whale,Spotter,14,14
+2020-11,Right Whale,United States Coast Guard (USCG),1,1
+2020-11,Right Whale,Whale Alert,2,2
+2020-11,Southern Resident Orca,Cascadia,33,820
+2020-12,Dolphins & Porpoises,Whale Alert Mobile,1,3
+2020-12,Gray Whale,Whale Alert,3,7
+2020-12,Humpback Whale,Whale Alert,29,50
+2020-12,Humpback Whale,Whale Alert Mobile,4,5
+2020-12,Large Baleen Whale,Whale Alert,2,16
+2020-12,Large Baleen Whale,Whale Alert Mobile,2,3
+2020-12,Orca,Whale Alert,5,32
+2020-12,Orca,Whale Alert Mobile,1,21
+2020-12,Other Marine Mammals,Whale Alert,22,26
+2020-12,Other Marine Mammals,Whale Alert Mobile,2,2
+2020-12,Right Whale,Florida FWRI,28,57
+2020-12,Right Whale,NOAA|Greater Atlantic Regional Fisheries Office (GARFO),1,1
+2020-12,Right Whale,New England Aquarium (NEAq),8,24
+2020-12,Right Whale,Sea to Shore Alliance (S2S)(WildLifeTrust/EcoHealthAlliance),16,35
+2020-12,Right Whale,Spotter,41,78
+2020-12,Right Whale,Whale Alert,10,11
+2020-12,Right Whale,Whale Alert Mobile,1,2
+2020-12,Southern Resident Orca,Cascadia,12,396
+2021-01,Gray Whale,Whale Alert,8,30
+2021-01,Gray Whale,Whale Alert Mobile,5,15
+2021-01,Humpback Whale,Whale Alert,10,24
+2021-01,Humpback Whale,Whale Alert Mobile,1,1
+2021-01,Large Baleen Whale,Whale Alert,5,8
+2021-01,Large Baleen Whale,Whale Alert Mobile,5,10
+2021-01,Orca,Whale Alert,1,3
+2021-01,Orca,Whale Alert Mobile,1,1
+2021-01,Other Marine Mammals,Whale Alert,28,34
+2021-01,Other Marine Mammals,Whale Alert Mobile,6,6
+2021-01,Other Whales,Whale Alert,1,50
+2021-01,Right Whale,Center for Coastal Studies (CCS),5,9
+2021-01,Right Whale,Florida FWRI,52,96
+2021-01,Right Whale,New England Aquarium (NEAq),8,18
+2021-01,Right Whale,Sea to Shore Alliance (S2S)(WildLifeTrust/EcoHealthAlliance),30,66
+2021-01,Right Whale,Spotter,112,210
+2021-01,Right Whale,Whale Alert,20,31
+2021-01,Right Whale,Whale Alert Mobile,1,2
+2021-02,Dolphins & Porpoises,Whale Alert Mobile,1,80
+2021-02,Gray Whale,Whale Alert,16,26
+2021-02,Gray Whale,Whale Alert Mobile,6,15
+2021-02,Humpback Whale,Whale Alert,8,13
+2021-02,Humpback Whale,Whale Alert Mobile,1,2
+2021-02,Orca,Whale Alert,2,7
+2021-02,Other Marine Mammals,Whale Alert,20,33
+2021-02,Other Marine Mammals,Whale Alert Mobile,3,24
+2021-02,Right Whale,Center for Coastal Studies (CCS),28,57
+2021-02,Right Whale,Florida FWRI,21,36
+2021-02,Right Whale,New England Aquarium (NEAq),9,20
+2021-02,Right Whale,Sea to Shore Alliance (S2S)(WildLifeTrust/EcoHealthAlliance),11,16
+2021-02,Right Whale,Spotter,76,165
+2021-02,Right Whale,Whale Alert,1,1
+2021-02,Right Whale,Whale Alert Mobile,2,3
+2021-02,Southern Resident Orca,Cascadia,2,60
+2021-03,Dolphins & Porpoises,Whale Alert,4,60
+2021-03,Gray Whale,Whale Alert,52,102
+2021-03,Gray Whale,Whale Alert Mobile,28,93
+2021-03,Humpback Whale,Whale Alert,32,64
+2021-03,Humpback Whale,Whale Alert Mobile,7,11
+2021-03,Large Baleen Whale,Whale Alert,6,13
+2021-03,Large Baleen Whale,Whale Alert Mobile,3,3
+2021-03,Orca,Whale Alert,5,26
+2021-03,Orca,Whale Alert Mobile,1,9
+2021-03,Other Marine Mammals,Whale Alert,42,65
+2021-03,Other Marine Mammals,Whale Alert Mobile,5,5
+2021-03,Other Whales,Whale Alert,1,1
+2021-03,Right Whale,Center for Coastal Studies (CCS),32,45
+2021-03,Right Whale,Florida FWRI,10,12
+2021-03,Right Whale,IFAW Marine Mammal Research and Rescue (IFAW-MMRR),1,2
+2021-03,Right Whale,New England Aquarium (NEAq),43,52
+2021-03,Right Whale,Sea to Shore Alliance (S2S)(WildLifeTrust/EcoHealthAlliance),9,12
+2021-03,Right Whale,Spotter,375,654
+2021-03,Right Whale,United States Army Corps of Engineers (USACOE),1,5
+2021-03,Right Whale,Whale Alert,4,9
+2021-03,Right Whale,Whale Alert Mobile,1,2
+2021-03,Right Whale,Woods Hole Oceanographic Institution (WHOI),8,28
+2021-03,Southern Resident Orca,Cascadia,11,264
+2021-04,Dolphins & Porpoises,Whale Alert,4,96
+2021-04,Gray Whale,Whale Alert,21,39
+2021-04,Gray Whale,Whale Alert Mobile,7,14
+2021-04,Humpback Whale,Whale Alert,84,179
+2021-04,Humpback Whale,Whale Alert Mobile,29,69
+2021-04,Large Baleen Whale,Whale Alert,15,24
+2021-04,Large Baleen Whale,Whale Alert Mobile,5,5
+2021-04,Orca,Whale Alert,10,29
+2021-04,Orca,Whale Alert Mobile,3,14
+2021-04,Other Marine Mammals,Whale Alert,56,112
+2021-04,Other Marine Mammals,Whale Alert Mobile,10,20
+2021-04,Right Whale,Center for Coastal Studies (CCS),54,91
+2021-04,Right Whale,New England Aquarium (NEAq),1,2
+2021-04,Right Whale,Spotter,526,839
+2021-04,Right Whale,Whale Alert,33,97
+2021-04,Right Whale,Whale Alert Mobile,3,7
+2021-05,Dolphins & Porpoises,Whale Alert,3,22
+2021-05,Dolphins & Porpoises,Whale Alert Mobile,2,9
+2021-05,Gray Whale,Whale Alert,9,12
+2021-05,Humpback Whale,Whale Alert,208,537
+2021-05,Humpback Whale,Whale Alert Alaska Web,3,9
+2021-05,Humpback Whale,Whale Alert Mobile,16,58
+2021-05,Large Baleen Whale,Whale Alert,22,38
+2021-05,Large Baleen Whale,Whale Alert Mobile,4,5
+2021-05,Orca,Whale Alert,13,53
+2021-05,Orca,Whale Alert Alaska Web,1,5
+2021-05,Orca,Whale Alert Mobile,2,10
+2021-05,Other Marine Mammals,Whale Alert,28,43
+2021-05,Other Marine Mammals,Whale Alert Mobile,5,111
+2021-05,Other Whales,Whale Alert,1,3
+2021-05,Right Whale,Center for Coastal Studies (CCS),24,34
+2021-05,Right Whale,NOAA|Northeast Fisheries Science Center (NEFSC) | Woods Hole,2,2
+2021-05,Right Whale,New England Aquarium (NEAq),1,2
+2021-05,Right Whale,Spotter,54,79
+2021-05,Right Whale,United States Coast Guard (USCG),1,3
+2021-05,Right Whale,Whale Alert,5,9
+2021-06,Dolphins & Porpoises,Whale Alert,9,36
+2021-06,Gray Whale,Whale Alert,7,10
+2021-06,Gray Whale,Whale Alert Mobile,4,4
+2021-06,Humpback Whale,Whale Alert,280,513
+2021-06,Humpback Whale,Whale Alert Alaska Web,10,27
+2021-06,Humpback Whale,Whale Alert Mobile,22,155
+2021-06,Large Baleen Whale,Whale Alert,42,73
+2021-06,Large Baleen Whale,Whale Alert Mobile,7,7
+2021-06,Orca,Whale Alert,30,142
+2021-06,Orca,Whale Alert Mobile,4,27
+2021-06,Other Marine Mammals,Whale Alert,35,70
+2021-06,Other Marine Mammals,Whale Alert Alaska Web,1,5
+2021-06,Other Marine Mammals,Whale Alert Mobile,5,8
+2021-06,Other Whales,Whale Alert Mobile,4,4
+2021-06,Right Whale,Spotter,1,1
+2021-06,Right Whale,United States Coast Guard (USCG),1,5
+2021-06,Right Whale,Whale Alert,1,1
+2021-06,Southern Resident Orca,Cascadia,2,41
+2021-07,Dolphins & Porpoises,Spotter,1,200
+2021-07,Dolphins & Porpoises,Whale Alert,11,178
+2021-07,Gray Whale,Whale Alert,9,12
+2021-07,Gray Whale,Whale Alert Mobile,1,1
+2021-07,Humpback Whale,Spotter,2,2
+2021-07,Humpback Whale,Whale Alert,388,733
+2021-07,Humpback Whale,Whale Alert Alaska Web,3,37
+2021-07,Humpback Whale,Whale Alert Mobile,19,86
+2021-07,Large Baleen Whale,Whale Alert,26,87
+2021-07,Large Baleen Whale,Whale Alert Mobile,6,22
+2021-07,Orca,Cascadia,17,76
+2021-07,Orca,Whale Alert,21,89
+2021-07,Orca,Whale Alert Mobile,13,61
+2021-07,Other Marine Mammals,Cascadia,1,5
+2021-07,Other Marine Mammals,Whale Alert,46,102
+2021-07,Other Marine Mammals,Whale Alert Alaska Web,2,4
+2021-07,Other Marine Mammals,Whale Alert Mobile,3,3
+2021-07,Right Whale,Center for Coastal Studies (CCS),1,1
+2021-07,Right Whale,New England Aquarium (NEAq),2,2
+2021-07,Right Whale,Spotter,4,6
+2021-07,Right Whale,United States Coast Guard (USCG),1,1
+2021-07,Right Whale,Whale Alert Mobile,1,10
+2021-07,Southern Resident Orca,Cascadia,14,296
+2021-08,Dolphins & Porpoises,Spotter,2,150
+2021-08,Dolphins & Porpoises,Whale Alert,5,13
+2021-08,Dolphins & Porpoises,Whale Alert Mobile,13,201
+2021-08,Gray Whale,Whale Alert,13,15
+2021-08,Gray Whale,Whale Alert Mobile,1,1
+2021-08,Humpback Whale,Spotter,2,3
+2021-08,Humpback Whale,Whale Alert,274,469
+2021-08,Humpback Whale,Whale Alert Alaska Web,23,51
+2021-08,Humpback Whale,Whale Alert Mobile,18,111
+2021-08,Large Baleen Whale,Whale Alert,25,42
+2021-08,Large Baleen Whale,Whale Alert Mobile,1,1
+2021-08,Orca,Cascadia,1,1
+2021-08,Orca,Whale Alert,22,68
+2021-08,Orca,Whale Alert Alaska Web,1,4
+2021-08,Orca,Whale Alert Mobile,3,6
+2021-08,Other Marine Mammals,Whale Alert,45,100
+2021-08,Other Marine Mammals,Whale Alert Alaska Web,4,5
+2021-08,Other Marine Mammals,Whale Alert Mobile,8,10
+2021-08,Other Whales,Cascadia,1,1
+2021-08,Other Whales,Whale Alert Mobile,1,20
+2021-08,Right Whale,Center for Coastal Studies (CCS),1,1
+2021-08,Right Whale,New England Aquarium (NEAq),4,7
+2021-08,Right Whale,Spotter,7,15
+2021-08,Right Whale,Whale Alert,2,2
+2021-08,Right Whale,Whale Alert Mobile,1,1
+2021-08,Right Whale,Whale and Dolphin Conservation (WDC),1,1
+2021-08,Southern Resident Orca,Cascadia,3,35
+2021-09,Dolphins & Porpoises,Whale Alert,11,125
+2021-09,Dolphins & Porpoises,Whale Alert Mobile,2,6
+2021-09,Dolphins & Porpoises,oceanalertDefault,1,2000
+2021-09,Gray Whale,Whale Alert,4,6
+2021-09,Humpback Whale,Cascadia,1,2
+2021-09,Humpback Whale,Whale Alert,162,438
+2021-09,Humpback Whale,Whale Alert Alaska Web,15,36
+2021-09,Humpback Whale,Whale Alert Mobile,11,19
+2021-09,Large Baleen Whale,Whale Alert,14,24
+2021-09,Orca,Cascadia,1,4
+2021-09,Orca,Whale Alert,34,140
+2021-09,Orca,Whale Alert Alaska Web,2,6
+2021-09,Orca,Whale Alert Mobile,1,4
+2021-09,Other Marine Mammals,Cascadia,1,20
+2021-09,Other Marine Mammals,Marina Life,1,1
+2021-09,Other Marine Mammals,Whale Alert,34,60
+2021-09,Other Marine Mammals,Whale Alert Alaska Web,28,59
+2021-09,Other Marine Mammals,Whale Alert Mobile,2,3
+2021-09,Other Whales,Whale Alert,2,2
+2021-09,Right Whale,Spotter,10,21
+2021-09,Right Whale,Whale Alert,2,7
+2021-09,Southern Resident Orca,Cascadia,29,593
+2021-10,Dolphins & Porpoises,Spotter,70,36165
+2021-10,Dolphins & Porpoises,Whale Alert,24,286
+2021-10,Dolphins & Porpoises,Whale Alert Mobile,10,30
+2021-10,Gray Whale,Cascadia,2,2
+2021-10,Gray Whale,Whale Alert,3,9
+2021-10,Gray Whale,Whale Alert Mobile,2,4
+2021-10,Humpback Whale,Cascadia,53,59
+2021-10,Humpback Whale,Spotter,46,337
+2021-10,Humpback Whale,Whale Alert,426,1221
+2021-10,Humpback Whale,Whale Alert Alaska Web,10,16
+2021-10,Humpback Whale,Whale Alert Mobile,33,55
+2021-10,Large Baleen Whale,Cascadia,9,9
+2021-10,Large Baleen Whale,Spotter,13,13
+2021-10,Large Baleen Whale,Whale Alert,15,17
+2021-10,Large Baleen Whale,Whale Alert Mobile,11,11
+2021-10,Orca,Cascadia,6,18
+2021-10,Orca,Whale Alert,68,276
+2021-10,Orca,Whale Alert Alaska Web,1,1
+2021-10,Other Marine Mammals,Cascadia,16,361
+2021-10,Other Marine Mammals,Spotter,11,1100
+2021-10,Other Marine Mammals,Whale Alert,27,105
+2021-10,Other Marine Mammals,Whale Alert Alaska Web,32,49
+2021-10,Other Marine Mammals,Whale Alert Mobile,3,6
+2021-10,Right Whale,Florida FWRI,2,4
+2021-10,Right Whale,New England Aquarium (NEAq),4,9
+2021-10,Right Whale,Spotter,36,111
+2021-10,Right Whale,Whale Alert,15,262
+2021-10,Southern Resident Orca,Cascadia,59,1344
+2021-11,Dolphins & Porpoises,Spotter,225,83910
+2021-11,Dolphins & Porpoises,Whale Alert,26,520
+2021-11,Gray Whale,Cascadia,125,125
+2021-11,Humpback Whale,Cascadia,94,174
+2021-11,Humpback Whale,Spotter,131,268
+2021-11,Humpback Whale,Whale Alert,547,1813
+2021-11,Humpback Whale,Whale Alert Alaska Web,13,53
+2021-11,Humpback Whale,Whale Alert Mobile,36,62
+2021-11,Large Baleen Whale,Cascadia,5,5
+2021-11,Large Baleen Whale,Spotter,19,19
+2021-11,Large Baleen Whale,Whale Alert,153,222
+2021-11,Large Baleen Whale,Whale Alert Mobile,16,32
+2021-11,Orca,Cascadia,252,1242
+2021-11,Orca,Whale Alert,333,2326
+2021-11,Orca,Whale Alert Mobile,17,79
+2021-11,Other Marine Mammals,Cascadia,58,254
+2021-11,Other Marine Mammals,Whale Alert,239,587
+2021-11,Other Whales,Whale Alert,3,3
+2021-11,Right Whale,Center for Coastal Studies (CCS),6,6
+2021-11,Right Whale,Clearwater (CMARI/S2S/WildLifeTrust/EcoHealthAlliance),21,42
+2021-11,Right Whale,Florida FWRI,59,92
+2021-11,Right Whale,NOAA|Greater Atlantic Regional Fisheries Office (GARFO),1,1
+2021-11,Right Whale,Spotter,501,726
+2021-11,Right Whale,Whale Alert,4,4
+2021-11,Right Whale,Whale Alert Mobile,9,9
+2021-11,Southern Resident Orca,Cascadia,452,9620
+2021-12,Dolphins & Porpoises,Spotter,24,10028
+2021-12,Dolphins & Porpoises,Whale Alert,23,44
+2021-12,Gray Whale,Cascadia,252,252
+2021-12,Gray Whale,Whale Alert,30,50
+2021-12,Gray Whale,Whale Alert Mobile,2,2
+2021-12,Humpback Whale,Cascadia,65,78
+2021-12,Humpback Whale,Whale Alert,282,506
+2021-12,Humpback Whale,Whale Alert Mobile,32,32
+2021-12,Large Baleen Whale,Spotter,5,5
+2021-12,Large Baleen Whale,Whale Alert,42,112
+2021-12,Large Baleen Whale,Whale Alert Mobile,10,10
+2021-12,Orca,Cascadia,545,2366
+2021-12,Orca,Spotter,3,15
+2021-12,Orca,Whale Alert,29,146
+2021-12,Orca,Whale Alert Mobile,10,90
+2021-12,Other Marine Mammals,Cascadia,71,1202
+2021-12,Other Marine Mammals,Whale Alert,50,50
+2021-12,Other Marine Mammals,Whale Alert Mobile,12,12
+2021-12,Right Whale,Clearwater (CMARI/S2S/WildLifeTrust/EcoHealthAlliance),20,80
+2021-12,Right Whale,Florida FWRI,9,18
+2021-12,Right Whale,Spotter,20,40
+2021-12,Right Whale,Whale Alert,77,127
+2021-12,Right Whale,Whale Alert Mobile,37,47
+2021-12,Right Whale,Whale Map,6619,13496
+2021-12,Southern Resident Orca,Cascadia,420,10374
+2021-12,Unknown,Whale Alert,1,1
+2022-01,Dolphins & Porpoises,Spotter,8,16000
+2022-01,Gray Whale,Cascadia,91,106
+2022-01,Gray Whale,Spotter,8,32
+2022-01,Gray Whale,Whale Alert,41,123
+2022-01,Gray Whale,Whale Alert Mobile,13,24
+2022-01,Humpback Whale,Cascadia,73,115
+2022-01,Humpback Whale,Whale Alert,26,81
+2022-01,Humpback Whale,Whale Alert Mobile,5,5
+2022-01,Large Baleen Whale,Cascadia,15,15
+2022-01,Large Baleen Whale,Whale Alert,16,16
+2022-01,Orca,Cascadia,49,196
+2022-01,Orca,Whale Alert,3,10
+2022-01,Other Marine Mammals,Cascadia,6,21
+2022-01,Other Marine Mammals,Whale Alert,32,106
+2022-01,Other Whales,Whale Alert,5,5
+2022-01,Right Whale,Whale Map,112,274
+2022-01,Southern Resident Orca,Cascadia,120,2555
+2022-02,Gray Whale,Cascadia,84,101
+2022-02,Gray Whale,Whale Alert,2,2
+2022-02,Humpback Whale,Cascadia,6,9
+2022-02,Humpback Whale,Whale Alert,1,1
+2022-02,Orca,Cascadia,35,134
+2022-02,Orca,Whale Alert,3,9
+2022-02,Orca,Whale Alert Mobile,4,20
+2022-02,Other Marine Mammals,Cascadia,10,18
+2022-02,Other Marine Mammals,Whale Alert,2,40
+2022-02,Southern Resident Orca,Cascadia,23,552
+2022-03,Dolphins & Porpoises,Whale Alert,3,16
+2022-03,Dolphins & Porpoises,Whale Alert Mobile,1,5
+2022-03,Gray Whale,Cascadia,534,774
+2022-03,Gray Whale,Whale Alert,8,11
+2022-03,Gray Whale,Whale Alert Mobile,5,9
+2022-03,Humpback Whale,Cascadia,95,96
+2022-03,Large Baleen Whale,Cascadia,1,1
+2022-03,Orca,Cascadia,215,904
+2022-03,Orca,Whale Alert,19,134
+2022-03,Orca,Whale Alert Mobile,3,9
+2022-03,Other Marine Mammals,Cascadia,26,68
+2022-03,Other Marine Mammals,Whale Alert,14,38
+2022-03,Other Marine Mammals,Whale Alert Mobile,1,1
+2022-03,Southern Resident Orca,Cascadia,157,3518
+2022-04,Dolphins & Porpoises,Whale Alert,1,1
+2022-04,Gray Whale,Cascadia,93,135
+2022-04,Gray Whale,Whale Alert,21,40
+2022-04,Gray Whale,Whale Alert Mobile,6,9
+2022-04,Humpback Whale,Cascadia,18,18
+2022-04,Humpback Whale,Whale Alert,130,629
+2022-04,Orca,Cascadia,200,853
+2022-04,Orca,Whale Alert,15,53
+2022-04,Orca,Whale Alert Mobile,1,1
+2022-04,Other Marine Mammals,Cascadia,17,101
+2022-04,Other Marine Mammals,Whale Alert,21,80
+2022-04,Other Marine Mammals,Whale Alert Mobile,4,6
+2022-04,Southern Resident Orca,Cascadia,6,144
+2022-05,Dolphins & Porpoises,Whale Alert,1,4
+2022-05,Dolphins & Porpoises,Whale Alert Mobile,2,5
+2022-05,Gray Whale,Cascadia,36,39
+2022-05,Gray Whale,Whale Alert,38,50
+2022-05,Gray Whale,Whale Alert Mobile,24,40
+2022-05,Humpback Whale,Cascadia,46,55
+2022-05,Humpback Whale,Whale Alert,68,171
+2022-05,Humpback Whale,Whale Alert Alaska Web,6,7
+2022-05,Humpback Whale,Whale Alert Mobile,17,23
+2022-05,Large Baleen Whale,Whale Alert,7,23
+2022-05,Orca,Cascadia,85,741
+2022-05,Orca,Whale Alert,16,67
+2022-05,Orca,Whale Alert Mobile,8,22
+2022-05,Other Marine Mammals,Cascadia,2,10
+2022-05,Other Marine Mammals,Whale Alert,16,34
+2022-05,Other Marine Mammals,Whale Alert Alaska Web,60,156
+2022-05,Other Marine Mammals,Whale Alert Mobile,6,8
+2022-05,Southern Resident Orca,Cascadia,19,469
+2022-06,Dolphins & Porpoises,Whale Alert,12,14
+2022-06,Dolphins & Porpoises,Whale Alert Mobile,1,1
+2022-06,Gray Whale,Cascadia,11,11
+2022-06,Gray Whale,Whale Alert,32,52
+2022-06,Gray Whale,Whale Alert Mobile,6,9
+2022-06,Humpback Whale,Cascadia,54,64
+2022-06,Humpback Whale,Whale Alert,47,68
+2022-06,Humpback Whale,Whale Alert Alaska Web,14,34
+2022-06,Humpback Whale,Whale Alert Mobile,64,80
+2022-06,Large Baleen Whale,Cascadia,4,4
+2022-06,Large Baleen Whale,Whale Alert,3,9
+2022-06,Large Baleen Whale,Whale Alert Mobile,4,10
+2022-06,Orca,Cascadia,64,373
+2022-06,Orca,Whale Alert,34,139
+2022-06,Orca,Whale Alert Alaska Web,2,2
+2022-06,Orca,Whale Alert Mobile,8,22
+2022-06,Other Marine Mammals,Cascadia,6,66
+2022-06,Other Marine Mammals,Whale Alert,32,63
+2022-06,Other Marine Mammals,Whale Alert Alaska Web,40,65
+2022-06,Other Marine Mammals,Whale Alert Mobile,37,65
+2022-06,Right Whale,Whale Alert Alaska Web,1,1
+2022-06,Southern Resident Orca,Cascadia,9,225
+2022-07,Dolphins & Porpoises,Whale Alert,16,39
+2022-07,Dolphins & Porpoises,Whale Alert Mobile,10,26
+2022-07,Gray Whale,Cascadia,21,21
+2022-07,Gray Whale,Whale Alert,37,55
+2022-07,Gray Whale,Whale Alert Mobile,3,6
+2022-07,Humpback Whale,Cascadia,17,49
+2022-07,Humpback Whale,Whale Alert,78,160
+2022-07,Humpback Whale,Whale Alert Alaska Web,23,138
+2022-07,Humpback Whale,Whale Alert Mobile,116,269
+2022-07,Large Baleen Whale,Whale Alert,7,19
+2022-07,Large Baleen Whale,Whale Alert Mobile,13,34
+2022-07,Orca,Cascadia,49,293
+2022-07,Orca,Whale Alert,44,193
+2022-07,Orca,Whale Alert Alaska Web,3,42
+2022-07,Orca,Whale Alert Mobile,9,87
+2022-07,Other Marine Mammals,Cascadia,5,73
+2022-07,Other Marine Mammals,Whale Alert,24,37
+2022-07,Other Marine Mammals,Whale Alert Alaska Web,12,58
+2022-07,Other Marine Mammals,Whale Alert Mobile,15,33
+2022-07,Southern Resident Orca,Cascadia,58,1804
+2022-07,Southern Resident Orca,Whale Alert,1,20
+2022-08,Dolphins & Porpoises,Whale Alert,15,108
+2022-08,Dolphins & Porpoises,Whale Alert Mobile,7,81
+2022-08,Gray Whale,Cascadia,25,39
+2022-08,Gray Whale,Whale Alert,25,34
+2022-08,Gray Whale,Whale Alert Mobile,7,12
+2022-08,Humpback Whale,Cascadia,26,34
+2022-08,Humpback Whale,Whale Alert,69,238
+2022-08,Humpback Whale,Whale Alert Mobile,18,185
+2022-08,Large Baleen Whale,Cascadia,5,6
+2022-08,Large Baleen Whale,Whale Alert,4,8
+2022-08,Large Baleen Whale,Whale Alert Mobile,2,16
+2022-08,Orca,Cascadia,183,1209
+2022-08,Orca,Whale Alert,26,92
+2022-08,Orca,Whale Alert Mobile,15,262
+2022-08,Other Marine Mammals,Cascadia,10,111
+2022-08,Other Marine Mammals,Whale Alert,23,53
+2022-08,Other Marine Mammals,Whale Alert Mobile,9,18
+2022-08,Southern Resident Orca,Cascadia,65,1926
+2022-09,Dolphins & Porpoises,Whale Alert,12,51
+2022-09,Dolphins & Porpoises,Whale Alert Mobile,1,20
+2022-09,Gray Whale,Cascadia,22,24
+2022-09,Gray Whale,Whale Alert,22,32
+2022-09,Gray Whale,Whale Alert Mobile,3,12
+2022-09,Humpback Whale,Cascadia,107,136
+2022-09,Humpback Whale,Whale Alert,30,103
+2022-09,Humpback Whale,Whale Alert Alaska Web,8,32
+2022-09,Humpback Whale,Whale Alert Mobile,22,101
+2022-09,Large Baleen Whale,Cascadia,5,5
+2022-09,Large Baleen Whale,Whale Alert,3,4
+2022-09,Large Baleen Whale,Whale Alert Mobile,1,1
+2022-09,Orca,Cascadia,249,1247
+2022-09,Orca,Whale Alert,18,59
+2022-09,Orca,Whale Alert Mobile,2,2
+2022-09,Other Marine Mammals,Cascadia,2,27
+2022-09,Other Marine Mammals,Whale Alert,22,40
+2022-09,Other Marine Mammals,Whale Alert Alaska Web,45,270
+2022-09,Other Marine Mammals,Whale Alert Mobile,7,17
+2022-09,Southern Resident Orca,Cascadia,151,4929
+2022-10,Gray Whale,Cascadia,13,13
+2022-10,Gray Whale,Whale Alert,8,15
+2022-10,Gray Whale,Whale Alert Mobile,2,3
+2022-10,Humpback Whale,Cascadia,111,151
+2022-10,Humpback Whale,Whale Alert,48,75
+2022-10,Humpback Whale,Whale Alert Mobile,24,78
+2022-10,Large Baleen Whale,Cascadia,3,3
+2022-10,Large Baleen Whale,Whale Alert,4,4
+2022-10,Large Baleen Whale,Whale Alert Mobile,3,5
+2022-10,Orca,Cascadia,150,809
+2022-10,Orca,Whale Alert,15,85
+2022-10,Orca,Whale Alert Mobile,8,21
+2022-10,Other Marine Mammals,Cascadia,7,49
+2022-10,Other Marine Mammals,Whale Alert,27,46
+2022-10,Other Marine Mammals,Whale Alert Mobile,2,4
+2022-10,Other Marine Mammals,tmmcWebMap,2,2
+2022-10,Southern Resident Orca,Cascadia,144,3499
+2022-11,Dolphins & Porpoises,Whale Alert Mobile,1,2
+2022-11,Gray Whale,Cascadia,3,3
+2022-11,Gray Whale,Whale Alert,5,8
+2022-11,Humpback Whale,Cascadia,60,80
+2022-11,Humpback Whale,Whale Alert,35,74
+2022-11,Large Baleen Whale,Cascadia,2,6
+2022-11,Large Baleen Whale,Whale Alert,2,7
+2022-11,Orca,Cascadia,68,371
+2022-11,Orca,Whale Alert,11,99
+2022-11,Orca,Whale Alert Mobile,5,30
+2022-11,Other Marine Mammals,Cascadia,11,141
+2022-11,Other Marine Mammals,Whale Alert,8,10
+2022-11,Other Marine Mammals,Whale Alert Mobile,1,3
+2022-11,Southern Resident Orca,Cascadia,241,7601
+2022-11,Southern Resident Orca,Whale Alert,3,48
+2022-12,Gray Whale,Cascadia,36,45
+2022-12,Gray Whale,Whale Alert,1,1
+2022-12,Gray Whale,Whale Alert Mobile,2,4
+2022-12,Humpback Whale,Cascadia,36,64
+2022-12,Humpback Whale,Whale Alert,23,75
+2022-12,Orca,Cascadia,123,724
+2022-12,Orca,Whale Alert,4,12
+2022-12,Other Marine Mammals,Cascadia,11,141
+2022-12,Other Marine Mammals,Whale Alert,1,2
+2022-12,Southern Resident Orca,Cascadia,166,3684
+2023-01,Gray Whale,Cascadia,130,161
+2023-01,Gray Whale,Whale Alert,5,7
+2023-01,Gray Whale,Whale Alert Mobile,3,4
+2023-01,Humpback Whale,Cascadia,10,11
+2023-01,Humpback Whale,Whale Alert,2,2
+2023-01,Humpback Whale,Whale Alert Mobile,5,5
+2023-01,Large Baleen Whale,Cascadia,1,1
+2023-01,Orca,Cascadia,102,709
+2023-01,Orca,Whale Alert,6,28
+2023-01,Orca,Whale Alert Mobile,3,45
+2023-01,Other Marine Mammals,Cascadia,14,150
+2023-01,Other Marine Mammals,Whale Alert,4,11
+2023-01,Other Marine Mammals,Whale Alert Mobile,2,2
+2023-01,Southern Resident Orca,Cascadia,113,3511
+2023-02,Gray Whale,Cascadia,96,109
+2023-02,Gray Whale,Whale Alert,1,1
+2023-02,Humpback Whale,Cascadia,14,14
+2023-02,Humpback Whale,Whale Alert,1,1
+2023-02,Large Baleen Whale,Cascadia,8,8
+2023-02,Orca,Cascadia,116,439
+2023-02,Orca,Whale Alert,2,10
+2023-02,Orca,Whale Alert Mobile,2,8
+2023-02,Other Marine Mammals,Cascadia,21,27
+2023-02,Other Marine Mammals,Whale Alert,5,5
+2023-02,Southern Resident Orca,Cascadia,15,400
+2023-03,Dolphins & Porpoises,Whale Alert,1,6
+2023-03,Dolphins & Porpoises,oceanalertDefault,1,2
+2023-03,Gray Whale,Cascadia,141,241
+2023-03,Gray Whale,Whale Alert,22,46
+2023-03,Gray Whale,Whale Alert Mobile,1,1
+2023-03,Humpback Whale,Cascadia,6,6
+2023-03,Humpback Whale,Whale Alert,9,12
+2023-03,Large Baleen Whale,Cascadia,1,1
+2023-03,Large Baleen Whale,Whale Alert,1,1
+2023-03,Orca,Cascadia,311,1980
+2023-03,Orca,Whale Alert,31,124
+2023-03,Orca,Whale Alert Mobile,2,8
+2023-03,Other Marine Mammals,Cascadia,27,284
+2023-03,Other Marine Mammals,Whale Alert,14,24
+2023-03,Southern Resident Orca,Cascadia,211,5067
+2023-04,Dolphins & Porpoises,Whale Alert,1,2
+2023-04,Dolphins & Porpoises,Whale Alert Mobile,2,2
+2023-04,Gray Whale,Cascadia,230,381
+2023-04,Gray Whale,Whale Alert,48,69
+2023-04,Gray Whale,Whale Alert Mobile,19,21
+2023-04,Humpback Whale,Cascadia,78,101
+2023-04,Humpback Whale,Whale Alert,6,7
+2023-04,Humpback Whale,Whale Alert Alaska Web,3,9
+2023-04,Humpback Whale,Whale Alert Mobile,2,3
+2023-04,Orca,Cascadia,364,2274
+2023-04,Orca,Whale Alert,21,76
+2023-04,Orca,Whale Alert Mobile,8,33
+2023-04,Other Marine Mammals,Cascadia,36,210
+2023-04,Other Marine Mammals,Whale Alert,16,19
+2023-04,Other Marine Mammals,Whale Alert Mobile,4,6
+2023-04,Southern Resident Orca,Cascadia,83,2034
+2023-05,Dolphins & Porpoises,Whale Alert,5,37
+2023-05,Gray Whale,Cascadia,79,100
+2023-05,Gray Whale,Whale Alert,44,64
+2023-05,Gray Whale,Whale Alert Mobile,7,13
+2023-05,Humpback Whale,Cascadia,22,78
+2023-05,Humpback Whale,Whale Alert,45,97
+2023-05,Humpback Whale,Whale Alert Mobile,6,7
+2023-05,Large Baleen Whale,Cascadia,4,4
+2023-05,Large Baleen Whale,Whale Alert,2,5
+2023-05,Large Baleen Whale,Whale Alert Alaska Web,4,9
+2023-05,Orca,Cascadia,445,2550
+2023-05,Orca,Whale Alert,18,76
+2023-05,Orca,Whale Alert Mobile,10,49
+2023-05,Other Marine Mammals,Cascadia,23,35
+2023-05,Other Marine Mammals,Whale Alert,54,148
+2023-05,Other Marine Mammals,Whale Alert Alaska Web,4,14
+2023-05,Other Marine Mammals,Whale Alert Mobile,4,4
+2023-05,Other Whales,Whale Alert,1,8
+2023-05,Southern Resident Orca,Cascadia,8,121
+2023-06,Gray Whale,Cascadia,7,7
+2023-06,Gray Whale,Whale Alert,28,53
+2023-06,Gray Whale,Whale Alert Mobile,1,1
+2023-06,Humpback Whale,Cascadia,21,29
+2023-06,Humpback Whale,Whale Alert,66,102
+2023-06,Humpback Whale,Whale Alert Mobile,3,5
+2023-06,Large Baleen Whale,Cascadia,1,1
+2023-06,Large Baleen Whale,Whale Alert,6,14
+2023-06,Orca,Cascadia,669,4320
+2023-06,Orca,Whale Alert,41,153
+2023-06,Orca,Whale Alert Mobile,16,60
+2023-06,Other Marine Mammals,Cascadia,9,61
+2023-06,Other Marine Mammals,Whale Alert,35,78
+2023-06,Other Marine Mammals,Whale Alert Alaska Web,1,1
+2023-06,Other Marine Mammals,Whale Alert Mobile,6,7
+2023-06,Southern Resident Orca,Cascadia,16,310
+2023-06,Southern Resident Orca,Whale Alert,1,11
+2023-07,Dolphins & Porpoises,Whale Alert,5,14
+2023-07,Dolphins & Porpoises,Whale Alert Mobile,3,8
+2023-07,Gray Whale,Whale Alert,14,26
+2023-07,Gray Whale,Whale Alert Mobile,1,1
+2023-07,Humpback Whale,Cascadia,78,95
+2023-07,Humpback Whale,Whale Alert,63,124
+2023-07,Humpback Whale,Whale Alert Alaska Web,1,6
+2023-07,Humpback Whale,Whale Alert Mobile,8,24
+2023-07,Large Baleen Whale,Cascadia,4,4
+2023-07,Large Baleen Whale,Whale Alert,5,8
+2023-07,Large Baleen Whale,Whale Alert Alaska Web,2,3
+2023-07,Orca,Cascadia,124,814
+2023-07,Orca,Whale Alert,45,203
+2023-07,Orca,Whale Alert Mobile,12,55
+2023-07,Other Marine Mammals,Cascadia,4,11
+2023-07,Other Marine Mammals,Whale Alert,41,120
+2023-07,Other Marine Mammals,Whale Alert Alaska Web,1,2
+2023-07,Other Marine Mammals,Whale Alert Mobile,3,9
+2023-07,Southern Resident Orca,Cascadia,5,125
+2023-08,Dolphins & Porpoises,Whale Alert,6,14
+2023-08,Dolphins & Porpoises,Whale Alert Mobile,1,10
+2023-08,Gray Whale,Cascadia,5,5
+2023-08,Gray Whale,Whale Alert,9,17
+2023-08,Gray Whale,Whale Alert Mobile,2,3
+2023-08,Humpback Whale,Cascadia,52,67
+2023-08,Humpback Whale,Whale Alert,106,235
+2023-08,Humpback Whale,Whale Alert Mobile,9,56
+2023-08,Large Baleen Whale,Cascadia,5,5
+2023-08,Large Baleen Whale,Whale Alert,3,5
+2023-08,Orca,Cascadia,322,2044
+2023-08,Orca,Whale Alert,38,142
+2023-08,Orca,Whale Alert Mobile,8,24
+2023-08,Other Marine Mammals,Cascadia,12,27
+2023-08,Other Marine Mammals,Whale Alert,13,25
+2023-08,Southern Resident Orca,Cascadia,64,1389
+2023-08,Southern Resident Orca,Whale Alert,1,15
+2023-09,Gray Whale,Cascadia,3,3
+2023-09,Gray Whale,Whale Alert,13,26
+2023-09,Humpback Whale,Cascadia,67,76
+2023-09,Humpback Whale,Whale Alert,117,210
+2023-09,Humpback Whale,Whale Alert Mobile,6,13
+2023-09,Large Baleen Whale,Cascadia,8,13
+2023-09,Large Baleen Whale,Whale Alert,1,1
+2023-09,Large Baleen Whale,Whale Alert Mobile,1,1
+2023-09,Orca,Cascadia,365,1858
+2023-09,Orca,Whale Alert,24,71
+2023-09,Orca,Whale Alert Mobile,5,30
+2023-09,Other Marine Mammals,Cascadia,14,18
+2023-09,Other Marine Mammals,Whale Alert,9,27
+2023-09,Southern Resident Orca,Cascadia,111,2302
+2023-09,Southern Resident Orca,Whale Alert,3,3
+2023-09,Southern Resident Orca,Whale Alert Mobile,1,25
+2023-10,Dolphins & Porpoises,Whale Alert,2,9
+2023-10,Gray Whale,Cascadia,8,9
+2023-10,Gray Whale,Whale Alert,16,19
+2023-10,Humpback Whale,Cascadia,94,106
+2023-10,Humpback Whale,Whale Alert,155,346
+2023-10,Humpback Whale,Whale Alert Mobile,8,14
+2023-10,Large Baleen Whale,Cascadia,18,19
+2023-10,Large Baleen Whale,Whale Alert,2,2
+2023-10,Orca,Cascadia,459,2807
+2023-10,Orca,Whale Alert,10,72
+2023-10,Orca,Whale Alert Mobile,3,11
+2023-10,Other Marine Mammals,Cascadia,19,95
+2023-10,Other Marine Mammals,Whale Alert,40,96
+2023-10,Other Marine Mammals,Whale Alert Alaska Web,4,74
+2023-10,Other Marine Mammals,Whale Alert Mobile,4,6
+2023-10,Southern Resident Orca,Cascadia,104,3194
+2023-11,Dolphins & Porpoises,Whale Alert,8,83
+2023-11,Gray Whale,Cascadia,1,1
+2023-11,Gray Whale,Whale Alert,2,3
+2023-11,Humpback Whale,Cascadia,55,66
+2023-11,Humpback Whale,Whale Alert,141,369
+2023-11,Humpback Whale,Whale Alert Mobile,1,2
+2023-11,Large Baleen Whale,Cascadia,1,1
+2023-11,Large Baleen Whale,Whale Alert,2,4
+2023-11,Orca,Cascadia,258,1612
+2023-11,Orca,Whale Alert,14,109
+2023-11,Orca,Whale Alert Mobile,5,86
+2023-11,Other Marine Mammals,Cascadia,11,33
+2023-11,Other Marine Mammals,Whale Alert,12,74
+2023-11,Right Whale,Whale Alert,1,8
+2023-11,Southern Resident Orca,Cascadia,144,3934
+2023-11,Southern Resident Orca,Whale Alert,1,20
+2023-12,Dolphins & Porpoises,Whale Alert,1,6
+2023-12,Dolphins & Porpoises,Whale Alert Mobile,1,2
+2023-12,Gray Whale,Cascadia,5,5
+2023-12,Gray Whale,Whale Alert,2,7
+2023-12,Humpback Whale,Cascadia,130,135
+2023-12,Humpback Whale,Whale Alert,59,130
+2023-12,Large Baleen Whale,Whale Alert,1,1
+2023-12,Orca,Cascadia,191,1122
+2023-12,Orca,Whale Alert,17,69
+2023-12,Orca,Whale Alert Mobile,3,36
+2023-12,Other Marine Mammals,Cascadia,6,9
+2023-12,Other Marine Mammals,Whale Alert,16,45
+2023-12,Other Marine Mammals,Whale Alert Mobile,5,26
+2023-12,Southern Resident Orca,Cascadia,139,3132
+2023-12,Southern Resident Orca,Whale Alert,2,35
+2024-01,Gray Whale,Cascadia,49,49
+2024-01,Gray Whale,Whale Alert,104,399
+2024-01,Gray Whale,Whale Alert Mobile,1,6
+2024-01,Humpback Whale,Cascadia,58,70
+2024-01,Humpback Whale,Whale Alert,12,28
+2024-01,Large Baleen Whale,Cascadia,1,1
+2024-01,Large Baleen Whale,Whale Alert,2,2
+2024-01,Orca,Cascadia,202,1109
+2024-01,Orca,Whale Alert,2,3
+2024-01,Other Marine Mammals,Cascadia,5,10
+2024-01,Other Marine Mammals,Whale Alert,7,19
+2024-01,Southern Resident Orca,Cascadia,12,279
+2024-02,Dolphins & Porpoises,Whale Alert,3,33
+2024-02,Gray Whale,Cascadia,203,245
+2024-02,Gray Whale,Whale Alert,62,131
+2024-02,Humpback Whale,Whale Alert,1,8
+2024-02,Orca,Cascadia,203,1336
+2024-02,Orca,Whale Alert,17,65
+2024-02,Orca,Whale Alert Mobile,3,16
+2024-02,Other Marine Mammals,Cascadia,2,11
+2024-02,Other Marine Mammals,Whale Alert,9,28
+2024-02,Other Marine Mammals,Whale Alert Mobile,1,30
+2024-02,Right Whale,Whale Alert,1,1
+2024-02,Southern Resident Orca,Cascadia,104,2512
+2024-02,Southern Resident Orca,Whale Alert,2,21
+2024-03,Dolphins & Porpoises,Whale Alert,17,68
+2024-03,Gray Whale,Cascadia,301,442
+2024-03,Gray Whale,Whale Alert,127,315
+2024-03,Gray Whale,Whale Alert Mobile,5,7
+2024-03,Humpback Whale,Cascadia,4,4
+2024-03,Humpback Whale,Whale Alert,2,2
+2024-03,Humpback Whale,Whale Alert Mobile,4,5
+2024-03,Large Baleen Whale,Cascadia,1,1
+2024-03,Orca,Cascadia,383,2626
+2024-03,Orca,Whale Alert,37,138
+2024-03,Orca,Whale Alert Mobile,15,54
+2024-03,Other Marine Mammals,Cascadia,4,6
+2024-03,Other Marine Mammals,Whale Alert,16,25
+2024-03,Other Marine Mammals,Whale Alert Mobile,11,14
+2024-03,Southern Resident Orca,Cascadia,9,225
+2024-04,Dolphins & Porpoises,Whale Alert,2,11
+2024-04,Gray Whale,Cascadia,148,297
+2024-04,Gray Whale,Whale Alert,64,98
+2024-04,Gray Whale,Whale Alert Mobile,12,12
+2024-04,Humpback Whale,Cascadia,11,12
+2024-04,Humpback Whale,Whale Alert,16,21
+2024-04,Humpback Whale,Whale Alert Alaska Web,35,45
+2024-04,Humpback Whale,Whale Alert Mobile,1,1
+2024-04,Large Baleen Whale,Whale Alert,1,1
+2024-04,Orca,Cascadia,508,3072
+2024-04,Orca,Whale Alert,57,246
+2024-04,Orca,Whale Alert Alaska Web,1,20
+2024-04,Orca,Whale Alert Mobile,11,40
+2024-04,Other Marine Mammals,Cascadia,24,79
+2024-04,Other Marine Mammals,Whale Alert,26,50
+2024-04,Other Marine Mammals,Whale Alert Alaska Web,35,53
+2024-04,Other Marine Mammals,Whale Alert Mobile,8,8
+2024-04,Southern Resident Orca,Cascadia,25,580
+2024-05,Dolphins & Porpoises,Whale Alert,2,13
+2024-05,Dolphins & Porpoises,Whale Alert Mobile,1,2
+2024-05,Gray Whale,Cascadia,50,75
+2024-05,Gray Whale,Whale Alert,18,25
+2024-05,Gray Whale,Whale Alert Mobile,6,10
+2024-05,Humpback Whale,Cascadia,34,48
+2024-05,Humpback Whale,Whale Alert,81,242
+2024-05,Humpback Whale,Whale Alert Alaska Web,236,375
+2024-05,Humpback Whale,Whale Alert Mobile,13,15
+2024-05,Large Baleen Whale,Cascadia,5,5
+2024-05,Large Baleen Whale,Whale Alert,6,10
+2024-05,Large Baleen Whale,Whale Alert Alaska Web,20,76
+2024-05,Large Baleen Whale,Whale Alert Mobile,4,271
+2024-05,Orca,Cascadia,562,2341
+2024-05,Orca,Whale Alert,91,273
+2024-05,Orca,Whale Alert Alaska Web,17,59
+2024-05,Orca,Whale Alert Mobile,29,136
+2024-05,Other Marine Mammals,Cascadia,16,66
+2024-05,Other Marine Mammals,Whale Alert,37,61
+2024-05,Other Marine Mammals,Whale Alert Alaska Web,138,286
+2024-05,Other Marine Mammals,Whale Alert Mobile,4,8
+2024-05,Other Marine Mammals,oceanalertDefault,1,5
+2024-05,Other Whales,Whale Alert Alaska Web,2,2
+2024-05,Southern Resident Orca,Cascadia,48,1222
+2024-05,Southern Resident Orca,Whale Alert,1,5
+2024-06,Dolphins & Porpoises,Whale Alert,4,21
+2024-06,Dolphins & Porpoises,Whale Alert Mobile,9,21
+2024-06,Gray Whale,Cascadia,3,3
+2024-06,Gray Whale,Whale Alert,14,32
+2024-06,Gray Whale,Whale Alert Mobile,9,11
+2024-06,Humpback Whale,Cascadia,29,36
+2024-06,Humpback Whale,Whale Alert,80,153
+2024-06,Humpback Whale,Whale Alert Alaska Web,297,625
+2024-06,Humpback Whale,Whale Alert Mobile,16,47
+2024-06,Large Baleen Whale,Whale Alert,6,10
+2024-06,Large Baleen Whale,Whale Alert Alaska Web,15,23
+2024-06,Large Baleen Whale,Whale Alert Mobile,2,2
+2024-06,Orca,Cascadia,27,140
+2024-06,Orca,Whale Alert,79,257
+2024-06,Orca,Whale Alert Alaska Web,35,109
+2024-06,Orca,Whale Alert Mobile,27,223
+2024-06,Other Marine Mammals,Cascadia,1,1
+2024-06,Other Marine Mammals,Whale Alert,25,42
+2024-06,Other Marine Mammals,Whale Alert Alaska Web,209,429
+2024-06,Other Marine Mammals,Whale Alert Mobile,9,16
+2024-06,Other Whales,Whale Alert Alaska Web,4,4
+2024-06,Southern Resident Orca,Cascadia,48,1300
+2024-06,Southern Resident Orca,Whale Alert,1,3
+2024-07,Dolphins & Porpoises,Whale Alert,23,71
+2024-07,Dolphins & Porpoises,Whale Alert Mobile,13,191
+2024-07,Gray Whale,Cascadia,26,38
+2024-07,Gray Whale,Whale Alert,30,44
+2024-07,Gray Whale,Whale Alert Mobile,4,7
+2024-07,Humpback Whale,Cascadia,61,83
+2024-07,Humpback Whale,Whale Alert,122,272
+2024-07,Humpback Whale,Whale Alert Alaska Web,140,253
+2024-07,Humpback Whale,Whale Alert Mobile,53,322
+2024-07,Large Baleen Whale,Cascadia,4,4
+2024-07,Large Baleen Whale,Whale Alert,11,37
+2024-07,Large Baleen Whale,Whale Alert Mobile,8,22
+2024-07,Orca,Cascadia,55,449
+2024-07,Orca,Whale Alert,102,361
+2024-07,Orca,Whale Alert Alaska Web,4,8
+2024-07,Orca,Whale Alert Mobile,31,174
+2024-07,Other Marine Mammals,Cascadia,5,5
+2024-07,Other Marine Mammals,Whale Alert,65,207
+2024-07,Other Marine Mammals,Whale Alert Alaska Web,62,216
+2024-07,Other Marine Mammals,Whale Alert Mobile,8,28
+2024-07,Right Whale,Whale Alert Mobile,2,111
+2024-07,Southern Resident Orca,Cascadia,12,300
+2024-07,Southern Resident Orca,Whale Alert Mobile,1,5
+2024-08,Dolphins & Porpoises,Whale Alert,15,48
+2024-08,Dolphins & Porpoises,Whale Alert Mobile,10,21
+2024-08,Gray Whale,Cascadia,6,9
+2024-08,Gray Whale,Whale Alert,16,21
+2024-08,Gray Whale,Whale Alert Mobile,8,12
+2024-08,Humpback Whale,Cascadia,58,83
+2024-08,Humpback Whale,Whale Alert,220,583
+2024-08,Humpback Whale,Whale Alert Alaska Web,2,2
+2024-08,Humpback Whale,Whale Alert Mobile,65,251
+2024-08,Large Baleen Whale,Cascadia,3,3
+2024-08,Large Baleen Whale,Whale Alert,13,24
+2024-08,Large Baleen Whale,Whale Alert Mobile,11,70
+2024-08,Orca,Cascadia,145,830
+2024-08,Orca,Whale Alert,107,364
+2024-08,Orca,Whale Alert Mobile,29,98
+2024-08,Other Marine Mammals,Cascadia,6,8
+2024-08,Other Marine Mammals,Whale Alert,77,248
+2024-08,Other Marine Mammals,Whale Alert Mobile,8,86
+2024-08,Southern Resident Orca,Cascadia,9,231
+2024-08,Southern Resident Orca,Whale Alert,1,1
+2024-09,Dolphins & Porpoises,Whale Alert,24,83
+2024-09,Dolphins & Porpoises,Whale Alert Mobile,9,63
+2024-09,Dolphins & Porpoises,oceanalertDefault,4,6
+2024-09,Gray Whale,Whale Alert,13,18
+2024-09,Humpback Whale,Cascadia,45,57
+2024-09,Humpback Whale,Whale Alert,193,490
+2024-09,Humpback Whale,Whale Alert Mobile,52,110
+2024-09,Large Baleen Whale,Cascadia,5,5
+2024-09,Large Baleen Whale,Whale Alert,9,14
+2024-09,Large Baleen Whale,Whale Alert Mobile,3,4
+2024-09,Orca,Cascadia,265,1302
+2024-09,Orca,Whale Alert,70,220
+2024-09,Orca,Whale Alert Mobile,25,75
+2024-09,Other Marine Mammals,Cascadia,10,39
+2024-09,Other Marine Mammals,Whale Alert,58,135
+2024-09,Other Marine Mammals,Whale Alert Mobile,13,89
+2024-09,Southern Resident Orca,Cascadia,18,301
+2024-09,Southern Resident Orca,Whale Alert,3,4
+2024-10,Dolphins & Porpoises,Whale Alert,10,40
+2024-10,Dolphins & Porpoises,Whale Alert Mobile,1,4
+2024-10,Gray Whale,Whale Alert,8,16
+2024-10,Gray Whale,Whale Alert Mobile,2,4
+2024-10,Humpback Whale,Cascadia,14,16
+2024-10,Humpback Whale,Whale Alert,145,377
+2024-10,Humpback Whale,Whale Alert Mobile,18,45
+2024-10,Large Baleen Whale,Cascadia,4,6
+2024-10,Large Baleen Whale,Whale Alert,4,8
+2024-10,Large Baleen Whale,Whale Alert Mobile,1,1
+2024-10,Orca,Cascadia,264,1366
+2024-10,Orca,Whale Alert,56,206
+2024-10,Orca,Whale Alert Mobile,20,77
+2024-10,Other Marine Mammals,Cascadia,4,32
+2024-10,Other Marine Mammals,Whale Alert,18,48
+2024-10,Other Marine Mammals,Whale Alert Mobile,3,8
+2024-10,Right Whale,Whale Alert Mobile,1,24
+2024-10,Southern Resident Orca,Cascadia,337,8317
+2024-10,Southern Resident Orca,Whale Alert,5,42
+2024-11,Dolphins & Porpoises,Whale Alert,1,2
+2024-11,Dolphins & Porpoises,Whale Alert Mobile,1,1
+2024-11,Gray Whale,Cascadia,5,5
+2024-11,Gray Whale,Whale Alert,3,4
+2024-11,Gray Whale,Whale Alert Mobile,1,1
+2024-11,Humpback Whale,Cascadia,56,102
+2024-11,Humpback Whale,Whale Alert,18,33
+2024-11,Humpback Whale,Whale Alert Mobile,6,19
+2024-11,Large Baleen Whale,Cascadia,6,9
+2024-11,Large Baleen Whale,Whale Alert,3,3
+2024-11,Orca,Cascadia,165,1060
+2024-11,Orca,Whale Alert,32,96
+2024-11,Orca,Whale Alert Mobile,7,26
+2024-11,Other Marine Mammals,Cascadia,10,41
+2024-11,Other Marine Mammals,Whale Alert,16,38
+2024-11,Other Marine Mammals,Whale Alert Mobile,1,1
+2024-11,Southern Resident Orca,Cascadia,507,15303
+2024-11,Southern Resident Orca,Whale Alert,7,73
+2024-11,Southern Resident Orca,Whale Alert Mobile,1,8
+2024-12,Dolphins & Porpoises,Whale Alert Mobile,1,2
+2024-12,Gray Whale,Cascadia,77,78
+2024-12,Gray Whale,Whale Alert,24,77
+2024-12,Gray Whale,Whale Alert Mobile,2,2
+2024-12,Humpback Whale,Cascadia,7,7
+2024-12,Humpback Whale,Whale Alert,47,100
+2024-12,Orca,Cascadia,159,855
+2024-12,Orca,Whale Alert,30,148
+2024-12,Orca,Whale Alert Mobile,11,76
+2024-12,Other Marine Mammals,Cascadia,11,240
+2024-12,Other Marine Mammals,Whale Alert,8,14
+2024-12,Other Marine Mammals,Whale Alert Mobile,1,1
+2024-12,Southern Resident Orca,Cascadia,211,6318
+2024-12,Southern Resident Orca,Whale Alert,1,4
+2025-01,Dolphins & Porpoises,Whale Alert,4,28
+2025-01,Gray Whale,Cascadia,111,149
+2025-01,Gray Whale,Whale Alert,41,94
+2025-01,Humpback Whale,Cascadia,1,1
+2025-01,Humpback Whale,Whale Alert,2,4
+2025-01,Orca,Cascadia,31,204
+2025-01,Orca,Whale Alert,11,58
+2025-01,Orca,Whale Alert Mobile,6,11
+2025-01,Other Marine Mammals,Cascadia,14,190
+2025-01,Other Marine Mammals,Whale Alert,7,19
+2025-01,Other Marine Mammals,Whale Alert Mobile,1,4
+2025-01,Southern Resident Orca,Cascadia,119,3934

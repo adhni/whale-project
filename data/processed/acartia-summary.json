@@ -1,0 +1,22 @@
+{
+  "total_rows": 46601,
+  "valid_dates": 46599,
+  "invalid_dates": 2,
+  "valid_coordinates": 46599,
+  "invalid_coordinates": 2,
+  "valid_counts": 46453,
+  "invalid_counts": 148,
+  "non_positive_counts": 53,
+  "group_counts": {
+    "Dolphins & Porpoises": 1029,
+    "Gray Whale": 4652,
+    "Humpback Whale": 10608,
+    "Large Baleen Whale": 1102,
+    "Orca": 11356,
+    "Other Marine Mammals": 3447,
+    "Other Whales": 35,
+    "Right Whale": 9443,
+    "Southern Resident Orca": 4753,
+    "Unknown": 176
+  }
+}

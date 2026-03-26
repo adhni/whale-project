@@ -1,0 +1,7 @@
+services:
+  - type: web
+    runtime: static
+    name: whale-watch-atlas
+    plan: free
+    buildCommand: echo "Static dashboard ready"
+    staticPublishPath: ./

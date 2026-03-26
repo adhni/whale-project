@@ -53,6 +53,15 @@ The aggregation step:
 The static dashboard lives in `dashboard/` and reads from the generated files in
 `data/processed/`.
 
+## Static Deploy
+
+This repo is prepared to deploy the HTML dashboard as a static site.
+
+- root redirect: `index.html`
+- app files: `dashboard/`
+- committed dashboard data snapshot: `data/processed/`
+- Render blueprint: `render.yaml`
+
 ## Streamlit Deploy
 
 This repo is prepared for Streamlit Community Cloud with:
