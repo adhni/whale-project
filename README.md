@@ -1,6 +1,6 @@
-# Whale Python Project
+# Whale Project
 
-Starter Python repo for a richer whale sightings pipeline and app.
+Starter repo for a richer whale sightings pipeline and app.
 
 ## Structure
 
@@ -12,7 +12,7 @@ Starter Python repo for a richer whale sightings pipeline and app.
 ## Quick Start
 
 ```bash
-cd /Users/adhni/Desktop/whale-python-project
+cd /Users/adhni/Desktop/whale-project
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
