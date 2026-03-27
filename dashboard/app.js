@@ -4,6 +4,7 @@ const DATA_PATHS = {
   monthly: "../data/processed/monthly-group-totals.csv",
   groups: "../data/processed/group-summary.csv",
   map: "../data/processed/map-points.csv",
+  speciesReference: "../data/reference/species-reference.json",
 };
 
 const GROUP_COLORS = {
@@ -31,9 +32,15 @@ const state = {
   selectedSource: "all",
   selectedRegion: "all",
   selectedEntryId: null,
+  selectedProfileSlug: null,
   mapRows: [],
   monthlyRows: [],
   groupRows: [],
+  speciesProfiles: [],
+  speciesNotes: [],
+  speciesMappings: [],
+  profileLookup: new Map(),
+  noteByLabel: new Map(),
   map: null,
   pointLayer: null,
   mapRenderer: null,
@@ -74,6 +81,22 @@ const elements = {
   detailCoords: document.getElementById("detailCoords"),
   detailYear: document.getElementById("detailYear"),
   detailRegion: document.getElementById("detailRegion"),
+  profileSelect: document.getElementById("profileSelect"),
+  profileKicker: document.getElementById("profileKicker"),
+  profileTitle: document.getElementById("profileTitle"),
+  profileScientific: document.getElementById("profileScientific"),
+  profileType: document.getElementById("profileType"),
+  profileStatus: document.getElementById("profileStatus"),
+  profileSummary: document.getElementById("profileSummary"),
+  profileRange: document.getElementById("profileRange"),
+  profileDiet: document.getElementById("profileDiet"),
+  profileRole: document.getElementById("profileRole"),
+  profileCaution: document.getElementById("profileCaution"),
+  profileIdentification: document.getElementById("profileIdentification"),
+  profileSize: document.getElementById("profileSize"),
+  profileThreats: document.getElementById("profileThreats"),
+  profileFacts: document.getElementById("profileFacts"),
+  profileSources: document.getElementById("profileSources"),
 };
 
 const MAX_MAP_POINTS = 12000;
@@ -101,6 +124,15 @@ function formatMonth(monthKey) {
     month: "short",
     year: "numeric",
   }).format(new Date(Date.UTC(year, month - 1, 1)));
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function parseCsvLine(line) {
@@ -486,6 +518,163 @@ function attachTrendInteractions() {
   };
 }
 
+function renderListItems(element, items, className = "") {
+  if (!items?.length) {
+    element.innerHTML = `<li class="empty-state">No details available.</li>`;
+    return;
+  }
+  element.innerHTML = items
+    .map((item) => `<li${className ? ` class="${className}"` : ""}>${escapeHtml(item)}</li>`)
+    .join("");
+}
+
+function renderSourceItems(element, items) {
+  if (!items?.length) {
+    element.innerHTML = `<li class="empty-state">No source links available.</li>`;
+    return;
+  }
+
+  element.innerHTML = items
+    .map(
+      (item) =>
+        `<li><a class="species-source-link" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.label)}</a></li>`,
+    )
+    .join("");
+}
+
+function normalizeProfileLabel(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function prepareSpeciesReference(reference) {
+  state.speciesProfiles = reference.profiles || [];
+  state.speciesNotes = reference.implementation_notes || [];
+  state.speciesMappings = reference.mappings || [];
+  state.profileLookup = new Map(
+    state.speciesProfiles.map((profile) => [profile.slug, profile]),
+  );
+  state.noteByLabel = new Map();
+
+  state.speciesNotes.forEach((note) => {
+    const related = String(note.related_raw_labels || "")
+      .split(";")
+      .map((label) => label.trim())
+      .filter(Boolean);
+
+    related.forEach((label) => {
+      state.noteByLabel.set(normalizeProfileLabel(label), note);
+    });
+
+    state.noteByLabel.set(normalizeProfileLabel(note.canonical_name), note);
+  });
+}
+
+function renderProfileSelect() {
+  const options = [...state.speciesProfiles]
+    .sort((a, b) => a.display_name.localeCompare(b.display_name))
+    .map(
+      (profile) =>
+        `<option value="${escapeHtml(profile.slug)}">${escapeHtml(profile.display_name)}</option>`,
+    )
+    .join("");
+
+  elements.profileSelect.innerHTML = options;
+
+  if (!state.selectedProfileSlug && state.speciesProfiles.length) {
+    state.selectedProfileSlug = state.speciesProfiles[0].slug;
+  }
+
+  elements.profileSelect.value = state.selectedProfileSlug || "";
+  elements.profileSelect.onchange = () => {
+    state.selectedProfileSlug = elements.profileSelect.value;
+    renderSelectedProfile(null);
+  };
+}
+
+function getProfileNoteForRow(row) {
+  if (!row) {
+    return null;
+  }
+  return (
+    state.noteByLabel.get(normalizeProfileLabel(row.species_normalized)) ||
+    state.noteByLabel.get(normalizeProfileLabel(row.whale_group)) ||
+    null
+  );
+}
+
+function renderFallbackProfile(note) {
+  elements.profileKicker.textContent = "Needs review";
+  elements.profileTitle.textContent = note?.recommended_card_title || "No public profile";
+  elements.profileScientific.textContent = "This observation is kept separate from public species cards.";
+  elements.profileType.textContent = "Unresolved label";
+  elements.profileStatus.textContent = "No public profile";
+  elements.profileSummary.textContent =
+    "This category appears in the sightings data, but the research pack recommends not publishing it as a species-level whale profile yet.";
+  elements.profileRange.textContent =
+    "Range details are intentionally withheld until the identification is specific enough to support a public profile.";
+  elements.profileDiet.textContent =
+    "Diet and biology depend on which species this record actually refers to.";
+  elements.profileRole.textContent =
+    "Keep this label as an observation bucket or resolve it manually before presenting species-level facts to the public.";
+  elements.profileCaution.textContent =
+    note?.caution_for_public_use || "No public-facing species card is recommended for this label.";
+  renderListItems(elements.profileIdentification, [`Related labels: ${note?.related_raw_labels || "Unknown"}`]);
+  renderListItems(elements.profileSize, ["Species-level size and lifespan are not shown for uncertain labels."]);
+  renderListItems(elements.profileThreats, ["Avoid overstating species identity or conservation claims."]);
+  renderListItems(elements.profileFacts, ["Use this as a data category rather than a biological profile."]);
+  renderSourceItems(elements.profileSources, []);
+}
+
+function renderProfileCard(profile, note = null) {
+  const statusLabel = String(profile.conservation_status || "Status varies").split(" — ")[0];
+  elements.profileKicker.textContent =
+    note && note.profile_slug === profile.slug ? "Research-backed profile" : "Whale profile";
+  elements.profileTitle.textContent = profile.display_name || "Unknown profile";
+  elements.profileScientific.textContent = profile.scientific_name || "-";
+  elements.profileType.textContent = profile.profile_type || "-";
+  elements.profileStatus.textContent = statusLabel;
+  elements.profileSummary.textContent = profile.short_summary || "No summary available.";
+  elements.profileRange.textContent = profile.range_and_migration || "No range summary available.";
+  elements.profileDiet.textContent = profile.diet || "No diet summary available.";
+  elements.profileRole.textContent = profile.ecological_role || "No ecological role summary available.";
+  elements.profileCaution.textContent =
+    note?.caution_for_public_use || "Public-facing profile is considered safe with the stated caveats.";
+  renderListItems(elements.profileIdentification, profile.identification);
+  renderListItems(elements.profileSize, profile.size_and_lifespan);
+  renderListItems(elements.profileThreats, profile.main_threats);
+  renderListItems(elements.profileFacts, profile.public_facts);
+  renderSourceItems(elements.profileSources, profile.source_list);
+}
+
+function renderSelectedProfile(row) {
+  const note = row ? getProfileNoteForRow(row) : null;
+
+  if (note?.profile_slug && state.profileLookup.has(note.profile_slug)) {
+    state.selectedProfileSlug = note.profile_slug;
+    elements.profileSelect.value = note.profile_slug;
+    renderProfileCard(state.profileLookup.get(note.profile_slug), note);
+    return;
+  }
+
+  if (note && !note.profile_slug) {
+    renderFallbackProfile(note);
+    return;
+  }
+
+  if (state.selectedProfileSlug && state.profileLookup.has(state.selectedProfileSlug)) {
+    elements.profileSelect.value = state.selectedProfileSlug;
+    renderProfileCard(state.profileLookup.get(state.selectedProfileSlug));
+    return;
+  }
+
+  const firstProfile = state.speciesProfiles[0];
+  if (firstProfile) {
+    state.selectedProfileSlug = firstProfile.slug;
+    elements.profileSelect.value = firstProfile.slug;
+    renderProfileCard(firstProfile);
+  }
+}
+
 function renderGroupRankings(groupRows) {
   const maxTotal = Math.max(...groupRows.map((row) => Number(row.total_sighted)), 1);
   const markup = [...groupRows]
@@ -494,7 +683,7 @@ function renderGroupRankings(groupRows) {
     .map((row) => {
       const percent = (Number(row.total_sighted) / maxTotal) * 100;
       return `
-        <article class="rank-card">
+        <article class="rank-card" data-top-species="${escapeHtml(row.top_species)}">
           <div class="rank-head">
             <span class="rank-title">${row.whale_group}</span>
             <span>${formatNumber(row.total_sighted)}</span>
@@ -511,6 +700,15 @@ function renderGroupRankings(groupRows) {
     .join("");
 
   elements.groupRankings.innerHTML = markup;
+  elements.groupRankings.querySelectorAll("[data-top-species]").forEach((card) => {
+    card.onclick = () => {
+      const note = state.noteByLabel.get(normalizeProfileLabel(card.dataset.topSpecies));
+      if (note?.profile_slug) {
+        state.selectedProfileSlug = note.profile_slug;
+        renderSelectedProfile(null);
+      }
+    };
+  });
 }
 
 function renderSources(mapRows) {
@@ -795,6 +993,7 @@ function renderLeafletMap(mapRows) {
             .join(" • ");
 
   renderDetailCard(selectedRow);
+  renderSelectedProfile(selectedRow);
 }
 
 function updateMapViews() {
@@ -810,16 +1009,18 @@ async function renderDashboard() {
 
   elements.statusPill.textContent = "Loading data";
 
-  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, rawMapRows] = await Promise.all([
+  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, rawMapRows, speciesReference] = await Promise.all([
     loadJson(DATA_PATHS.cleanSummary),
     loadJson(DATA_PATHS.aggregateSummary),
     loadCsv(DATA_PATHS.monthly),
     loadCsv(DATA_PATHS.groups),
     loadCsv(DATA_PATHS.map),
+    loadJson(DATA_PATHS.speciesReference),
   ]);
 
   const mapRows = rawMapRows.filter((row) => Number(row.created_year || 0) >= DASHBOARD_MIN_YEAR);
   state.mapRows = mapRows;
+  prepareSpeciesReference(speciesReference);
 
   renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows);
   state.monthlyRows = monthlyRows;
@@ -827,6 +1028,7 @@ async function renderDashboard() {
   rebuildTrendChart(monthlyRows, groupRows);
   attachTrendInteractions();
   renderGroupRankings(groupRows);
+  renderProfileSelect();
   renderMapControls(groupRows, mapRows);
   updateMapViews();
   elements.statusPill.textContent = `Ready • ${formatNumber(mapRows.length)} mapped sightings from ${DASHBOARD_MIN_YEAR}+`;
@@ -845,6 +1047,7 @@ function renderLoadError(error) {
   elements.sourceList.innerHTML = `<p class="empty-state">${message}</p>`;
   elements.recentList.innerHTML = `<p class="empty-state">${message}</p>`;
   elements.mapLegend.innerHTML = `<p class="empty-state">${message}</p>`;
+  elements.profileSummary.textContent = message;
   elements.filteredPoints.textContent = "-";
   elements.filteredYears.textContent = "-";
   elements.trendTooltip.classList.add("hidden");

@@ -194,6 +194,82 @@
           </div>
           <div class="recent-list" id="recentList"></div>
         </section>
+
+        <section class="panel panel-wide">
+          <div class="panel-head panel-head-wrap">
+            <div>
+              <p class="panel-kicker">Field Guide</p>
+              <h2>About this whale</h2>
+            </div>
+            <div class="control-row">
+              <label class="control">
+                <span>Browse Profile</span>
+                <select id="profileSelect"></select>
+              </label>
+            </div>
+          </div>
+          <div class="species-layout">
+            <article class="species-panel species-panel-main">
+              <div class="species-topline">
+                <div>
+                  <p class="species-kicker" id="profileKicker">Public profile</p>
+                  <h3 id="profileTitle">Loading whale profile</h3>
+                  <p class="species-scientific" id="profileScientific">-</p>
+                </div>
+                <div class="species-badges">
+                  <span class="species-badge" id="profileType">-</span>
+                  <span class="species-badge species-badge-strong" id="profileStatus">-</span>
+                </div>
+              </div>
+              <p class="species-summary" id="profileSummary">
+                Species background will appear here once the dashboard loads.
+              </p>
+              <div class="species-copy-grid">
+                <article class="species-copy-card">
+                  <h4>Range & migration</h4>
+                  <p id="profileRange">-</p>
+                </article>
+                <article class="species-copy-card">
+                  <h4>Diet</h4>
+                  <p id="profileDiet">-</p>
+                </article>
+                <article class="species-copy-card">
+                  <h4>Ecological role</h4>
+                  <p id="profileRole">-</p>
+                </article>
+                <article class="species-copy-card">
+                  <h4>Public caution</h4>
+                  <p id="profileCaution">-</p>
+                </article>
+              </div>
+            </article>
+
+            <aside class="species-panel species-panel-side">
+              <div class="species-list-grid">
+                <section class="species-list-card">
+                  <h4>Identification</h4>
+                  <ul id="profileIdentification"></ul>
+                </section>
+                <section class="species-list-card">
+                  <h4>Size & lifespan</h4>
+                  <ul id="profileSize"></ul>
+                </section>
+                <section class="species-list-card">
+                  <h4>Main threats</h4>
+                  <ul id="profileThreats"></ul>
+                </section>
+                <section class="species-list-card">
+                  <h4>Public facts</h4>
+                  <ul id="profileFacts"></ul>
+                </section>
+                <section class="species-list-card species-list-card-wide">
+                  <h4>Sources</h4>
+                  <ul id="profileSources"></ul>
+                </section>
+              </div>
+            </aside>
+          </div>
+        </section>
       </main>
     </div>
   </body>

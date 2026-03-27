@@ -1,0 +1,1014 @@
+{
+  "generated_from": "data/reference/whale_dashboard_research_pack.md",
+  "profiles": [
+    {
+      "heading": "Orca (Killer Whale)",
+      "slug": "orca-killer-whale",
+      "display_name": "Orca (Killer Whale)",
+      "scientific_name": "Orcinus orca",
+      "profile_type": "species",
+      "short_summary": "Orcas are large, highly social toothed whales found in oceans around the world. They are often called killer whales, and different populations can have very different diets, behavior, and movements.",
+      "identification": [
+        "Bold black-and-white body pattern.",
+        "Tall dorsal fin, especially in adult males.",
+        "Large, rounded forehead with no long beak."
+      ],
+      "size_and_lifespan": [
+        "One of the largest toothed whales; adult size varies by sex and population.",
+        "Average lifespan is about 30 years for males and about 50 years for females, with some males reaching at least 60 and females at least 90 years."
+      ],
+      "range_and_migration": "Orcas occur worldwide, from polar seas to tropical waters. Some populations roam widely, while others are much more resident and closely tied to local prey and habitat.",
+      "diet": "Orcas are top predators. Diet varies by population and can include fish, squid, seals, and other marine mammals.",
+      "conservation_status": "Data Deficient — IUCN Red List summary, 2025-2 edition; status varies strongly by population, and some populations receive extra legal protection.",
+      "main_threats": [
+        "Contaminants that build up in long-lived top predators.",
+        "Prey changes and food scarcity in some populations.",
+        "Vessel disturbance and underwater noise in some regions."
+      ],
+      "ecological_role": "Orcas sit at the top of the marine food web. Because different populations specialize on different prey, they can shape marine ecosystems in very different ways.",
+      "public_facts": [
+        "“Orca” and “killer whale” are two names for the same species.",
+        "Orcas live in family groups and often have population-specific behaviors.",
+        "Although commonly called whales, they are the largest members of the dolphin family."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Killer Whale",
+          "url": "https://www.fisheries.noaa.gov/species/killer-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Southern Resident Killer Whale",
+          "url": "https://www.fisheries.noaa.gov/west-coast/endangered-species-conservation/southern-resident-killer-whale-orcinus-orca"
+        }
+      ]
+    },
+    {
+      "heading": "Southern Resident Orca",
+      "slug": "southern-resident-orca",
+      "display_name": "Southern Resident Orca",
+      "scientific_name": "Orcinus orca",
+      "profile_type": "population",
+      "short_summary": "Southern Resident orcas are a distinct population of orcas that live in the northeastern Pacific, especially around Washington and British Columbia. They are one of the best-known and most legally protected orca populations in the world.",
+      "identification": [
+        "Black-and-white orca body pattern.",
+        "Best treated as a population ID rather than a field-mark-only species ID.",
+        "Commonly discussed as J, K, and L pods."
+      ],
+      "size_and_lifespan": [
+        "Similar in overall appearance to other orcas.",
+        "As part of the orca species, females can live for decades and some may reach at least 90 years, while males may reach at least 60 years."
+      ],
+      "range_and_migration": "Southern Residents use the inland waters of Washington State and British Columbia for part of the year, but their range extends along the Pacific coast as they track prey. In recent years, time spent in the Salish Sea during summer has shifted.",
+      "diet": "This population is strongly linked to salmon, especially Chinook salmon, and prey availability is a central part of its conservation story.",
+      "conservation_status": "Endangered — U.S. Endangered Species Act, listed 2005; also considered depleted under the Marine Mammal Protection Act.",
+      "main_threats": [
+        "Scarcity of prey, especially Chinook salmon.",
+        "Pollution and contaminants.",
+        "Vessel disturbance and underwater noise."
+      ],
+      "ecological_role": "Southern Residents are a culturally important and ecologically visible predator population in the Pacific Northwest. Their condition is also used as a signal of broader ecosystem health, especially salmon systems.",
+      "public_facts": [
+        "This is a population, not a separate species.",
+        "NOAA identifies J, K, and L as the three pods in this population.",
+        "Public dashboards should keep Southern Residents separate from general orca sightings."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Southern Resident Killer Whale",
+          "url": "https://www.fisheries.noaa.gov/west-coast/endangered-species-conservation/southern-resident-killer-whale-orcinus-orca"
+        },
+        {
+          "label": "NOAA Fisheries — Southern Resident 5-Year Review Summary",
+          "url": "https://www.fisheries.noaa.gov/resource/document/2021-southern-resident-killer-whales-orcinus-orca-5-year-review-summary-and"
+        },
+        {
+          "label": "NOAA Fisheries — Killer Whale",
+          "url": "https://www.fisheries.noaa.gov/species/killer-whale"
+        }
+      ]
+    },
+    {
+      "heading": "Humpback Whale",
+      "slug": "humpback-whale",
+      "display_name": "Humpback Whale",
+      "scientific_name": "Megaptera novaeangliae",
+      "profile_type": "species",
+      "short_summary": "Humpback whales are famous for their long flippers, surface acrobatics, and complex songs. They are found in all oceans and make some of the longest migrations of any mammal.",
+      "identification": [
+        "Very long pectoral flippers.",
+        "Knobby head and broad tail flukes.",
+        "Often seen breaching or slapping the water with fins or tail."
+      ],
+      "size_and_lifespan": [
+        "Large baleen whale; calves are born at about 13 to 16 feet long.",
+        "NOAA’s page emphasizes long life history and slow reproduction, with females typically producing one calf every 2 to 3 years."
+      ],
+      "range_and_migration": "Humpbacks live in all oceans. Many populations migrate between tropical or subtropical breeding grounds and colder, food-rich feeding grounds, with some traveling about 5,000 miles in a season.",
+      "diet": "Humpbacks feed on krill and small schooling fish, filtering prey through baleen plates.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition; some subpopulations remain more threatened, including Arabian Sea and Oceania humpbacks.",
+      "main_threats": [
+        "Entanglement in fishing gear.",
+        "Vessel strikes.",
+        "Ocean noise and climate-driven prey shifts."
+      ],
+      "ecological_role": "Humpbacks are major consumers of small fish and krill and move nutrients across ocean regions through their migrations. They are also one of the most publicly recognizable large whales.",
+      "public_facts": [
+        "Some humpback populations make migrations of about 5,000 miles.",
+        "Their songs can travel long distances underwater.",
+        "Not all humpback populations share the same conservation status."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Humpback Whale",
+          "url": "https://www.fisheries.noaa.gov/species/humpback-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "IWC — Humpback Whale",
+          "url": "https://iwc.int/about-whales/whale-species/humpback-whale"
+        }
+      ]
+    },
+    {
+      "heading": "Gray Whale",
+      "slug": "gray-whale",
+      "display_name": "Gray Whale",
+      "scientific_name": "Eschrichtius robustus",
+      "profile_type": "species",
+      "short_summary": "Gray whales are easy to recognize by their mottled gray skin, lack of a dorsal fin, and row of small bumps near the tail. They are best known for long coastal migrations in the North Pacific.",
+      "identification": [
+        "Mottled gray body, often with barnacles and scars.",
+        "No dorsal fin; instead they have a low hump and “knuckles” near the tail.",
+        "Broad, paddle-shaped flippers."
+      ],
+      "size_and_lifespan": [
+        "Usually about 42 to 49 feet long and around 90,000 pounds.",
+        "Exact lifespan is uncertain, but one female was estimated at about 75 to 80 years old."
+      ],
+      "range_and_migration": "Gray whales are strongly associated with the North Pacific. Eastern North Pacific gray whales are famous seasonal visitors along the U.S. West Coast as they migrate between Arctic feeding grounds and breeding lagoons in Mexico.",
+      "diet": "Gray whales often feed near the seafloor, taking in sediment and filtering out small invertebrates and other prey.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition, but the western gray whale subpopulation is treated as Endangered in the same summary and has also been described by IWC materials as Critically Endangered. Public copy should make clear that population status differs.",
+      "main_threats": [
+        "Climate change and prey/habitat changes.",
+        "Entanglement in fishing gear.",
+        "Vessel strikes, noise, and disturbance from whale watching."
+      ],
+      "ecological_role": "Gray whales connect coastal and Arctic ecosystems through their migration and feeding. They also stir up seafloor habitat while feeding, which can affect local food webs.",
+      "public_facts": [
+        "Gray and grey whale are just spelling variants of the same species name.",
+        "They are one of the easiest large whales to identify from a distance.",
+        "Their conservation story differs sharply by population."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Gray Whale",
+          "url": "https://www.fisheries.noaa.gov/species/gray-whale"
+        },
+        {
+          "label": "NOAA Fisheries — Gray Whales in the Eastern North Pacific",
+          "url": "https://www.fisheries.noaa.gov/west-coast/science-data/gray-whales-eastern-north-pacific"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "IWC — Gray Whale",
+          "url": "https://iwc.int/about-whales/whale-species/gray-whale"
+        }
+      ]
+    },
+    {
+      "heading": "Common Minke Whale",
+      "slug": "common-minke-whale",
+      "display_name": "Common Minke Whale",
+      "scientific_name": "Balaenoptera acutorostrata",
+      "profile_type": "species",
+      "short_summary": "Common minke whales are relatively small, sleek baleen whales. They can be easy to miss at sea because they are fast, low-profile, and do not always show much of the body when surfacing.",
+      "identification": [
+        "Small, streamlined rorqual shape.",
+        "Tall, sickle-shaped dorsal fin set far back on the body.",
+        "Dark upper body with a pale chevron and white underside."
+      ],
+      "size_and_lifespan": [
+        "Up to about 35 feet long and around 20,000 pounds.",
+        "Sexual maturity is typically reached at around 3 to 8 years; NOAA’s page emphasizes annual or near-annual calving potential in some females rather than a clear single lifespan figure."
+      ],
+      "range_and_migration": "Common minke whales have a broad distribution in temperate, tropical, and high-latitude waters. Seasonal movements occur in many regions, but detailed migration patterns vary by population.",
+      "diet": "They feed on small schooling fish and invertebrates, filtering prey through baleen.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition. Public copy should avoid implying this applies to all “minke whales” everywhere, because Antarctic minke whales are assessed separately.",
+      "main_threats": [
+        "Entanglement in fishing gear.",
+        "Vessel strikes.",
+        "Noise and other human disturbance."
+      ],
+      "ecological_role": "Common minke whales are mid-to-large consumers in marine food webs and are often one of the more widespread baleen whales in temperate waters.",
+      "public_facts": [
+        "They are the smallest baleen whale in North American waters on NOAA’s species page.",
+        "They are often harder to spot than larger whales.",
+        "If your project includes Southern Ocean records, review whether any “minke whale” labels should instead be Antarctic minke whale."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Minke Whale",
+          "url": "https://www.fisheries.noaa.gov/species/minke-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Marine Mammal Stock Assessment Reports",
+          "url": "https://www.fisheries.noaa.gov/national/marine-mammal-protection/marine-mammal-stock-assessment-reports-species-stock"
+        }
+      ]
+    },
+    {
+      "heading": "Blue Whale",
+      "slug": "blue-whale",
+      "display_name": "Blue Whale",
+      "scientific_name": "Balaenoptera musculus",
+      "profile_type": "species",
+      "short_summary": "Blue whales are the largest animals known to have ever lived. They are long, slender baleen whales that usually appear blue-gray and are still recovering slowly from historical whaling.",
+      "identification": [
+        "Very long, slender body.",
+        "Mottled blue-gray coloration that can look bright blue underwater.",
+        "Small dorsal fin set far back on the body."
+      ],
+      "size_and_lifespan": [
+        "The largest animal on Earth.",
+        "Average lifespan is estimated at around 80 to 90 years."
+      ],
+      "range_and_migration": "Blue whales occur in oceans worldwide. Many populations move seasonally between productive feeding areas and warmer breeding areas, though routes and timing vary across ocean basins.",
+      "diet": "Blue whales feed mainly on krill, using baleen plates to strain huge amounts of seawater.",
+      "conservation_status": "Endangered — IUCN Red List summary, 2025-2 edition; also listed as endangered under the U.S. ESA on NOAA’s species page.",
+      "main_threats": [
+        "Ship strikes.",
+        "Entanglement in fishing gear.",
+        "Ocean noise and slow population recovery after industrial whaling."
+      ],
+      "ecological_role": "Blue whales are major krill predators and help move nutrients through ocean ecosystems. Their recovery is also a visible marker of how large marine systems respond after industrial exploitation.",
+      "public_facts": [
+        "Blue whales are bigger than any dinosaur known from the fossil record.",
+        "Scientists can identify some individuals from their mottling pattern.",
+        "Global population estimates remain far below pre-whaling levels."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Blue Whale",
+          "url": "https://www.fisheries.noaa.gov/species/blue-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Blue Whale Hot Spots",
+          "url": "https://www.fisheries.noaa.gov/west-coast/marine-mammal-protection/blue-whale-hot-spots"
+        }
+      ]
+    },
+    {
+      "heading": "Fin Whale",
+      "slug": "fin-whale",
+      "display_name": "Fin Whale",
+      "scientific_name": "Balaenoptera physalus",
+      "profile_type": "species",
+      "short_summary": "Fin whales are the second-largest whale species on Earth and are fast, sleek swimmers. They are found across the world’s oceans and are often recognized by their tall dorsal fin and long streamlined body.",
+      "identification": [
+        "Very long, sleek body.",
+        "Tall, obvious dorsal fin near the tail.",
+        "Distinctive asymmetrical head coloration, with a darker left lower jaw and paler right side, is a classic field mark."
+      ],
+      "size_and_lifespan": [
+        "Second only to the blue whale in size.",
+        "Maximum lifespan is about 90 years."
+      ],
+      "range_and_migration": "Fin whales occur in oceans worldwide. Many populations show seasonal movements, with feeding in cooler productive waters and breeding in warmer areas, but migration patterns vary by region.",
+      "diet": "Fin whales feed on krill, small fish, and other schooling prey filtered through baleen.",
+      "conservation_status": "Vulnerable — IUCN Red List summary, 2025-2 edition; NOAA also lists the species as endangered under the U.S. ESA, so status wording should name the authority.",
+      "main_threats": [
+        "Vessel strikes.",
+        "Entanglement in fishing gear.",
+        "Ocean noise and pollution."
+      ],
+      "ecological_role": "Fin whales are major large-bodied filter feeders and help link ocean productivity to higher trophic levels. Their presence is a strong sign of productive marine habitat.",
+      "public_facts": [
+        "“Finback whale” is another common name for this species.",
+        "They are among the fastest large whales.",
+        "Public-facing status text should specify the authority because U.S. ESA and IUCN labels differ."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Fin Whale",
+          "url": "https://www.fisheries.noaa.gov/species/fin-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Fin Whale 5-Year Review",
+          "url": "https://www.fisheries.noaa.gov/resource/document/fin-whale-5-year-review"
+        }
+      ]
+    },
+    {
+      "heading": "Sperm Whale",
+      "slug": "sperm-whale",
+      "display_name": "Sperm Whale",
+      "scientific_name": "Physeter macrocephalus",
+      "profile_type": "species",
+      "short_summary": "Sperm whales are the largest toothed whales and among the deepest-diving marine mammals. They have a huge block-shaped head and are found in deep oceans around the world.",
+      "identification": [
+        "Very large, squared-off head.",
+        "Narrow lower jaw and low dorsal hump rather than a tall fin.",
+        "Usually seen in deep offshore waters."
+      ],
+      "size_and_lifespan": [
+        "Largest toothed whale species.",
+        "Females mature slowly and can produce a calf only about once every five to seven years."
+      ],
+      "range_and_migration": "Sperm whales occur in all deep oceans from the equator toward polar waters. Distribution varies by sex and age, with adult males ranging farther into colder waters than females and young.",
+      "diet": "They feed mainly on squid and other deep-water prey, using echolocation to hunt in the dark ocean.",
+      "conservation_status": "Vulnerable — IUCN Red List update, 2025; NOAA lists the species as endangered under the U.S. ESA, so public copy should identify which authority is being cited.",
+      "main_threats": [
+        "Entanglement and bycatch.",
+        "Ship strikes.",
+        "Ocean noise and the long-term legacy of historical whaling."
+      ],
+      "ecological_role": "Sperm whales are important deep-ocean predators and help connect surface and deep-sea ecosystems through feeding and nutrient cycling.",
+      "public_facts": [
+        "They have the largest brain of any living animal.",
+        "They are among the deepest divers of all mammals.",
+        "Status wording should distinguish global IUCN status from U.S. ESA status."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Sperm Whale",
+          "url": "https://www.fisheries.noaa.gov/species/sperm-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List update for Sperm Whale",
+          "url": "https://iucn-csg.org/red-list-updates-published-for-sperm-whales-and-lahilles-bottlenose-dolphins/"
+        },
+        {
+          "label": "IWC — Sperm Whale",
+          "url": "https://iwc.int/about-whales/whale-species/sperm-whale"
+        }
+      ]
+    },
+    {
+      "heading": "Sei Whale",
+      "slug": "sei-whale",
+      "display_name": "Sei Whale",
+      "scientific_name": "Balaenoptera borealis",
+      "profile_type": "species",
+      "short_summary": "Sei whales are large, fast baleen whales that are less familiar to the public than blue, humpback, or gray whales. They are sleek, dark-bodied whales found across major ocean basins.",
+      "identification": [
+        "Long, sleek body.",
+        "Dark bluish-gray to black coloration with a pale underside.",
+        "Often shows subtle mottling and oval scars."
+      ],
+      "size_and_lifespan": [
+        "About 40 to 60 feet long and up to about 100,000 pounds.",
+        "Lifespan is about 50 to 70 years."
+      ],
+      "range_and_migration": "Sei whales occur in oceans worldwide, usually in deeper offshore waters. They generally move seasonally between lower-latitude breeding areas and higher-latitude feeding areas, though details vary by ocean basin.",
+      "diet": "Sei whales feed on small fish and invertebrates, including krill and copepods, using baleen to filter prey.",
+      "conservation_status": "Endangered — IUCN Red List summary, 2025-2 edition; NOAA also notes the species was listed as endangered in 1970 in U.S. law.",
+      "main_threats": [
+        "Vessel strikes.",
+        "Entanglement in fishing gear.",
+        "Ocean noise and climate-driven habitat or prey changes."
+      ],
+      "ecological_role": "Sei whales are large pelagic filter feeders and part of the open-ocean baleen whale community. Because they are less often seen near shore, public sightings can be especially valuable.",
+      "public_facts": [
+        "Sei rhymes with “say.”",
+        "It is one of the less commonly recognized large whales in public sighting data.",
+        "NOAA notes the species may be recovering from heavy historical whaling, but it is still listed as endangered."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Sei Whale",
+          "url": "https://www.fisheries.noaa.gov/species/sei-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Sei Whale 5-Year Review",
+          "url": "https://www.fisheries.noaa.gov/resource/document/sei-whale-5-year-review"
+        }
+      ]
+    },
+    {
+      "heading": "Baird’s Beaked Whale",
+      "slug": "bairds-beaked-whale",
+      "display_name": "Baird’s Beaked Whale",
+      "scientific_name": "Berardius bairdii",
+      "profile_type": "species",
+      "short_summary": "Baird’s beaked whales are very large, deep-diving whales of the North Pacific. They are shy offshore animals, but among beaked whales they are more often seen because of their size and social behavior.",
+      "identification": [
+        "Very long beak and large body.",
+        "Largest members of the beaked whale family.",
+        "Usually associated with deep offshore water."
+      ],
+      "size_and_lifespan": [
+        "Females reach about 36 feet and males about 35 feet; adults can weigh more than 26,000 pounds.",
+        "Very long-lived; NOAA reports females up to 54 years and males up to 84 years."
+      ],
+      "range_and_migration": "This species occurs across the North Pacific and adjacent seas, including U.S. West Coast and Alaska waters. It prefers cold, deep offshore habitat, though it can sometimes occur near shore where the continental shelf is narrow.",
+      "diet": "Baird’s beaked whales feed on deep-water prey such as squid and fish.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition.",
+      "main_threats": [
+        "Historical commercial whaling.",
+        "Entanglement in fishing gear and marine debris.",
+        "Ocean noise."
+      ],
+      "ecological_role": "As deep-diving predators, Baird’s beaked whales are part of the offshore food web and are indicators of deep-ocean habitat quality.",
+      "public_facts": [
+        "They are sometimes called giant bottlenose whales.",
+        "They are one of the largest beaked whales.",
+        "Generic “bottlenose whale” labels should not be auto-mapped to this species without caution."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Baird’s Beaked Whale",
+          "url": "https://www.fisheries.noaa.gov/species/bairds-beaked-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Baird’s Beaked Whale Stock Report",
+          "url": "https://www.fisheries.noaa.gov/s3/2024-12/2023-sar-bairds-beaked-whale-california-oregon-washington.pdf"
+        }
+      ]
+    },
+    {
+      "heading": "Sowerby’s Beaked Whale",
+      "slug": "sowerbys-beaked-whale",
+      "display_name": "Sowerby’s Beaked Whale",
+      "scientific_name": "Mesoplodon bidens",
+      "profile_type": "species",
+      "short_summary": "Sowerby’s beaked whales are little-known deep-water whales of the North Atlantic. They are slender, long-beaked, and are rarely seen compared with more coastal whales.",
+      "identification": [
+        "Long, narrow beak.",
+        "Deep-water beaked whale shape with a relatively small body.",
+        "Best associated with cold temperate to subarctic North Atlantic waters."
+      ],
+      "size_and_lifespan": [
+        "About 14.5 to 21 feet long and roughly 2,200 to 2,900 pounds.",
+        "Estimated lifespan is unknown."
+      ],
+      "range_and_migration": "Sowerby’s beaked whales occur in deep, cold temperate and subarctic waters of the North Atlantic. They may also occur near the edge of the ice pack.",
+      "diet": "Like other beaked whales, they feed on deep-water prey such as squid and fish.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition.",
+      "main_threats": [
+        "Entanglement in fishing gear.",
+        "Ocean noise.",
+        "Historical whaling in parts of the North Atlantic."
+      ],
+      "ecological_role": "Sowerby’s beaked whales are part of the deep-ocean predator community and remain understudied compared with more visible whale species.",
+      "public_facts": [
+        "It was the first beaked whale species to be scientifically described.",
+        "Most public datasets will have far fewer records of this species than of humpbacks or gray whales.",
+        "Many beaked whales are difficult to identify at sea, so record quality matters."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Sowerby’s Beaked Whale",
+          "url": "https://www.fisheries.noaa.gov/species/sowerbys-beaked-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Sowerby’s Beaked Whale Stock Report",
+          "url": "https://www.fisheries.noaa.gov/s3/2024-12/2023-sar-sowerbys-beaked-whale-wna.pdf"
+        }
+      ]
+    },
+    {
+      "heading": "Beluga Whale",
+      "slug": "beluga-whale",
+      "display_name": "Beluga Whale",
+      "scientific_name": "Delphinapterus leucas",
+      "profile_type": "species",
+      "short_summary": "Beluga whales are small white whales known for their flexible necks, rounded foreheads, and wide range of sounds. They are strongly associated with Arctic and sub-Arctic waters.",
+      "identification": [
+        "Adults are white; calves are dark gray and lighten with age.",
+        "Rounded, flexible melon and no obvious beak.",
+        "Small toothed whale with a very expressive head shape."
+      ],
+      "size_and_lifespan": [
+        "Up to about 16 feet long; average weight around 3,150 pounds.",
+        "Can live up to about 90 years, though exact aging is complex."
+      ],
+      "range_and_migration": "Belugas occur mainly in Arctic and sub-Arctic waters, especially around Alaska, Canada, Greenland, and Russia. Some populations move seasonally with sea ice and prey, while others are more localized.",
+      "diet": "Belugas eat fish, crustaceans, and other prey, using echolocation to find food in often murky or icy water.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition, but the Cook Inlet beluga subpopulation is Critically Endangered in the IUCN summary and remains endangered under U.S. ESA review.",
+      "main_threats": [
+        "Climate change and sea-ice change.",
+        "Contaminants and habitat impacts.",
+        "Noise, prey limitation, and harassment in some regions."
+      ],
+      "ecological_role": "Belugas are important Arctic predators and are tightly linked to changing northern marine ecosystems. In some places they also hold strong cultural importance for Indigenous communities.",
+      "public_facts": [
+        "Belugas are sometimes called “sea canaries” because of their sounds.",
+        "Their heads are unusually flexible compared with many other whales.",
+        "Public-facing status text should note that some beluga populations are much more at risk than the species as a whole."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Beluga Whale",
+          "url": "https://www.fisheries.noaa.gov/species/beluga-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — 2022 Status Review: Cook Inlet Beluga Whale",
+          "url": "https://www.fisheries.noaa.gov/resource/document/2022-status-review-cook-inlet-beluga-whale-delphinapterus-leucas-distinct"
+        }
+      ]
+    },
+    {
+      "heading": "Short-finned Pilot Whale",
+      "slug": "short-finned-pilot-whale",
+      "display_name": "Short-finned Pilot Whale",
+      "scientific_name": "Globicephala macrorhynchus",
+      "profile_type": "species",
+      "short_summary": "Short-finned pilot whales are highly social oceanic cetaceans found in tropical and temperate waters. They are often seen in close family groups and feed mainly on squid.",
+      "identification": [
+        "Large bulbous forehead with no obvious beak.",
+        "Low, broad-based dorsal fin.",
+        "Dark body with a gray saddle and pale chest patch."
+      ],
+      "size_and_lifespan": [
+        "About 12 to 24 feet long and roughly 2,200 to 6,600 pounds.",
+        "Maximum lifespan is about 45 years for males and 60 years for females."
+      ],
+      "range_and_migration": "Short-finned pilot whales occur globally in tropical and temperate waters. Some populations are resident and localized, while others range more widely offshore.",
+      "diet": "Their diet is mainly squid, with some fish.",
+      "conservation_status": "Least Concern — IUCN Red List summary, 2025-2 edition.",
+      "main_threats": [
+        "Fisheries bycatch.",
+        "Hunting in some regions.",
+        "Ocean noise and vessel strikes."
+      ],
+      "ecological_role": "Short-finned pilot whales are social offshore predators that help structure squid- and fish-based food webs. Their group-based behavior also makes them especially visible during some sightings and strandings.",
+      "public_facts": [
+        "They are one of two pilot whale species.",
+        "It is very difficult to separate short-finned and long-finned pilot whales at sea.",
+        "Public dashboards should avoid overstating species certainty if records came from distant visual sightings alone."
+      ],
+      "source_list": [
+        {
+          "label": "NOAA Fisheries — Short-Finned Pilot Whale",
+          "url": "https://www.fisheries.noaa.gov/species/short-finned-pilot-whale"
+        },
+        {
+          "label": "IUCN SSC Cetacean Specialist Group — Red List Status of Cetaceans",
+          "url": "https://iucn-csg.org/red-list-status-of-cetaceans/"
+        },
+        {
+          "label": "NOAA Fisheries — Short-finned Pilot Whale Stock Report",
+          "url": "https://www.fisheries.noaa.gov/s3/2024-12/2023-sar-short-finned-pilot-whale-wna.pdf"
+        }
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "raw_label": "Orca",
+      "canonical_name": "Orca (Killer Whale)",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Standard public name; “orca” and “killer whale” are the same species, *Orcinus orca*. Technically it is the largest member of the dolphin family, but “orca/killer whale” is an accepted public-facing whale label."
+    },
+    {
+      "raw_label": "Killer Whale (Orca)",
+      "canonical_name": "Orca (Killer Whale)",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Direct synonym of Orca."
+    },
+    {
+      "raw_label": "Southern Resident Killer Whale",
+      "canonical_name": "Southern Resident Orca",
+      "include_profile": "yes",
+      "type": "population",
+      "confidence": "high",
+      "notes": "Distinct population of orcas; NOAA treats the Southern Resident population separately and lists it as endangered under the ESA."
+    },
+    {
+      "raw_label": "Southern Resident Orca",
+      "canonical_name": "Southern Resident Orca",
+      "include_profile": "yes",
+      "type": "population",
+      "confidence": "high",
+      "notes": "Same population label as Southern Resident Killer Whale."
+    },
+    {
+      "raw_label": "Humpback",
+      "canonical_name": "Humpback Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Plain-name duplicate of Humpback Whale."
+    },
+    {
+      "raw_label": "Humpback Whale",
+      "canonical_name": "Humpback Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Humpback Sighting",
+      "canonical_name": "Humpback Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix, not a different taxon."
+    },
+    {
+      "raw_label": "Gray Whale",
+      "canonical_name": "Gray Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Grey",
+      "canonical_name": "Gray Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "medium",
+      "notes": "Safest normalization is the spelling variant “Gray Whale,” because the project also contains explicit Gray Whale labels. If records span regions outside the eastern North Pacific context, keep a note that this was inferred from label context rather than full taxonomic proof."
+    },
+    {
+      "raw_label": "gray whale",
+      "canonical_name": "Gray Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Lowercase duplicate of Gray Whale."
+    },
+    {
+      "raw_label": "Gray Whale Sighting",
+      "canonical_name": "Gray Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix only."
+    },
+    {
+      "raw_label": "Right Whale",
+      "canonical_name": "Right Whale (species uncertain)",
+      "include_profile": "no",
+      "type": "ambiguous",
+      "confidence": "low",
+      "notes": "Too vague for a public species card. “Right whale” could mean North Atlantic, North Pacific, or Southern right whale. Use only as an unresolved observation bucket unless you can confirm region or species from the source record."
+    },
+    {
+      "raw_label": "Right Whale Sighting",
+      "canonical_name": "Right Whale (species uncertain)",
+      "include_profile": "no",
+      "type": "ambiguous",
+      "confidence": "low",
+      "notes": "Same ambiguity as Right Whale; “Sighting” adds no taxonomic meaning."
+    },
+    {
+      "raw_label": "Minke Whale",
+      "canonical_name": "Common Minke Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "medium",
+      "notes": "Recommended only if the project is not using Antarctic records. “Minke whale” can refer broadly to more than one species, but NOAA’s standard North American species page uses Common Minke Whale; keep a caution note in the dashboard."
+    },
+    {
+      "raw_label": "Minke Whale Sighting",
+      "canonical_name": "Common Minke Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "medium",
+      "notes": "Same treatment as Minke Whale; event suffix removed."
+    },
+    {
+      "raw_label": "Blue Whale",
+      "canonical_name": "Blue Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Blue Whale Sighting",
+      "canonical_name": "Blue Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix only."
+    },
+    {
+      "raw_label": "Fin Whale",
+      "canonical_name": "Fin Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Finback Whale",
+      "canonical_name": "Fin Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Finback whale” is a common synonym for Fin Whale."
+    },
+    {
+      "raw_label": "Fin Whale Sighting",
+      "canonical_name": "Fin Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix only."
+    },
+    {
+      "raw_label": "Sperm Whale",
+      "canonical_name": "Sperm Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Sperm Whale Sighting",
+      "canonical_name": "Sperm Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix only."
+    },
+    {
+      "raw_label": "Sei Whale",
+      "canonical_name": "Sei Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Canonical species label."
+    },
+    {
+      "raw_label": "Bottlenose Whale",
+      "canonical_name": "Bottlenose Whale (species uncertain)",
+      "include_profile": "no",
+      "type": "ambiguous",
+      "confidence": "low",
+      "notes": "Too ambiguous for a public species card. This label can refer to Northern Bottlenose Whale, Southern Bottlenose Whale, or can be confused with “giant bottlenose whale,” an older common name linked to Baird’s beaked whale. Do not publish as a species profile without record-level confirmation."
+    },
+    {
+      "raw_label": "Baird's Beaked Whale",
+      "canonical_name": "Baird’s Beaked Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Valid whale species; sometimes called giant bottlenose whale."
+    },
+    {
+      "raw_label": "Sowerby's Beaked Whale",
+      "canonical_name": "Sowerby’s Beaked Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Valid whale species."
+    },
+    {
+      "raw_label": "Beluga",
+      "canonical_name": "Beluga Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Public-facing standard name should be Beluga Whale."
+    },
+    {
+      "raw_label": "Beluga Whale Sighting",
+      "canonical_name": "Beluga Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "“Sighting” is an event suffix only."
+    },
+    {
+      "raw_label": "Whale - Unidentified",
+      "canonical_name": "Unidentified Whale",
+      "include_profile": "no",
+      "type": "ambiguous",
+      "confidence": "medium",
+      "notes": "Useful as an unresolved observation category, but not as a species profile."
+    },
+    {
+      "raw_label": "Other",
+      "canonical_name": "Other / Unspecified Cetacean",
+      "include_profile": "no",
+      "type": "placeholder",
+      "confidence": "high",
+      "notes": "Placeholder only; do not expose as a species profile."
+    },
+    {
+      "raw_label": "Unspecified",
+      "canonical_name": "Other / Unspecified Cetacean",
+      "include_profile": "no",
+      "type": "placeholder",
+      "confidence": "high",
+      "notes": "Placeholder only; do not expose as a species profile."
+    },
+    {
+      "raw_label": "Other (Specify in comments)",
+      "canonical_name": "Other / Unspecified Cetacean",
+      "include_profile": "no",
+      "type": "placeholder",
+      "confidence": "high",
+      "notes": "Placeholder only; if comments exist, reclassify manually where possible."
+    },
+    {
+      "raw_label": "Northern Right Whale Dolphin",
+      "canonical_name": "Northern Right Whale Dolphin",
+      "include_profile": "no",
+      "type": "non-whale cetacean",
+      "confidence": "high",
+      "notes": "This is a dolphin, not a whale, even though the common name includes “whale.” Keep it out of whale profiles or place it in a separate dolphin/cetacean area."
+    },
+    {
+      "raw_label": "Short Finned Pilot Whale",
+      "canonical_name": "Short-finned Pilot Whale",
+      "include_profile": "yes",
+      "type": "species",
+      "confidence": "high",
+      "notes": "Common public name includes “whale”; taxonomically it is a large oceanic dolphin, but it is still widely treated as a whale common name in public materials."
+    }
+  ],
+  "implementation_notes": [
+    {
+      "canonical_name": "Orca (Killer Whale)",
+      "recommended_card_title": "Orca (Killer Whale)",
+      "recommended_short_label": "Orca",
+      "related_raw_labels": "Orca; Killer Whale (Orca)",
+      "caution_for_public_use": "Do not merge these automatically with Southern Resident Orca counts; population-level labels should stay separate. Also avoid implying that all orcas share one conservation status.",
+      "profile_slug": "orca-killer-whale"
+    },
+    {
+      "canonical_name": "Southern Resident Orca",
+      "recommended_card_title": "Southern Resident Orca",
+      "recommended_short_label": "Southern Resident",
+      "related_raw_labels": "Southern Resident Killer Whale; Southern Resident Orca",
+      "caution_for_public_use": "This is a population, not a separate species. Keep it distinct from general orca sightings.",
+      "profile_slug": "southern-resident-orca"
+    },
+    {
+      "canonical_name": "Humpback Whale",
+      "recommended_card_title": "Humpback Whale",
+      "recommended_short_label": "Humpback",
+      "related_raw_labels": "Humpback; Humpback Whale; Humpback Sighting",
+      "caution_for_public_use": "Safe species-level card. Avoid implying all humpback populations have the same conservation status.",
+      "profile_slug": "humpback-whale"
+    },
+    {
+      "canonical_name": "Gray Whale",
+      "recommended_card_title": "Gray Whale",
+      "recommended_short_label": "Gray Whale",
+      "related_raw_labels": "Gray Whale; Grey; gray whale; Gray Whale Sighting",
+      "caution_for_public_use": "“Grey” is probably just a spelling variant here, but note that the normalization was inferred from neighboring labels.",
+      "profile_slug": "gray-whale"
+    },
+    {
+      "canonical_name": "Right Whale (species uncertain)",
+      "recommended_card_title": "Right Whale (Species Uncertain)",
+      "recommended_short_label": "Right Whale",
+      "related_raw_labels": "Right Whale; Right Whale Sighting",
+      "caution_for_public_use": "Do not publish as a species profile unless you can assign North Atlantic, North Pacific, or Southern right whale from source records.",
+      "profile_slug": null
+    },
+    {
+      "canonical_name": "Common Minke Whale",
+      "recommended_card_title": "Common Minke Whale",
+      "recommended_short_label": "Minke",
+      "related_raw_labels": "Minke Whale; Minke Whale Sighting",
+      "caution_for_public_use": "Safe only if your records are not Antarctic minke whales. If project geography is broad, add a note or review records manually.",
+      "profile_slug": "common-minke-whale"
+    },
+    {
+      "canonical_name": "Blue Whale",
+      "recommended_card_title": "Blue Whale",
+      "recommended_short_label": "Blue Whale",
+      "related_raw_labels": "Blue Whale; Blue Whale Sighting",
+      "caution_for_public_use": "Safe species-level card.",
+      "profile_slug": "blue-whale"
+    },
+    {
+      "canonical_name": "Fin Whale",
+      "recommended_card_title": "Fin Whale",
+      "recommended_short_label": "Fin Whale",
+      "related_raw_labels": "Fin Whale; Finback Whale; Fin Whale Sighting",
+      "caution_for_public_use": "“Finback Whale” is just a synonym.",
+      "profile_slug": "fin-whale"
+    },
+    {
+      "canonical_name": "Sperm Whale",
+      "recommended_card_title": "Sperm Whale",
+      "recommended_short_label": "Sperm Whale",
+      "related_raw_labels": "Sperm Whale; Sperm Whale Sighting",
+      "caution_for_public_use": "Safe species-level card, but conservation status varies by authority.",
+      "profile_slug": "sperm-whale"
+    },
+    {
+      "canonical_name": "Sei Whale",
+      "recommended_card_title": "Sei Whale",
+      "recommended_short_label": "Sei Whale",
+      "related_raw_labels": "Sei Whale",
+      "caution_for_public_use": "Safe species-level card.",
+      "profile_slug": "sei-whale"
+    },
+    {
+      "canonical_name": "Bottlenose Whale (species uncertain)",
+      "recommended_card_title": "Bottlenose Whale (Species Uncertain)",
+      "recommended_short_label": "Bottlenose Whale",
+      "related_raw_labels": "Bottlenose Whale",
+      "caution_for_public_use": "Do not publish as a species card. Could refer to Northern Bottlenose Whale, Southern Bottlenose Whale, or be confused with Baird’s beaked whale via older common names.",
+      "profile_slug": null
+    },
+    {
+      "canonical_name": "Baird’s Beaked Whale",
+      "recommended_card_title": "Baird’s Beaked Whale",
+      "recommended_short_label": "Baird’s Beaked",
+      "related_raw_labels": "Baird's Beaked Whale",
+      "caution_for_public_use": "Safe species-level card. Do not fold generic “Bottlenose Whale” records into this card automatically.",
+      "profile_slug": "bairds-beaked-whale"
+    },
+    {
+      "canonical_name": "Sowerby’s Beaked Whale",
+      "recommended_card_title": "Sowerby’s Beaked Whale",
+      "recommended_short_label": "Sowerby’s Beaked",
+      "related_raw_labels": "Sowerby's Beaked Whale",
+      "caution_for_public_use": "Safe species-level card, but beaked whale IDs can be difficult from distant sightings.",
+      "profile_slug": "sowerbys-beaked-whale"
+    },
+    {
+      "canonical_name": "Beluga Whale",
+      "recommended_card_title": "Beluga Whale",
+      "recommended_short_label": "Beluga",
+      "related_raw_labels": "Beluga; Beluga Whale Sighting",
+      "caution_for_public_use": "Safe species-level card. Avoid implying global status applies to all local populations equally.",
+      "profile_slug": "beluga-whale"
+    },
+    {
+      "canonical_name": "Unidentified Whale",
+      "recommended_card_title": "Unidentified Whale",
+      "recommended_short_label": "Unidentified",
+      "related_raw_labels": "Whale - Unidentified",
+      "caution_for_public_use": "Keep as an unresolved observation category only; no public profile card.",
+      "profile_slug": null
+    },
+    {
+      "canonical_name": "Other / Unspecified Cetacean",
+      "recommended_card_title": "Other / Unspecified",
+      "recommended_short_label": "Other",
+      "related_raw_labels": "Other; Unspecified; Other (Specify in comments)",
+      "caution_for_public_use": "Placeholder bucket only. If comments exist, reclassify manually instead of showing this as a biological category.",
+      "profile_slug": null
+    },
+    {
+      "canonical_name": "Northern Right Whale Dolphin",
+      "recommended_card_title": "Northern Right Whale Dolphin",
+      "recommended_short_label": "Right Whale Dolphin",
+      "related_raw_labels": "Northern Right Whale Dolphin",
+      "caution_for_public_use": "Not a whale. Keep out of whale cards or place in a separate dolphin/cetacean category.",
+      "profile_slug": null
+    },
+    {
+      "canonical_name": "Short-finned Pilot Whale",
+      "recommended_card_title": "Short-finned Pilot Whale",
+      "recommended_short_label": "Pilot Whale",
+      "related_raw_labels": "Short Finned Pilot Whale",
+      "caution_for_public_use": "Public label is fine, but at-sea ID can be confused with long-finned pilot whales in some cases.",
+      "profile_slug": "short-finned-pilot-whale"
+    }
+  ]
+}
