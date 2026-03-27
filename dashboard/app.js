@@ -595,9 +595,31 @@ function renderProfileSelect() {
 
   elements.profileSelect.value = state.selectedProfileSlug || "";
   elements.profileSelect.onchange = () => {
-    state.selectedProfileSlug = elements.profileSelect.value;
-    renderSelectedProfile(null);
+    applyProfileSelection(elements.profileSelect.value, { syncSpeciesFilter: true });
   };
+}
+
+function applyProfileSelection(profileSlug, options = {}) {
+  const { syncSpeciesFilter = false } = options;
+  if (!profileSlug || !state.profileLookup.has(profileSlug)) {
+    return;
+  }
+
+  const profile = state.profileLookup.get(profileSlug);
+  state.selectedProfileSlug = profileSlug;
+  elements.profileSelect.value = profileSlug;
+
+  if (syncSpeciesFilter) {
+    state.selectedSpecies = profile.display_name;
+    state.selectedGroup = "all";
+    state.selectedEntryId = null;
+    elements.speciesSelect.value = profile.display_name;
+    elements.groupSelect.value = "all";
+    updateMapViews();
+    return;
+  }
+
+  renderSelectedProfile(null);
 }
 
 function getProfileNoteForRow(row) {
@@ -723,14 +745,12 @@ function renderGroupRankings(groupRows) {
   elements.groupRankings.querySelectorAll("[data-top-species]").forEach((card) => {
     card.onclick = () => {
       if (card.dataset.profileSlug && state.profileLookup.has(card.dataset.profileSlug)) {
-        state.selectedProfileSlug = card.dataset.profileSlug;
-        renderSelectedProfile(null);
+        applyProfileSelection(card.dataset.profileSlug, { syncSpeciesFilter: true });
         return;
       }
       const note = state.noteByLabel.get(normalizeProfileLabel(card.dataset.topSpecies));
       if (note?.profile_slug) {
-        state.selectedProfileSlug = note.profile_slug;
-        renderSelectedProfile(null);
+        applyProfileSelection(note.profile_slug, { syncSpeciesFilter: true });
       }
     };
   });
@@ -898,6 +918,13 @@ function renderMapControls(groupRows, mapRows) {
 
   elements.speciesSelect.onchange = () => {
     state.selectedSpecies = elements.speciesSelect.value;
+    const linkedProfile = state.speciesProfiles.find(
+      (profile) => profile.display_name === state.selectedSpecies,
+    );
+    if (linkedProfile) {
+      state.selectedProfileSlug = linkedProfile.slug;
+      elements.profileSelect.value = linkedProfile.slug;
+    }
     state.selectedEntryId = null;
     updateMapViews();
   };
