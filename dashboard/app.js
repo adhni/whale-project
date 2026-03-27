@@ -29,6 +29,7 @@ const state = {
   regionOptions: ["all"],
   selectedYear: "all",
   selectedGroup: "all",
+  selectedSpecies: "all",
   selectedSource: "all",
   selectedRegion: "all",
   selectedEntryId: null,
@@ -64,6 +65,7 @@ const elements = {
   yearSliderValue: document.getElementById("yearSliderValue"),
   yearTicks: document.getElementById("yearTicks"),
   groupSelect: document.getElementById("groupSelect"),
+  speciesSelect: document.getElementById("speciesSelect"),
   sourceSelect: document.getElementById("sourceSelect"),
   activeFilters: document.getElementById("activeFilters"),
   resetFiltersButton: document.getElementById("resetFiltersButton"),
@@ -255,10 +257,12 @@ function syncYearSlider() {
 function resetFilters() {
   state.selectedYear = "all";
   state.selectedGroup = "all";
+  state.selectedSpecies = "all";
   state.selectedSource = "all";
   state.selectedRegion = "all";
   state.selectedEntryId = null;
   elements.groupSelect.value = "all";
+  elements.speciesSelect.value = "all";
   elements.sourceSelect.value = "all";
   syncYearSlider();
   rebuildTrendChart(state.monthlyRows, state.groupRows);
@@ -273,9 +277,11 @@ function getFilteredMapRows(mapRows) {
   return mapRows.filter((row) => {
     const yearOk = state.selectedYear === "all" || row.created_year === state.selectedYear;
     const groupOk = state.selectedGroup === "all" || row.whale_group === state.selectedGroup;
+    const speciesOk =
+      state.selectedSpecies === "all" || row.canonical_name === state.selectedSpecies;
     const sourceOk = state.selectedSource === "all" || getSourceLabel(row) === state.selectedSource;
     const regionOk = state.selectedRegion === "all" || row.region === state.selectedRegion;
-    return yearOk && groupOk && sourceOk && regionOk;
+    return yearOk && groupOk && speciesOk && sourceOk && regionOk;
   });
 }
 
@@ -286,6 +292,9 @@ function renderFilterSummary() {
   }
   if (state.selectedGroup !== "all") {
     filters.push(["Group", state.selectedGroup]);
+  }
+  if (state.selectedSpecies !== "all") {
+    filters.push(["Species", state.selectedSpecies]);
   }
   if (state.selectedSource !== "all") {
     filters.push(["Source", state.selectedSource]);
@@ -833,6 +842,13 @@ function getSelectedOrDefaultRow(filteredRows) {
 function renderMapControls(groupRows, mapRows) {
   const years = [...new Set(mapRows.map((row) => row.created_year).filter(Boolean))].sort();
   const groups = groupRows.map((row) => row.whale_group);
+  const species = [
+    ...new Set(
+      mapRows
+        .map((row) => row.canonical_name)
+        .filter((name) => name && name !== "Unknown"),
+    ),
+  ].sort((a, b) => a.localeCompare(b));
   const sources = [...new Set(mapRows.map((row) => getSourceLabel(row)).filter(Boolean))].sort((a, b) =>
     a.localeCompare(b),
   );
@@ -853,13 +869,16 @@ function renderMapControls(groupRows, mapRows) {
     <span>${years[years.length - 1] || ""}</span>
   `;
   elements.groupSelect.innerHTML = `<option value="all">All groups</option>${groups.map((group) => `<option value="${group}">${group}</option>`).join("")}`;
+  elements.speciesSelect.innerHTML = `<option value="all">All species</option>${species.map((name) => `<option value="${name}">${name}</option>`).join("")}`;
   elements.sourceSelect.innerHTML = `<option value="all">All sources</option>${sources.map((source) => `<option value="${source}">${source}</option>`).join("")}`;
 
   state.selectedYear = "all";
   state.selectedGroup = "all";
+  state.selectedSpecies = "all";
   state.selectedSource = "all";
   state.selectedRegion = "all";
   elements.groupSelect.value = state.selectedGroup;
+  elements.speciesSelect.value = state.selectedSpecies;
   elements.sourceSelect.value = state.selectedSource;
   syncYearSlider();
   renderRegionPresets();
@@ -873,6 +892,12 @@ function renderMapControls(groupRows, mapRows) {
 
   elements.groupSelect.onchange = () => {
     state.selectedGroup = elements.groupSelect.value;
+    state.selectedEntryId = null;
+    updateMapViews();
+  };
+
+  elements.speciesSelect.onchange = () => {
+    state.selectedSpecies = elements.speciesSelect.value;
     state.selectedEntryId = null;
     updateMapViews();
   };
@@ -997,18 +1022,14 @@ function renderLeafletMap(mapRows) {
     filtered.length > MAX_MAP_POINTS
       ? `${formatNumber(pointsToDraw.length)} / ${formatNumber(filtered.length)}`
       : formatNumber(filtered.length);
-  elements.filteredYears.textContent =
-    state.selectedYear === "all"
-      ? state.selectedSource === "all"
-        ? state.selectedRegion === "all"
-          ? "All years"
-          : state.selectedRegion
-        : state.selectedSource
-      : state.selectedGroup === "all" && state.selectedSource === "all" && state.selectedRegion === "all"
-        ? state.selectedYear
-        : [state.selectedYear, state.selectedGroup !== "all" ? state.selectedGroup : null, state.selectedSource !== "all" ? state.selectedSource : null, state.selectedRegion !== "all" ? state.selectedRegion : null]
-            .filter(Boolean)
-            .join(" • ");
+  const mapWindowParts = [
+    state.selectedYear === "all" ? "All years" : state.selectedYear,
+    state.selectedGroup !== "all" ? state.selectedGroup : null,
+    state.selectedSpecies !== "all" ? state.selectedSpecies : null,
+    state.selectedSource !== "all" ? state.selectedSource : null,
+    state.selectedRegion !== "all" ? state.selectedRegion : null,
+  ].filter(Boolean);
+  elements.filteredYears.textContent = mapWindowParts.join(" • ");
 
   renderDetailCard(selectedRow);
   renderSelectedProfile(selectedRow);
