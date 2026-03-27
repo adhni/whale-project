@@ -3,7 +3,7 @@ const DATA_PATHS = {
   aggregateSummary: "../data/processed/aggregate-summary.json",
   monthly: "../data/processed/monthly-group-totals.csv",
   groups: "../data/processed/group-summary.csv",
-  map: "../data/processed/map-points.csv",
+  map: "../data/processed/map-points-web.csv",
   speciesReference: "../data/reference/species-reference.json",
 };
 

@@ -13,6 +13,7 @@ dependencies = []
 [project.scripts]
 whales-clean = "whales.clean:main"
 whales-aggregate = "whales.aggregate:main"
+whales-build = "whales.build:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

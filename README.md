@@ -18,8 +18,7 @@ cd /Users/adhni/Desktop/whale-project
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-python3 -m whales.clean
-python3 -m whales.aggregate
+whales-build
 python3 -m http.server 8000
 ```
 
@@ -45,7 +44,8 @@ The first pass cleaner:
 
 The aggregation step:
 
-- emits map-ready rows with valid coordinates and positive sightings
+- emits full map-ready rows with valid coordinates and positive sightings
+- emits a lighter `map-points-web.csv` for the dashboard
 - emits monthly totals by whale group from 2018 onward
 - emits a group summary table for downstream UI or reporting
 - writes a lightweight aggregation summary JSON
@@ -53,7 +53,7 @@ The aggregation step:
 ## Dashboard
 
 The static dashboard lives in `dashboard/` and reads from the generated files in
-`data/processed/`.
+`data/processed/`, using `map-points-web.csv` for the live map.
 
 ## Static Deploy
 

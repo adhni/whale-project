@@ -21,6 +21,7 @@ RAW_PATH = DATA_DIR / "raw" / "acartia-export.csv"
 CLEAN_PATH = DATA_DIR / "processed" / "acartia-clean.csv"
 CLEAN_SUMMARY_PATH = DATA_DIR / "processed" / "acartia-summary.json"
 MAP_PATH = DATA_DIR / "processed" / "map-points.csv"
+WEB_MAP_PATH = DATA_DIR / "processed" / "map-points-web.csv"
 MONTHLY_PATH = DATA_DIR / "processed" / "monthly-group-totals.csv"
 GROUP_PATH = DATA_DIR / "processed" / "group-summary.csv"
 AGG_SUMMARY_PATH = DATA_DIR / "processed" / "aggregate-summary.json"
@@ -42,6 +43,7 @@ def ensure_processed_data() -> None:
     aggregate_run(
         input_path=CLEAN_PATH,
         map_output_path=MAP_PATH,
+        web_map_output_path=WEB_MAP_PATH,
         monthly_output_path=MONTHLY_PATH,
         group_output_path=GROUP_PATH,
         summary_output_path=AGG_SUMMARY_PATH,
