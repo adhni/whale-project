@@ -45,6 +45,7 @@ const state = {
   map: null,
   pointLayer: null,
   mapRenderer: null,
+  markerLookup: new Map(),
 };
 
 const elements = {
@@ -887,7 +888,12 @@ function renderRecent(mapRows) {
 
   elements.recentList.innerHTML = recentRows
     .map((row) => `
-      <article class="recent-card" data-entry-id="${escapeHtml(row.entry_id)}">
+      <article
+        class="recent-card ${row.entry_id === state.selectedEntryId ? "active" : ""}"
+        data-entry-id="${escapeHtml(row.entry_id)}"
+        role="button"
+        tabindex="0"
+      >
         <div class="recent-head">
           <span class="recent-title">${row.canonical_name || row.species_normalized || "Unknown species"}</span>
           <span>${formatMonth(row.created_month)}</span>
@@ -900,10 +906,16 @@ function renderRecent(mapRows) {
     .join("");
 
   elements.recentList.querySelectorAll("[data-entry-id]").forEach((card) => {
-    card.onclick = () => {
+    const selectRecentCard = () => {
       state.selectedEntryId = card.dataset.entryId || null;
-      renderLeafletMap(state.mapRows, { fitMode: "selection" });
-      renderMapSidePanels(getFilteredMapRows(state.mapRows));
+      updateMapViews({ fitMode: "selection", openPopup: true });
+    };
+    card.onclick = selectRecentCard;
+    card.onkeydown = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectRecentCard();
+      }
     };
   });
 }
@@ -1126,6 +1138,18 @@ function fitMapToRows(rows, maxZoom = 6) {
   return true;
 }
 
+function openSelectedPopup(row) {
+  if (!row) {
+    return false;
+  }
+  const marker = state.markerLookup.get(row.entry_id);
+  if (!marker) {
+    return false;
+  }
+  marker.openPopup();
+  return true;
+}
+
 function focusSelectedRow(row) {
   if (!row || !state.map) {
     return false;
@@ -1168,7 +1192,7 @@ function resolveMapFit(filteredRows, pointsToDraw, selectedRow, fitMode) {
 }
 
 function renderLeafletMap(mapRows, options = {}) {
-  const { fitMode = "auto" } = options;
+  const { fitMode = "auto", openPopup = false } = options;
   ensureMap();
 
   const filtered = getFilteredMapRows(mapRows);
@@ -1183,6 +1207,7 @@ function renderLeafletMap(mapRows, options = {}) {
   }
 
   state.pointLayer = L.layerGroup();
+  state.markerLookup = new Map();
   pointsToDraw.forEach((row) => {
     const lat = Number(row.latitude);
     const lon = Number(row.longitude);
@@ -1203,15 +1228,17 @@ function renderLeafletMap(mapRows, options = {}) {
     marker.bindPopup(buildPopup(row), { className: "whale-popup" });
     marker.on("click", () => {
       state.selectedEntryId = row.entry_id;
-      renderDetailCard(row);
-      renderSelectedProfile(row);
-      renderLeafletMap(state.mapRows, { fitMode: "selection" });
+      updateMapViews({ fitMode: "selection", openPopup: true });
     });
     marker.addTo(state.pointLayer);
+    state.markerLookup.set(row.entry_id, marker);
   });
 
   state.pointLayer.addTo(state.map);
   resolveMapFit(filtered, pointsToDraw, selectedRow, fitMode);
+  if (openPopup) {
+    openSelectedPopup(selectedRow);
+  }
 
   elements.filteredPoints.textContent =
     filtered.length > MAX_MAP_POINTS
