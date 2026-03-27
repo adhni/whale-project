@@ -39,6 +39,10 @@ body {
   overflow-x: hidden;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .backdrop {
   position: fixed;
   inset: auto;
@@ -297,6 +301,10 @@ body {
 
 .chart-tooltip.hidden {
   display: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .tooltip-month {
@@ -918,6 +926,70 @@ body {
   color: var(--accent);
 }
 
+.profile-modal-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+}
+
+.profile-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 7, 9, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.profile-modal {
+  position: relative;
+  width: min(1120px, calc(100vw - 32px));
+  max-height: calc(100vh - 40px);
+  margin: 20px auto;
+  padding: 26px;
+  overflow: auto;
+  background:
+    radial-gradient(circle at top right, rgba(124, 224, 205, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(6, 30, 37, 0.98), rgba(2, 15, 19, 0.98));
+}
+
+.profile-modal-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.profile-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.profile-modal-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.profile-modal-summary {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.species-stats-strip-modal {
+  margin-top: 20px;
+}
+
+.profile-modal-copy,
+.profile-modal-side {
+  display: grid;
+  gap: 14px;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -939,6 +1011,10 @@ body {
   }
 
   .species-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-modal-grid {
     grid-template-columns: 1fr;
   }
 
@@ -971,6 +1047,19 @@ body {
   .panel-side,
   .dashboard-grid > .panel:not(.panel-large):not(.panel-wide) {
     padding: 18px;
+  }
+
+  .profile-modal {
+    width: min(100vw - 18px, 100%);
+    max-height: calc(100vh - 18px);
+    margin: 9px auto;
+    padding: 18px;
+  }
+
+  .profile-modal-head,
+  .profile-modal-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .hero h1 {

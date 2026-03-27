@@ -46,6 +46,10 @@ const state = {
   pointLayer: null,
   mapRenderer: null,
   markerLookup: new Map(),
+  currentProfile: null,
+  currentProfileNote: null,
+  currentProfileMode: "profile",
+  modalInteractionsBound: false,
 };
 
 const elements = {
@@ -85,6 +89,7 @@ const elements = {
   detailYear: document.getElementById("detailYear"),
   detailRegion: document.getElementById("detailRegion"),
   profileSelect: document.getElementById("profileSelect"),
+  openProfileModalButton: document.getElementById("openProfileModalButton"),
   profileKicker: document.getElementById("profileKicker"),
   profileTitle: document.getElementById("profileTitle"),
   profileScientific: document.getElementById("profileScientific"),
@@ -104,6 +109,28 @@ const elements = {
   profileThreats: document.getElementById("profileThreats"),
   profileFacts: document.getElementById("profileFacts"),
   profileSources: document.getElementById("profileSources"),
+  profileModalShell: document.getElementById("profileModalShell"),
+  profileModalBackdrop: document.getElementById("profileModalBackdrop"),
+  closeProfileModalButton: document.getElementById("closeProfileModalButton"),
+  modalProfileKicker: document.getElementById("modalProfileKicker"),
+  modalProfileTitle: document.getElementById("modalProfileTitle"),
+  modalProfileScientific: document.getElementById("modalProfileScientific"),
+  modalProfileType: document.getElementById("modalProfileType"),
+  modalProfileStatus: document.getElementById("modalProfileStatus"),
+  modalProfileSummary: document.getElementById("modalProfileSummary"),
+  modalProfileStatRows: document.getElementById("modalProfileStatRows"),
+  modalProfileStatYears: document.getElementById("modalProfileStatYears"),
+  modalProfileStatRegions: document.getElementById("modalProfileStatRegions"),
+  modalProfileStatVisible: document.getElementById("modalProfileStatVisible"),
+  modalProfileRange: document.getElementById("modalProfileRange"),
+  modalProfileDiet: document.getElementById("modalProfileDiet"),
+  modalProfileRole: document.getElementById("modalProfileRole"),
+  modalProfileCaution: document.getElementById("modalProfileCaution"),
+  modalProfileIdentification: document.getElementById("modalProfileIdentification"),
+  modalProfileSize: document.getElementById("modalProfileSize"),
+  modalProfileThreats: document.getElementById("modalProfileThreats"),
+  modalProfileFacts: document.getElementById("modalProfileFacts"),
+  modalProfileSources: document.getElementById("modalProfileSources"),
 };
 
 const MAX_MAP_POINTS = 12000;
@@ -632,6 +659,27 @@ function attachTrendInteractions() {
   };
 }
 
+function attachProfileModalInteractions() {
+  if (state.modalInteractionsBound) {
+    return;
+  }
+  state.modalInteractionsBound = true;
+  elements.openProfileModalButton.onclick = () => {
+    openProfileModal();
+  };
+  elements.closeProfileModalButton.onclick = () => {
+    closeProfileModal();
+  };
+  elements.profileModalBackdrop.onclick = () => {
+    closeProfileModal();
+  };
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !elements.profileModalShell.classList.contains("hidden")) {
+      closeProfileModal();
+    }
+  });
+}
+
 function renderListItems(element, items, className = "") {
   if (!items?.length) {
     element.innerHTML = `<li class="empty-state">No details available.</li>`;
@@ -660,11 +708,11 @@ function normalizeProfileLabel(value) {
   return String(value || "").trim().toLowerCase();
 }
 
-function setProfileStats({ totalRows = "-", yearSpan = "-", regions = "-", visibleNow = "-" }) {
-  elements.profileStatRows.textContent = totalRows;
-  elements.profileStatYears.textContent = yearSpan;
-  elements.profileStatRegions.textContent = regions;
-  elements.profileStatVisible.textContent = visibleNow;
+function setProfileStats(target, { totalRows = "-", yearSpan = "-", regions = "-", visibleNow = "-" }) {
+  target.rows.textContent = totalRows;
+  target.years.textContent = yearSpan;
+  target.regions.textContent = regions;
+  target.visible.textContent = visibleNow;
 }
 
 function getRowsForProfile(profile, note = null) {
@@ -694,9 +742,24 @@ function getRowsForProfile(profile, note = null) {
 
 function renderProfileStats(profile, note = null) {
   const matchingRows = getRowsForProfile(profile, note);
+  const summary = {
+    totalRows: "-",
+    yearSpan: "-",
+    regions: "-",
+    visibleNow: "-",
+  };
+
   if (!matchingRows.length) {
-    setProfileStats({});
-    return;
+    setProfileStats(
+      {
+        rows: elements.profileStatRows,
+        years: elements.profileStatYears,
+        regions: elements.profileStatRegions,
+        visible: elements.profileStatVisible,
+      },
+      summary,
+    );
+    return summary;
   }
 
   const years = matchingRows
@@ -707,12 +770,22 @@ function renderProfileStats(profile, note = null) {
   const matchingIds = new Set(matchingRows.map((row) => row.entry_id));
   const visibleNow = getFilteredMapRows(state.mapRows).filter((row) => matchingIds.has(row.entry_id)).length;
 
-  setProfileStats({
+  const payload = {
     totalRows: formatNumber(matchingRows.length),
     yearSpan: years.length ? `${years[0]}-${years[years.length - 1]}` : "-",
     regions: formatNumber(regions.size),
     visibleNow: formatNumber(visibleNow),
-  });
+  };
+  setProfileStats(
+    {
+      rows: elements.profileStatRows,
+      years: elements.profileStatYears,
+      regions: elements.profileStatRegions,
+      visible: elements.profileStatVisible,
+    },
+    payload,
+  );
+  return payload;
 }
 
 function prepareSpeciesReference(reference) {
@@ -798,6 +871,9 @@ function getProfileNoteForRow(row) {
 }
 
 function renderFallbackProfile(note) {
+  state.currentProfile = null;
+  state.currentProfileNote = note || null;
+  state.currentProfileMode = "fallback";
   elements.profileKicker.textContent = "Needs review";
   elements.profileTitle.textContent = note?.recommended_card_title || "No public profile";
   elements.profileScientific.textContent = "This observation is kept separate from public species cards.";
@@ -819,9 +895,17 @@ function renderFallbackProfile(note) {
   renderListItems(elements.profileFacts, ["Use this as a data category rather than a biological profile."]);
   renderSourceItems(elements.profileSources, []);
   renderProfileStats(null, note);
+  elements.openProfileModalButton.disabled = false;
+  elements.openProfileModalButton.textContent = "Open Full Profile";
+  if (!elements.profileModalShell.classList.contains("hidden")) {
+    renderProfileModal();
+  }
 }
 
 function renderProfileCard(profile, note = null) {
+  state.currentProfile = profile;
+  state.currentProfileNote = note || null;
+  state.currentProfileMode = "profile";
   const statusLabel = String(profile.conservation_status || "Status varies").split(" — ")[0];
   elements.profileKicker.textContent =
     note && note.profile_slug === profile.slug ? "Research-backed profile" : "Whale profile";
@@ -841,6 +925,97 @@ function renderProfileCard(profile, note = null) {
   renderListItems(elements.profileFacts, profile.public_facts);
   renderSourceItems(elements.profileSources, profile.source_list);
   renderProfileStats(profile, note);
+  elements.openProfileModalButton.disabled = false;
+  elements.openProfileModalButton.textContent = "Open Full Profile";
+  if (!elements.profileModalShell.classList.contains("hidden")) {
+    renderProfileModal();
+  }
+}
+
+function renderProfileModal() {
+  const profile = state.currentProfile;
+  const note = state.currentProfileNote;
+  const statPayload = renderProfileStats(profile, note);
+
+  if (state.currentProfileMode === "fallback") {
+    elements.modalProfileKicker.textContent = "Needs review";
+    elements.modalProfileTitle.textContent = note?.recommended_card_title || "No public profile";
+    elements.modalProfileScientific.textContent =
+      "This observation is kept separate from public species cards.";
+    elements.modalProfileType.textContent = "Unresolved label";
+    elements.modalProfileStatus.textContent = "No public profile";
+    elements.modalProfileSummary.textContent =
+      "This label appears in the sightings data, but the current research pack does not support presenting it as a confirmed whale species profile.";
+    elements.modalProfileRange.textContent =
+      "Range and biology are intentionally withheld until the record can be assigned to a specific species or population.";
+    elements.modalProfileDiet.textContent =
+      "Diet and natural-history details depend on which species this unresolved label actually represents.";
+    elements.modalProfileRole.textContent =
+      "Treat this as a caution category in the public dashboard rather than a biological profile.";
+    elements.modalProfileCaution.textContent =
+      note?.caution_for_public_use || "No public-facing species card is recommended for this label.";
+    renderListItems(
+      elements.modalProfileIdentification,
+      [`Related labels: ${note?.related_raw_labels || "Unknown"}`],
+    );
+    renderListItems(elements.modalProfileSize, [
+      "Species-level size and lifespan are not shown for uncertain labels.",
+    ]);
+    renderListItems(elements.modalProfileThreats, [
+      "Avoid overstating species identity or conservation claims.",
+    ]);
+    renderListItems(elements.modalProfileFacts, [
+      "Use this as a data category rather than a biological profile.",
+    ]);
+    renderSourceItems(elements.modalProfileSources, []);
+  } else if (profile) {
+    const statusLabel = String(profile.conservation_status || "Status varies").split(" — ")[0];
+    elements.modalProfileKicker.textContent =
+      note && note.profile_slug === profile.slug ? "Research-backed profile" : "Whale profile";
+    elements.modalProfileTitle.textContent = profile.display_name || "Unknown profile";
+    elements.modalProfileScientific.textContent = profile.scientific_name || "-";
+    elements.modalProfileType.textContent = profile.profile_type || "-";
+    elements.modalProfileStatus.textContent = statusLabel;
+    elements.modalProfileSummary.textContent = profile.short_summary || "No summary available.";
+    elements.modalProfileRange.textContent =
+      profile.range_and_migration || "No range summary available.";
+    elements.modalProfileDiet.textContent = profile.diet || "No diet summary available.";
+    elements.modalProfileRole.textContent =
+      profile.ecological_role || "No ecological role summary available.";
+    elements.modalProfileCaution.textContent =
+      note?.caution_for_public_use || "Public-facing profile is considered safe with the stated caveats.";
+    renderListItems(elements.modalProfileIdentification, profile.identification);
+    renderListItems(elements.modalProfileSize, profile.size_and_lifespan);
+    renderListItems(elements.modalProfileThreats, profile.main_threats);
+    renderListItems(elements.modalProfileFacts, profile.public_facts);
+    renderSourceItems(elements.modalProfileSources, profile.source_list);
+  }
+
+  setProfileStats(
+    {
+      rows: elements.modalProfileStatRows,
+      years: elements.modalProfileStatYears,
+      regions: elements.modalProfileStatRegions,
+      visible: elements.modalProfileStatVisible,
+    },
+    statPayload,
+  );
+}
+
+function openProfileModal() {
+  if (!state.currentProfile && !state.currentProfileNote) {
+    return;
+  }
+  renderProfileModal();
+  elements.profileModalShell.classList.remove("hidden");
+  elements.profileModalShell.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeProfileModal() {
+  elements.profileModalShell.classList.add("hidden");
+  elements.profileModalShell.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 function renderSelectedProfile(row) {
@@ -1360,6 +1535,7 @@ async function renderDashboard() {
   state.groupRows = groupRows;
   rebuildTrendChart(monthlyRows, groupRows);
   attachTrendInteractions();
+  attachProfileModalInteractions();
   renderGroupRankings(groupRows);
   renderProfileSelect();
   renderMapControls(groupRows, mapRows);
