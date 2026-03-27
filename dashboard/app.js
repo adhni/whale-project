@@ -85,6 +85,8 @@ const elements = {
   detailSubtitle: document.getElementById("detailSubtitle"),
   detailGroupBadge: document.getElementById("detailGroupBadge"),
   detailSourceBadge: document.getElementById("detailSourceBadge"),
+  detailSourceNote: document.getElementById("detailSourceNote"),
+  detailTrustNote: document.getElementById("detailTrustNote"),
   detailCount: document.getElementById("detailCount"),
   detailDate: document.getElementById("detailDate"),
   detailCoords: document.getElementById("detailCoords"),
@@ -98,6 +100,7 @@ const elements = {
   profileType: document.getElementById("profileType"),
   profileStatus: document.getElementById("profileStatus"),
   profileSummary: document.getElementById("profileSummary"),
+  profileTrustNote: document.getElementById("profileTrustNote"),
   profileStatRows: document.getElementById("profileStatRows"),
   profileStatYears: document.getElementById("profileStatYears"),
   profileStatRegions: document.getElementById("profileStatRegions"),
@@ -120,6 +123,7 @@ const elements = {
   modalProfileType: document.getElementById("modalProfileType"),
   modalProfileStatus: document.getElementById("modalProfileStatus"),
   modalProfileSummary: document.getElementById("modalProfileSummary"),
+  modalProfileTrustNote: document.getElementById("modalProfileTrustNote"),
   modalProfileStatRows: document.getElementById("modalProfileStatRows"),
   modalProfileStatYears: document.getElementById("modalProfileStatYears"),
   modalProfileStatRegions: document.getElementById("modalProfileStatRegions"),
@@ -271,6 +275,40 @@ const STORY_PRESETS = {
     source: "all",
     region: "all",
     profile: null,
+  },
+};
+const SOURCE_META = {
+  "Whale Alert": {
+    type: "Reporting network",
+    note: "Cross-platform reporting network that aggregates public and partner whale sightings.",
+  },
+  "Whale Alert Mobile": {
+    type: "Mobile app",
+    note: "Sightings submitted through the mobile reporting workflow, which can vary in detail and review depth.",
+  },
+  "Whale Alert Alaska Web": {
+    type: "Web reporting",
+    note: "Web-based reporting view tied to the Whale Alert ecosystem for Alaska-focused records.",
+  },
+  "Whale Alert Orca Web": {
+    type: "Web reporting",
+    note: "Web submission channel focused on orca-related reporting.",
+  },
+  Cascadia: {
+    type: "Regional partner feed",
+    note: "Regional map or partner-driven feed rather than a single direct observer channel.",
+  },
+  "Whale Map": {
+    type: "Regional map",
+    note: "Map-driven aggregation layer that may combine more than one reporting source.",
+  },
+  Spotter: {
+    type: "Community spotting",
+    note: "Likely observer-led spotting feed; useful for situational awareness but not a standardized survey.",
+  },
+  "Marina Life": {
+    type: "Community feed",
+    note: "Partner or community-facing reporting source, not a formal population survey.",
   },
 };
 
@@ -500,6 +538,92 @@ function resetFilters() {
 
 function getSourceLabel(row) {
   return row.source_normalized || row.data_source_witness || row.data_source_name || "Unknown";
+}
+
+function getSourceMeta(sourceLabel) {
+  if (SOURCE_META[sourceLabel]) {
+    return SOURCE_META[sourceLabel];
+  }
+  if (/NOAA|Coast Guard|FWRI|USACOE/i.test(sourceLabel)) {
+    return {
+      type: "Government source",
+      note: "Government or agency-linked records that may come from monitoring, management, or response workflows.",
+    };
+  }
+  if (/Aquarium|Institution|Research|CCS|WHOI|IFAW|Alliance|WDC/i.test(sourceLabel)) {
+    return {
+      type: "Research or NGO",
+      note: "Research, rescue, or nonprofit partner source; useful context, but not necessarily a uniform survey design.",
+    };
+  }
+  if (/Web|Map|user|Default/i.test(sourceLabel)) {
+    return {
+      type: "Portal or map feed",
+      note: "Portal or map-originated record stream that may bundle observations from more than one workflow.",
+    };
+  }
+  return {
+    type: "Partner feed",
+    note: "Partner-provided source label with its own reporting practices and review steps.",
+  };
+}
+
+function getTrustMeta(profile, note = null) {
+  if (!profile && note) {
+    return {
+      tone: "strong",
+      text:
+        note.caution_for_public_use ||
+        "This label stays unresolved in the public view because the source data is not specific enough for a confirmed whale profile.",
+    };
+  }
+
+  if (!profile) {
+    return {
+      tone: "muted",
+      text: "No whale-specific certainty note is available for this selection yet.",
+    };
+  }
+
+  if (profile.profile_type === "population") {
+    return {
+      tone: "strong",
+      text:
+        note?.caution_for_public_use ||
+        "This is a population-level profile, not a separate species. Keep that distinction in mind when comparing totals.",
+    };
+  }
+
+  const cautionText = note?.caution_for_public_use || "";
+  if (/Do not publish|Do not merge|Safe only|varies/i.test(cautionText)) {
+    return {
+      tone: "strong",
+      text: cautionText,
+    };
+  }
+
+  return {
+    tone: "safe",
+    text:
+      cautionText ||
+      "This profile is presented as a public-facing species card, but regional status, local populations, and reporting precision can still vary.",
+  };
+}
+
+function applyTrustBanner(element, meta, muted = false) {
+  element.textContent = meta.text;
+  element.className = "trust-banner";
+  if (muted) {
+    element.classList.add("trust-banner-muted");
+    return;
+  }
+  if (meta.tone === "strong") {
+    element.classList.add("trust-banner-strong");
+  } else if (meta.tone === "safe") {
+    element.classList.add("trust-banner-safe");
+  } else {
+    element.classList.add("trust-banner-muted");
+  }
 }
 
 function getFilteredMapRows(mapRows) {
@@ -1078,6 +1202,7 @@ function renderFallbackProfile(note) {
   renderListItems(elements.profileFacts, ["Use this as a data category rather than a biological profile."]);
   renderSourceItems(elements.profileSources, []);
   renderProfileStats(null, note);
+  applyTrustBanner(elements.profileTrustNote, getTrustMeta(null, note));
   elements.openProfileModalButton.disabled = false;
   elements.openProfileModalButton.textContent = "Open Full Profile";
   if (!elements.profileModalShell.classList.contains("hidden")) {
@@ -1108,6 +1233,7 @@ function renderProfileCard(profile, note = null) {
   renderListItems(elements.profileFacts, profile.public_facts);
   renderSourceItems(elements.profileSources, profile.source_list);
   renderProfileStats(profile, note);
+  applyTrustBanner(elements.profileTrustNote, getTrustMeta(profile, note));
   elements.openProfileModalButton.disabled = false;
   elements.openProfileModalButton.textContent = "Open Full Profile";
   if (!elements.profileModalShell.classList.contains("hidden")) {
@@ -1121,6 +1247,7 @@ function renderProfileModal() {
   const statPayload = renderProfileStats(profile, note);
 
   if (state.currentProfileMode === "fallback") {
+    applyTrustBanner(elements.modalProfileTrustNote, getTrustMeta(null, note));
     elements.modalProfileKicker.textContent = "Needs review";
     elements.modalProfileTitle.textContent = note?.recommended_card_title || "No public profile";
     elements.modalProfileScientific.textContent =
@@ -1152,6 +1279,7 @@ function renderProfileModal() {
     ]);
     renderSourceItems(elements.modalProfileSources, []);
   } else if (profile) {
+    applyTrustBanner(elements.modalProfileTrustNote, getTrustMeta(profile, note));
     const statusLabel = String(profile.conservation_status || "Status varies").split(" — ")[0];
     elements.modalProfileKicker.textContent =
       note && note.profile_slug === profile.slug ? "Research-backed profile" : "Whale profile";
@@ -1291,15 +1419,19 @@ function renderSources(mapRows) {
   const markup = [...counts.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8)
-    .map(([name, count], index) => `
+    .map(([name, count], index) => {
+      const meta = getSourceMeta(name);
+      return `
       <article class="source-card">
         <div class="source-head">
           <span class="source-title">${index + 1}. ${name}</span>
           <span>${formatNumber(count)}</span>
         </div>
-        <p class="source-meta">Share of mapped observations: ${((count / mapRows.length) * 100).toFixed(1)}%</p>
+        <p class="source-meta">${meta.type} • share of mapped observations: ${((count / mapRows.length) * 100).toFixed(1)}%</p>
+        <p class="source-meta">${meta.note}</p>
       </article>
-    `)
+    `;
+    })
     .join("");
 
   elements.sourceList.innerHTML = markup;
@@ -1361,6 +1493,12 @@ function renderDetailCard(row) {
       "Adjust the filters or click reset to bring more observations back into view.";
     elements.detailGroupBadge.textContent = "No selection";
     elements.detailSourceBadge.textContent = "-";
+    elements.detailSourceNote.textContent = "Source details will appear here when a sighting is selected.";
+    applyTrustBanner(
+      elements.detailTrustNote,
+      { tone: "muted", text: "Species and population caveats will appear here when they matter." },
+      true,
+    );
     elements.detailCount.textContent = "-";
     elements.detailDate.textContent = "-";
     elements.detailCoords.textContent = "-";
@@ -1375,7 +1513,10 @@ function renderDetailCard(row) {
       ? `Raw record label: ${row.species_normalized || "Unknown"}`
       : "This card follows the last point you clicked on the map.";
   elements.detailGroupBadge.textContent = row.whale_group;
-  elements.detailSourceBadge.textContent = getSourceLabel(row);
+  const sourceLabel = getSourceLabel(row);
+  const sourceMeta = getSourceMeta(sourceLabel);
+  elements.detailSourceBadge.textContent = sourceLabel;
+  elements.detailSourceNote.textContent = `${sourceMeta.type}: ${sourceMeta.note}`;
   elements.detailCount.textContent = formatNumber(row.no_sighted);
   elements.detailDate.textContent = row.created_iso
     ? row.created_iso.replace("T", " ")
@@ -1385,6 +1526,7 @@ function renderDetailCard(row) {
   ).toFixed(2)}`;
   elements.detailYear.textContent = row.created_year || "-";
   elements.detailRegion.textContent = row.region || "-";
+  applyTrustBanner(elements.detailTrustNote, getTrustMeta(row.profile_slug ? state.profileLookup.get(row.profile_slug) : null, getProfileNoteForRow(row)));
 }
 
 function getSelectedOrDefaultRow(filteredRows) {

@@ -711,6 +711,13 @@ body.modal-open {
   line-height: 1.45;
 }
 
+.detail-support {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .map-detail-badges {
   display: flex;
   flex-wrap: wrap;
@@ -922,6 +929,35 @@ body.modal-open {
   font-family: var(--font-serif);
   font-size: 1.08rem;
   line-height: 1.7;
+}
+
+.trust-banner {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(246, 185, 107, 0.1);
+  border: 1px solid rgba(246, 185, 107, 0.18);
+  color: #f7ddb2;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.trust-banner-muted {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(156, 194, 188, 0.12);
+  color: var(--muted);
+}
+
+.trust-banner-strong {
+  background: rgba(244, 162, 89, 0.12);
+  border-color: rgba(244, 162, 89, 0.24);
+  color: #ffd7ad;
+}
+
+.trust-banner-safe {
+  background: rgba(124, 224, 205, 0.1);
+  border-color: rgba(124, 224, 205, 0.18);
+  color: #dff8f2;
 }
 
 .species-stats-strip {
