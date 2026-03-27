@@ -39,8 +39,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--web-map-output",
         type=Path,
-        default=Path("data/processed/map-points-web.csv"),
-        help="Path to the lightweight dashboard map CSV",
+        default=Path("data/processed/map-points-web.json"),
+        help="Path to the lightweight dashboard map JSON",
     )
     parser.add_argument(
         "--monthly-output",

@@ -9,5 +9,5 @@ data/processed/*
 !data/processed/aggregate-summary.json
 !data/processed/group-summary.csv
 !data/processed/map-points.csv
-!data/processed/map-points-web.csv
+!data/processed/map-points-web.json
 !data/processed/monthly-group-totals.csv

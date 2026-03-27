@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from whales.aggregate import build_group_rows
 from whales.aggregate import build_map_rows
 from whales.aggregate import build_monthly_rows
-from whales.aggregate import build_web_map_rows
+from whales.aggregate import build_web_map_payload
 
 
 class AggregateTests(unittest.TestCase):
@@ -119,36 +119,43 @@ class AggregateTests(unittest.TestCase):
             ],
         )
 
-    def test_build_web_map_rows_trims_to_dashboard_fields(self) -> None:
+    def test_build_web_map_payload_deduplicates_dashboard_fields(self) -> None:
         rows = [
             {
-                "entry_id": "1",
                 "created_iso": "2024-01-15T10:00:00",
-                "created_month": "2024-01",
-                "created_year": "2024",
                 "latitude": "10.123456",
                 "longitude": "20.654321",
                 "no_sighted": "3",
                 "species_normalized": "Killer Whale (Orca)",
                 "canonical_name": "Orca (Killer Whale)",
-                "canonical_slug": "orca-killer-whale",
                 "profile_slug": "orca-killer-whale",
                 "whale_group": "Orca",
                 "source_normalized": "Cascadia",
                 "region": "Puget Sound",
-                "canonical_type": "species",
-                "has_public_profile": "true",
-                "data_source_witness": "source-a",
+            },
+            {
+                "created_iso": "2024-01-16T11:00:00",
+                "latitude": "10.123111",
+                "longitude": "20.654999",
+                "no_sighted": "4",
+                "species_normalized": "Killer Whale (Orca)",
+                "canonical_name": "Orca (Killer Whale)",
+                "profile_slug": "orca-killer-whale",
+                "whale_group": "Orca",
+                "source_normalized": "Cascadia",
+                "region": "Puget Sound",
             }
         ]
 
-        result = build_web_map_rows(rows)
+        result = build_web_map_payload(rows)
 
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]["latitude"], "10.1235")
-        self.assertEqual(result[0]["longitude"], "20.6543")
-        self.assertNotIn("canonical_type", result[0])
-        self.assertNotIn("data_source_witness", result[0])
+        self.assertEqual(result["schema"][0], "created_date")
+        self.assertEqual(result["lookups"]["canonical_names"], ["Orca (Killer Whale)"])
+        self.assertEqual(result["lookups"]["groups"], ["Orca"])
+        self.assertEqual(result["rows"][0][0], "2024-01-15")
+        self.assertEqual(result["rows"][0][1], 10.123)
+        self.assertEqual(result["rows"][0][2], 20.654)
+        self.assertEqual(result["rows"][1][3], 4)
 
     def test_build_group_rows_computes_summary_metrics(self) -> None:
         rows = [

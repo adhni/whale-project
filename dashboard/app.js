@@ -3,7 +3,7 @@ const DATA_PATHS = {
   aggregateSummary: "../data/processed/aggregate-summary.json",
   monthly: "../data/processed/monthly-group-totals.csv",
   groups: "../data/processed/group-summary.csv",
-  map: "../data/processed/map-points-web.csv",
+  map: "../data/processed/map-points-web.json",
   speciesReference: "../data/reference/species-reference.json",
 };
 
@@ -115,6 +115,78 @@ const REGION_ORDER = [
   "Other Region",
   "Unknown Region",
 ];
+const REGION_PRESETS = {
+  all: {
+    bounds: [
+      [18.0, -161.5],
+      [61.5, -66.0],
+    ],
+    maxZoom: 4,
+  },
+  "Puget Sound": {
+    bounds: [
+      [46.9, -123.6],
+      [49.3, -121.5],
+    ],
+    maxZoom: 8,
+  },
+  "Salish Sea": {
+    bounds: [
+      [47.0, -124.4],
+      [50.2, -122.0],
+    ],
+    maxZoom: 7,
+  },
+  "California Coast": {
+    bounds: [
+      [32.2, -125.5],
+      [42.3, -117.6],
+    ],
+    maxZoom: 6,
+  },
+  "US East Coast": {
+    bounds: [
+      [24.0, -81.8],
+      [45.8, -65.0],
+    ],
+    maxZoom: 6,
+  },
+  "Alaska South Coast": {
+    bounds: [
+      [54.0, -166.8],
+      [61.7, -129.0],
+    ],
+    maxZoom: 6,
+  },
+  Hawaii: {
+    bounds: [
+      [18.0, -161.5],
+      [23.5, -154.0],
+    ],
+    maxZoom: 7,
+  },
+  "Offshore Pacific": {
+    bounds: [
+      [24.0, -156.0],
+      [52.0, -118.0],
+    ],
+    maxZoom: 5,
+  },
+  "Other Region": {
+    bounds: [
+      [18.0, -161.5],
+      [61.5, -66.0],
+    ],
+    maxZoom: 4,
+  },
+  "Unknown Region": {
+    bounds: [
+      [18.0, -161.5],
+      [61.5, -66.0],
+    ],
+    maxZoom: 4,
+  },
+};
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(Number(value));
@@ -194,6 +266,34 @@ async function loadCsv(path) {
     throw new Error(`Failed to load ${path}`);
   }
   return parseCsv(await response.text());
+}
+
+function decodeLookupValue(values, index) {
+  return values?.[index] ?? "";
+}
+
+function decodeWebMapPayload(payload) {
+  const lookups = payload.lookups || {};
+  const rows = payload.rows || [];
+
+  return rows.map((row, index) => {
+    const createdDate = row[0] || "";
+    return {
+      entry_id: `web-${index}`,
+      created_iso: createdDate,
+      created_month: createdDate.slice(0, 7),
+      created_year: createdDate.slice(0, 4),
+      latitude: row[1],
+      longitude: row[2],
+      no_sighted: row[3],
+      species_normalized: decodeLookupValue(lookups.labels, row[4]),
+      canonical_name: decodeLookupValue(lookups.canonical_names, row[5]),
+      profile_slug: decodeLookupValue(lookups.profile_slugs, row[6]),
+      whale_group: decodeLookupValue(lookups.groups, row[7]),
+      source_normalized: decodeLookupValue(lookups.sources, row[8]),
+      region: decodeLookupValue(lookups.regions, row[9]),
+    };
+  });
 }
 
 function getColor(group) {
@@ -331,7 +431,7 @@ function renderRegionPresets() {
       state.selectedRegion = button.dataset.region || "all";
       state.selectedEntryId = null;
       renderRegionPresets();
-      updateMapViews();
+      updateMapViews({ fitMode: "region" });
     };
   });
 }
@@ -787,7 +887,7 @@ function renderRecent(mapRows) {
 
   elements.recentList.innerHTML = recentRows
     .map((row) => `
-      <article class="recent-card">
+      <article class="recent-card" data-entry-id="${escapeHtml(row.entry_id)}">
         <div class="recent-head">
           <span class="recent-title">${row.canonical_name || row.species_normalized || "Unknown species"}</span>
           <span>${formatMonth(row.created_month)}</span>
@@ -798,6 +898,14 @@ function renderRecent(mapRows) {
       </article>
     `)
     .join("");
+
+  elements.recentList.querySelectorAll("[data-entry-id]").forEach((card) => {
+    card.onclick = () => {
+      state.selectedEntryId = card.dataset.entryId || null;
+      renderLeafletMap(state.mapRows, { fitMode: "selection" });
+      renderMapSidePanels(getFilteredMapRows(state.mapRows));
+    };
+  });
 }
 
 function renderMapSidePanels(filteredRows) {
@@ -995,7 +1103,72 @@ function buildPopup(row) {
   `;
 }
 
-function renderLeafletMap(mapRows) {
+function fitMapToPreset(regionKey) {
+  const preset = REGION_PRESETS[regionKey] || REGION_PRESETS.all;
+  if (!preset || !state.map) {
+    return;
+  }
+  state.map.fitBounds(preset.bounds, {
+    padding: [28, 28],
+    maxZoom: preset.maxZoom || 6,
+  });
+}
+
+function fitMapToRows(rows, maxZoom = 6) {
+  if (!rows.length || !state.map || typeof L === "undefined") {
+    return false;
+  }
+
+  const bounds = L.latLngBounds(
+    rows.map((row) => [Number(row.latitude), Number(row.longitude)]),
+  );
+  state.map.fitBounds(bounds, { padding: [28, 28], maxZoom });
+  return true;
+}
+
+function focusSelectedRow(row) {
+  if (!row || !state.map) {
+    return false;
+  }
+
+  state.map.setView(
+    [Number(row.latitude), Number(row.longitude)],
+    Math.max(state.map.getZoom(), 7),
+    { animate: true },
+  );
+  return true;
+}
+
+function resolveMapFit(filteredRows, pointsToDraw, selectedRow, fitMode) {
+  if (!filteredRows.length) {
+    fitMapToPreset(state.selectedRegion);
+    return;
+  }
+
+  if ((fitMode === "selection" || filteredRows.length === 1) && focusSelectedRow(selectedRow)) {
+    return;
+  }
+
+  const selectedPreset = state.selectedRegion !== "all" ? REGION_PRESETS[state.selectedRegion] : null;
+  if (selectedPreset && (fitMode === "region" || filteredRows.length > 1800)) {
+    fitMapToPreset(state.selectedRegion);
+    return;
+  }
+
+  if (state.selectedRegion === "all" && state.selectedYear === "all" && filteredRows.length > 6000) {
+    fitMapToPreset("all");
+    return;
+  }
+
+  if (fitMapToRows(pointsToDraw, selectedPreset?.maxZoom || 6)) {
+    return;
+  }
+
+  fitMapToPreset(state.selectedRegion);
+}
+
+function renderLeafletMap(mapRows, options = {}) {
+  const { fitMode = "auto" } = options;
   ensureMap();
 
   const filtered = getFilteredMapRows(mapRows);
@@ -1010,8 +1183,6 @@ function renderLeafletMap(mapRows) {
   }
 
   state.pointLayer = L.layerGroup();
-
-  const bounds = [];
   pointsToDraw.forEach((row) => {
     const lat = Number(row.latitude);
     const lon = Number(row.longitude);
@@ -1033,17 +1204,14 @@ function renderLeafletMap(mapRows) {
     marker.on("click", () => {
       state.selectedEntryId = row.entry_id;
       renderDetailCard(row);
-      renderLeafletMap(state.mapRows);
+      renderSelectedProfile(row);
+      renderLeafletMap(state.mapRows, { fitMode: "selection" });
     });
     marker.addTo(state.pointLayer);
-    bounds.push([lat, lon]);
   });
 
   state.pointLayer.addTo(state.map);
-
-  if (bounds.length) {
-    state.map.fitBounds(bounds, { padding: [28, 28], maxZoom: 6 });
-  }
+  resolveMapFit(filtered, pointsToDraw, selectedRow, fitMode);
 
   elements.filteredPoints.textContent =
     filtered.length > MAX_MAP_POINTS
@@ -1062,9 +1230,9 @@ function renderLeafletMap(mapRows) {
   renderSelectedProfile(selectedRow);
 }
 
-function updateMapViews() {
+function updateMapViews(options = {}) {
   renderFilterSummary();
-  renderLeafletMap(state.mapRows);
+  renderLeafletMap(state.mapRows, options);
   renderMapSidePanels(getFilteredMapRows(state.mapRows));
 }
 
@@ -1075,15 +1243,16 @@ async function renderDashboard() {
 
   elements.statusPill.textContent = "Loading data";
 
-  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, rawMapRows, speciesReference] = await Promise.all([
+  const [cleanSummary, aggregateSummary, monthlyRows, groupRows, rawMapPayload, speciesReference] = await Promise.all([
     loadJson(DATA_PATHS.cleanSummary),
     loadJson(DATA_PATHS.aggregateSummary),
     loadCsv(DATA_PATHS.monthly),
     loadCsv(DATA_PATHS.groups),
-    loadCsv(DATA_PATHS.map),
+    loadJson(DATA_PATHS.map),
     loadJson(DATA_PATHS.speciesReference),
   ]);
 
+  const rawMapRows = decodeWebMapPayload(rawMapPayload);
   const mapRows = rawMapRows.filter((row) => Number(row.created_year || 0) >= DASHBOARD_MIN_YEAR);
   state.mapRows = mapRows;
   prepareSpeciesReference(speciesReference);

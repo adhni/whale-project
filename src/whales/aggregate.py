@@ -85,31 +85,63 @@ def format_coordinate(value: str) -> str:
     parsed = parse_float(value)
     if parsed is None:
         return ""
-    return f"{parsed:.4f}"
+    return f"{parsed:.3f}"
 
 
-def build_web_map_rows(map_rows: list[dict[str, str]]) -> list[dict[str, str]]:
-    web_rows: list[dict[str, str]] = []
+def build_web_map_payload(map_rows: list[dict[str, str]]) -> dict[str, object]:
+    lookups = {
+        "labels": [],
+        "canonical_names": [],
+        "profile_slugs": [],
+        "groups": [],
+        "sources": [],
+        "regions": [],
+    }
+    indexes = {key: {} for key in lookups}
+    encoded_rows: list[list[object]] = []
+
+    def encode_lookup(bucket: str, value: str) -> int:
+        normalized = value or ""
+        bucket_index = indexes[bucket]
+        if normalized not in bucket_index:
+            bucket_index[normalized] = len(lookups[bucket])
+            lookups[bucket].append(normalized)
+        return bucket_index[normalized]
+
     for row in map_rows:
-        web_rows.append(
-            {
-                "entry_id": row.get("entry_id", ""),
-                "created_iso": row.get("created_iso", ""),
-                "created_month": row.get("created_month", ""),
-                "created_year": row.get("created_year", ""),
-                "latitude": format_coordinate(row.get("latitude", "")),
-                "longitude": format_coordinate(row.get("longitude", "")),
-                "no_sighted": row.get("no_sighted", ""),
-                "species_normalized": row.get("species_normalized", ""),
-                "canonical_name": row.get("canonical_name", ""),
-                "canonical_slug": row.get("canonical_slug", ""),
-                "profile_slug": row.get("profile_slug", ""),
-                "whale_group": row.get("whale_group", ""),
-                "source_normalized": row.get("source_normalized", ""),
-                "region": row.get("region", ""),
-            }
+        count = parse_float(row.get("no_sighted", "")) or 0.0
+        encoded_rows.append(
+            [
+                (row.get("created_iso", "") or "")[:10],
+                float(format_coordinate(row.get("latitude", "")) or 0),
+                float(format_coordinate(row.get("longitude", "")) or 0),
+                int(count) if count.is_integer() else count,
+                encode_lookup("labels", row.get("species_normalized", "")),
+                encode_lookup("canonical_names", row.get("canonical_name", "")),
+                encode_lookup("profile_slugs", row.get("profile_slug", "")),
+                encode_lookup("groups", row.get("whale_group", "")),
+                encode_lookup("sources", row.get("source_normalized", "")),
+                encode_lookup("regions", row.get("region", "")),
+            ]
         )
-    return web_rows
+
+    return {
+        "version": 1,
+        "schema": [
+            "created_date",
+            "latitude",
+            "longitude",
+            "no_sighted",
+            "species_normalized",
+            "canonical_name",
+            "profile_slug",
+            "whale_group",
+            "source_normalized",
+            "region",
+        ],
+        "lookups": lookups,
+        "rows": encoded_rows,
+    }
 
 
 def build_monthly_rows(rows: list[dict[str, str]], min_year: int) -> list[dict[str, str]]:
@@ -231,6 +263,11 @@ def write_summary(path: Path, summary: AggregateResult) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
+def write_json(path: Path, payload: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+
+
 def run(
     input_path: Path,
     map_output_path: Path,
@@ -244,19 +281,19 @@ def run(
         clean_rows = list(csv.DictReader(handle))
 
     map_rows = build_map_rows(clean_rows)
-    web_map_rows = build_web_map_rows(map_rows)
+    web_map_payload = build_web_map_payload(map_rows)
     monthly_rows = build_monthly_rows(clean_rows, min_year=min_year)
     group_rows = build_group_rows(clean_rows)
 
     write_csv(map_output_path, map_rows)
-    write_csv(web_map_output_path, web_map_rows)
+    write_json(web_map_output_path, web_map_payload)
     write_csv(monthly_output_path, monthly_rows)
     write_csv(group_output_path, group_rows)
 
     summary = AggregateResult(
         total_clean_rows=len(clean_rows),
         map_rows=len(map_rows),
-        web_map_rows=len(web_map_rows),
+        web_map_rows=len(web_map_payload["rows"]),
         monthly_rows=len(monthly_rows),
         group_rows=len(group_rows),
     )
@@ -281,8 +318,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--web-map-output",
         type=Path,
-        default=Path("data/processed/map-points-web.csv"),
-        help="Path to the lightweight map CSV used by the dashboard",
+        default=Path("data/processed/map-points-web.json"),
+        help="Path to the lightweight map JSON used by the dashboard",
     )
     parser.add_argument(
         "--monthly-output",
