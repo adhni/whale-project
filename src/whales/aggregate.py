@@ -65,6 +65,11 @@ def build_map_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
                 "longitude": row.get("longitude_clean", ""),
                 "no_sighted": row.get("no_sighted_clean", ""),
                 "species_normalized": row.get("species_normalized", ""),
+                "canonical_name": row.get("canonical_name", ""),
+                "canonical_slug": row.get("canonical_slug", ""),
+                "canonical_type": row.get("canonical_type", ""),
+                "profile_slug": row.get("profile_slug", ""),
+                "has_public_profile": row.get("has_public_profile", ""),
                 "whale_group": row.get("whale_group", ""),
                 "source_normalized": get_source_label(row),
                 "region": row.get("region", ""),
@@ -127,7 +132,7 @@ def build_group_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
 
     for row in rows:
         whale_group = row.get("whale_group", "") or "Unknown"
-        species = row.get("species_normalized", "") or "Unknown"
+        species = row.get("canonical_name", "") or row.get("species_normalized", "") or "Unknown"
         count = parse_float(row.get("no_sighted_clean", ""))
 
         group_totals[whale_group]["row_count"] += 1
@@ -143,6 +148,16 @@ def build_group_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     group_rows: list[dict[str, str]] = []
     for whale_group in sorted(group_totals):
         top_species, top_species_rows = species_per_group[whale_group].most_common(1)[0]
+        exemplar_row = next(
+            (
+                row
+                for row in rows
+                if (row.get("whale_group", "") or "Unknown") == whale_group
+                if (row.get("canonical_name", "") or row.get("species_normalized", "") or "Unknown")
+                == top_species
+            ),
+            {},
+        )
         metrics = group_totals[whale_group]
         group_rows.append(
             {
@@ -152,6 +167,9 @@ def build_group_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
                 "mapped_rows": str(metrics["mapped_rows"]),
                 "total_sighted": format_number(float(metrics["total_sighted"])),
                 "top_species": top_species,
+                "top_species_slug": exemplar_row.get("canonical_slug", ""),
+                "top_species_profile_slug": exemplar_row.get("profile_slug", ""),
+                "top_species_has_profile": exemplar_row.get("has_public_profile", ""),
                 "top_species_rows": str(top_species_rows),
             }
         )

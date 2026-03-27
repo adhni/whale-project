@@ -595,7 +595,11 @@ function getProfileNoteForRow(row) {
   if (!row) {
     return null;
   }
+  if (row.profile_slug && state.profileLookup.has(row.profile_slug)) {
+    return state.speciesNotes.find((note) => note.profile_slug === row.profile_slug) || null;
+  }
   return (
+    state.noteByLabel.get(normalizeProfileLabel(row.canonical_name)) ||
     state.noteByLabel.get(normalizeProfileLabel(row.species_normalized)) ||
     state.noteByLabel.get(normalizeProfileLabel(row.whale_group)) ||
     null
@@ -647,6 +651,13 @@ function renderProfileCard(profile, note = null) {
 }
 
 function renderSelectedProfile(row) {
+  if (row?.profile_slug && state.profileLookup.has(row.profile_slug)) {
+    state.selectedProfileSlug = row.profile_slug;
+    elements.profileSelect.value = row.profile_slug;
+    renderProfileCard(state.profileLookup.get(row.profile_slug), getProfileNoteForRow(row));
+    return;
+  }
+
   const note = row ? getProfileNoteForRow(row) : null;
 
   if (note?.profile_slug && state.profileLookup.has(note.profile_slug)) {
@@ -683,7 +694,7 @@ function renderGroupRankings(groupRows) {
     .map((row) => {
       const percent = (Number(row.total_sighted) / maxTotal) * 100;
       return `
-        <article class="rank-card" data-top-species="${escapeHtml(row.top_species)}">
+        <article class="rank-card" data-top-species="${escapeHtml(row.top_species)}" data-profile-slug="${escapeHtml(row.top_species_profile_slug || "")}">
           <div class="rank-head">
             <span class="rank-title">${row.whale_group}</span>
             <span>${formatNumber(row.total_sighted)}</span>
@@ -702,6 +713,11 @@ function renderGroupRankings(groupRows) {
   elements.groupRankings.innerHTML = markup;
   elements.groupRankings.querySelectorAll("[data-top-species]").forEach((card) => {
     card.onclick = () => {
+      if (card.dataset.profileSlug && state.profileLookup.has(card.dataset.profileSlug)) {
+        state.selectedProfileSlug = card.dataset.profileSlug;
+        renderSelectedProfile(null);
+        return;
+      }
       const note = state.noteByLabel.get(normalizeProfileLabel(card.dataset.topSpecies));
       if (note?.profile_slug) {
         state.selectedProfileSlug = note.profile_slug;
@@ -744,7 +760,7 @@ function renderRecent(mapRows) {
     .map((row) => `
       <article class="recent-card">
         <div class="recent-head">
-          <span class="recent-title">${row.species_normalized || "Unknown species"}</span>
+          <span class="recent-title">${row.canonical_name || row.species_normalized || "Unknown species"}</span>
           <span>${formatMonth(row.created_month)}</span>
         </div>
         <p class="recent-meta">
@@ -775,9 +791,11 @@ function renderDetailCard(row) {
     return;
   }
 
-  elements.detailTitle.textContent = row.species_normalized || "Unknown species";
+  elements.detailTitle.textContent = row.canonical_name || row.species_normalized || "Unknown species";
   elements.detailSubtitle.textContent =
-    "This card follows the last point you clicked on the map.";
+    row.canonical_name && row.canonical_name !== row.species_normalized
+      ? `Raw record label: ${row.species_normalized || "Unknown"}`
+      : "This card follows the last point you clicked on the map.";
   elements.detailGroupBadge.textContent = row.whale_group;
   elements.detailSourceBadge.textContent = getSourceLabel(row);
   elements.detailCount.textContent = formatNumber(row.no_sighted);
@@ -914,7 +932,7 @@ function ensureMap() {
 
 function buildPopup(row) {
   return `
-    <div class="popup-title">${row.species_normalized || "Unknown species"}</div>
+    <div class="popup-title">${row.canonical_name || row.species_normalized || "Unknown species"}</div>
     <p class="popup-meta">
       ${row.whale_group}<br>
       ${formatNumber(row.no_sighted)} sighted<br>

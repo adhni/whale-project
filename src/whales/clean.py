@@ -11,6 +11,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Iterable
 
+from whales.reference import canonicalize_species
+
 
 INPUT_DATE_FORMATS = (
     "%Y-%m-%d %H:%M:%S",
@@ -195,6 +197,7 @@ def clean_rows(rows: Iterable[dict[str, str]]) -> tuple[list[dict[str, str]], Cl
 
         species = normalize_species(row.get("type", ""))
         whale_group = classify_whale_group(species)
+        canonical_species = canonicalize_species(species)
         source_normalized = normalize_source(
             row.get("data_source_witness", ""),
             row.get("data_source_name", ""),
@@ -215,6 +218,12 @@ def clean_rows(rows: Iterable[dict[str, str]]) -> tuple[list[dict[str, str]], Cl
                 "has_valid_count": str(count is not None).lower(),
                 "is_positive_count": str(bool(count is not None and count > 0)).lower(),
                 "species_normalized": species,
+                "canonical_name": canonical_species.canonical_name,
+                "canonical_slug": canonical_species.canonical_slug,
+                "canonical_type": canonical_species.canonical_type,
+                "canonical_confidence": canonical_species.canonical_confidence,
+                "profile_slug": canonical_species.profile_slug,
+                "has_public_profile": str(canonical_species.include_profile).lower(),
                 "source_normalized": source_normalized,
                 "whale_group": whale_group,
                 "region": region,

@@ -12,6 +12,7 @@ from whales.clean import normalize_species
 from whales.clean import normalize_source
 from whales.clean import parse_count
 from whales.clean import parse_created
+from whales.reference import canonicalize_species
 
 
 class CleanTests(unittest.TestCase):
@@ -54,6 +55,21 @@ class CleanTests(unittest.TestCase):
         self.assertEqual(classify_region(41.9, -71.2), "US East Coast")
         self.assertEqual(classify_region(None, None), "Unknown Region")
 
+    def test_canonical_species_mapping_handles_profiles_and_uncertain_labels(self) -> None:
+        self.assertEqual(
+            canonicalize_species("Killer Whale (Orca)").canonical_name,
+            "Orca (Killer Whale)",
+        )
+        self.assertEqual(
+            canonicalize_species("Southern Resident Killer Whale").profile_slug,
+            "southern-resident-orca",
+        )
+        self.assertEqual(
+            canonicalize_species("Right Whale Sighting").canonical_name,
+            "Right Whale (species uncertain)",
+        )
+        self.assertFalse(canonicalize_species("Unspecified").include_profile)
+
     def test_clean_rows_adds_expected_fields(self) -> None:
         rows = [
             {
@@ -84,10 +100,14 @@ class CleanTests(unittest.TestCase):
             normalize_species("Humpback Sighting:"),
         )
         self.assertEqual(cleaned[0]["whale_group"], "Humpback Whale")
+        self.assertEqual(cleaned[0]["canonical_name"], "Humpback Whale")
+        self.assertEqual(cleaned[0]["profile_slug"], "humpback-whale")
+        self.assertEqual(cleaned[0]["has_public_profile"], "true")
         self.assertEqual(cleaned[0]["source_normalized"], "Whale Alert")
         self.assertEqual(cleaned[0]["region"], "California Coast")
         self.assertEqual(cleaned[0]["has_valid_coordinates"], "true")
         self.assertEqual(cleaned[1]["has_valid_count"], "false")
+        self.assertEqual(cleaned[1]["canonical_name"], "Unknown")
         self.assertEqual(cleaned[1]["whale_group"], "Unknown")
         self.assertEqual(cleaned[1]["region"], "Unknown Region")
         self.assertEqual(summary.total_rows, 2)

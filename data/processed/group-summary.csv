@@ -1,11 +1,11 @@
-whale_group,row_count,positive_count_rows,mapped_rows,total_sighted,top_species,top_species_rows
-Dolphins & Porpoises,1029,1008,1029,244541,Common Long-Beaked Dolphin,317
-Gray Whale,4652,4650,4652,7492,Gray Whale,4474
-Humpback Whale,10608,10604,10608,23974,Humpback,10162
-Large Baleen Whale,1102,1087,1102,2507,Minke Whale,451
-Orca,11356,11350,11356,62209,Orca,5942
-Other Marine Mammals,3447,3446,3447,12456,Unspecified,2722
-Other Whales,35,35,35,123,Sperm Whale,18
-Right Whale,9443,9441,9443,18815,Right Whale,9373
-Southern Resident Orca,4753,4751,4753,122190,Southern Resident Killer Whale,2876
-Unknown,176,28,174,65,Unknown,176
+whale_group,row_count,positive_count_rows,mapped_rows,total_sighted,top_species,top_species_slug,top_species_profile_slug,top_species_has_profile,top_species_rows
+Dolphins & Porpoises,1029,1008,1029,244541,Common Long-Beaked Dolphin,,,false,317
+Gray Whale,4652,4650,4652,7492,Gray Whale,gray-whale,gray-whale,true,4652
+Humpback Whale,10608,10604,10608,23974,Humpback Whale,humpback-whale,humpback-whale,true,10608
+Large Baleen Whale,1102,1087,1102,2507,Common Minke Whale,common-minke-whale,common-minke-whale,true,453
+Orca,11356,11350,11356,62209,Orca (Killer Whale),orca-killer-whale,orca-killer-whale,true,11356
+Other Marine Mammals,3447,3446,3447,12456,Other / Unspecified Cetacean,,,false,3428
+Other Whales,35,35,35,123,Sperm Whale,sperm-whale,sperm-whale,true,19
+Right Whale,9443,9441,9443,18815,Right Whale (species uncertain),,,false,9438
+Southern Resident Orca,4753,4751,4753,122190,Southern Resident Orca,southern-resident-orca,southern-resident-orca,true,4753
+Unknown,176,28,174,65,Unknown,,,false,176

@@ -21,6 +21,11 @@ class AggregateTests(unittest.TestCase):
                 "longitude_clean": "20.0",
                 "no_sighted_clean": "3",
                 "species_normalized": "Orca",
+                "canonical_name": "Orca (Killer Whale)",
+                "canonical_slug": "orca-killer-whale",
+                "canonical_type": "species",
+                "profile_slug": "orca-killer-whale",
+                "has_public_profile": "true",
                 "whale_group": "Orca",
                 "source_normalized": "Cascadia",
                 "region": "Puget Sound",
@@ -46,6 +51,8 @@ class AggregateTests(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["entry_id"], "1")
         self.assertEqual(result[0]["whale_group"], "Orca")
+        self.assertEqual(result[0]["canonical_name"], "Orca (Killer Whale)")
+        self.assertEqual(result[0]["profile_slug"], "orca-killer-whale")
         self.assertEqual(result[0]["source_normalized"], "Cascadia")
         self.assertEqual(result[0]["region"], "Puget Sound")
 
@@ -116,6 +123,10 @@ class AggregateTests(unittest.TestCase):
             {
                 "whale_group": "Orca",
                 "species_normalized": "Orca",
+                "canonical_name": "Orca (Killer Whale)",
+                "canonical_slug": "orca-killer-whale",
+                "profile_slug": "orca-killer-whale",
+                "has_public_profile": "true",
                 "no_sighted_clean": "3",
                 "is_positive_count": "true",
                 "has_valid_coordinates": "true",
@@ -123,6 +134,10 @@ class AggregateTests(unittest.TestCase):
             {
                 "whale_group": "Orca",
                 "species_normalized": "Orca",
+                "canonical_name": "Orca (Killer Whale)",
+                "canonical_slug": "orca-killer-whale",
+                "profile_slug": "orca-killer-whale",
+                "has_public_profile": "true",
                 "no_sighted_clean": "2",
                 "is_positive_count": "true",
                 "has_valid_coordinates": "false",
@@ -130,6 +145,10 @@ class AggregateTests(unittest.TestCase):
             {
                 "whale_group": "Gray Whale",
                 "species_normalized": "Gray Whale",
+                "canonical_name": "Gray Whale",
+                "canonical_slug": "gray-whale",
+                "profile_slug": "gray-whale",
+                "has_public_profile": "true",
                 "no_sighted_clean": "",
                 "is_positive_count": "false",
                 "has_valid_coordinates": "true",
@@ -144,7 +163,8 @@ class AggregateTests(unittest.TestCase):
         self.assertEqual(result[1]["positive_count_rows"], "2")
         self.assertEqual(result[1]["mapped_rows"], "1")
         self.assertEqual(result[1]["total_sighted"], "5")
-        self.assertEqual(result[1]["top_species"], "Orca")
+        self.assertEqual(result[1]["top_species"], "Orca (Killer Whale)")
+        self.assertEqual(result[1]["top_species_profile_slug"], "orca-killer-whale")
 
 
 if __name__ == "__main__":
