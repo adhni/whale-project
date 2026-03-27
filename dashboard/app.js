@@ -91,6 +91,10 @@ const elements = {
   profileType: document.getElementById("profileType"),
   profileStatus: document.getElementById("profileStatus"),
   profileSummary: document.getElementById("profileSummary"),
+  profileStatRows: document.getElementById("profileStatRows"),
+  profileStatYears: document.getElementById("profileStatYears"),
+  profileStatRegions: document.getElementById("profileStatRegions"),
+  profileStatVisible: document.getElementById("profileStatVisible"),
   profileRange: document.getElementById("profileRange"),
   profileDiet: document.getElementById("profileDiet"),
   profileRole: document.getElementById("profileRole"),
@@ -656,6 +660,61 @@ function normalizeProfileLabel(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function setProfileStats({ totalRows = "-", yearSpan = "-", regions = "-", visibleNow = "-" }) {
+  elements.profileStatRows.textContent = totalRows;
+  elements.profileStatYears.textContent = yearSpan;
+  elements.profileStatRegions.textContent = regions;
+  elements.profileStatVisible.textContent = visibleNow;
+}
+
+function getRowsForProfile(profile, note = null) {
+  if (!profile && !note) {
+    return [];
+  }
+
+  if (profile?.slug) {
+    return state.mapRows.filter((row) => row.profile_slug === profile.slug);
+  }
+
+  const relatedLabels = String(note?.related_raw_labels || "")
+    .split(";")
+    .map((label) => normalizeProfileLabel(label))
+    .filter(Boolean);
+  const noteLabel = normalizeProfileLabel(note?.canonical_name);
+
+  return state.mapRows.filter((row) => {
+    const candidates = [
+      normalizeProfileLabel(row.canonical_name),
+      normalizeProfileLabel(row.species_normalized),
+      normalizeProfileLabel(row.whale_group),
+    ];
+    return candidates.some((value) => value === noteLabel || relatedLabels.includes(value));
+  });
+}
+
+function renderProfileStats(profile, note = null) {
+  const matchingRows = getRowsForProfile(profile, note);
+  if (!matchingRows.length) {
+    setProfileStats({});
+    return;
+  }
+
+  const years = matchingRows
+    .map((row) => Number(row.created_year))
+    .filter((value) => Number.isFinite(value))
+    .sort((a, b) => a - b);
+  const regions = new Set(matchingRows.map((row) => row.region).filter(Boolean));
+  const matchingIds = new Set(matchingRows.map((row) => row.entry_id));
+  const visibleNow = getFilteredMapRows(state.mapRows).filter((row) => matchingIds.has(row.entry_id)).length;
+
+  setProfileStats({
+    totalRows: formatNumber(matchingRows.length),
+    yearSpan: years.length ? `${years[0]}-${years[years.length - 1]}` : "-",
+    regions: formatNumber(regions.size),
+    visibleNow: formatNumber(visibleNow),
+  });
+}
+
 function prepareSpeciesReference(reference) {
   state.speciesProfiles = reference.profiles || [];
   state.speciesNotes = reference.implementation_notes || [];
@@ -759,6 +818,7 @@ function renderFallbackProfile(note) {
   renderListItems(elements.profileThreats, ["Avoid overstating species identity or conservation claims."]);
   renderListItems(elements.profileFacts, ["Use this as a data category rather than a biological profile."]);
   renderSourceItems(elements.profileSources, []);
+  renderProfileStats(null, note);
 }
 
 function renderProfileCard(profile, note = null) {
@@ -780,6 +840,7 @@ function renderProfileCard(profile, note = null) {
   renderListItems(elements.profileThreats, profile.main_threats);
   renderListItems(elements.profileFacts, profile.public_facts);
   renderSourceItems(elements.profileSources, profile.source_list);
+  renderProfileStats(profile, note);
 }
 
 function renderSelectedProfile(row) {
@@ -858,6 +919,11 @@ function renderGroupRankings(groupRows) {
 }
 
 function renderSources(mapRows) {
+  if (!mapRows.length) {
+    elements.sourceList.innerHTML = `<article class="source-card"><p class="source-meta">No sources match the current filters. Reset the view or widen year, species, source, or region.</p></article>`;
+    return;
+  }
+
   const counts = new Map();
   mapRows.forEach((row) => {
     const key = getSourceLabel(row);
@@ -882,6 +948,11 @@ function renderSources(mapRows) {
 }
 
 function renderRecent(mapRows) {
+  if (!mapRows.length) {
+    elements.recentList.innerHTML = `<article class="recent-card"><p class="recent-meta">No sightings match the current filters. Reset the view or step back to a broader year window.</p></article>`;
+    return;
+  }
+
   const recentRows = [...mapRows]
     .sort((a, b) => String(b.created_iso).localeCompare(String(a.created_iso)))
     .slice(0, 8);
