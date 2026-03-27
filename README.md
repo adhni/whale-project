@@ -3,6 +3,7 @@
 Starter repo for a richer whale sightings pipeline and app.
 
 See [ROADMAP.md](ROADMAP.md) for the next dashboard and pipeline improvements.
+See [NEXT_STEPS.md](NEXT_STEPS.md) for the current post-launch product priorities.
 
 ## Structure
 
