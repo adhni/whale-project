@@ -30,12 +30,28 @@
             pipeline. It turns the sightings feed into a clearer view of
             pressure, seasonality, source concentration, and regional movement.
           </p>
+          <div class="hero-guide">
+            <span class="hero-guide-label">Start here</span>
+            <div class="hero-guide-steps">
+              <span class="hero-guide-step">1. Pick a story preset</span>
+              <span class="hero-guide-step">2. Click a sighting on the map</span>
+              <span class="hero-guide-step">3. Open the whale profile</span>
+            </div>
+          </div>
         </div>
         <div class="hero-side">
           <div class="status-pill" id="statusPill">Loading data</div>
-          <button class="ghost-button" id="reloadButton" type="button">
-            Reload Data
-          </button>
+          <div class="hero-actions">
+            <button class="ghost-button" id="copyLinkButton" type="button">
+              Copy View Link
+            </button>
+            <button class="ghost-button" id="reloadButton" type="button">
+              Reload Data
+            </button>
+          </div>
+          <p class="hero-helper-text" id="heroHelperText">
+            Share the current filters and selected profile with one link.
+          </p>
         </div>
       </header>
 
@@ -69,6 +85,35 @@
               <p class="panel-kicker">Spatial field</p>
               <h2>Live sightings map</h2>
             </div>
+          </div>
+          <div class="map-sequence">
+            <article class="map-sequence-card">
+              <span class="map-sequence-step">1</span>
+              <div>
+                <strong>Start with a guided view</strong>
+                <p>Use a story preset for a quick route into the data.</p>
+              </div>
+            </article>
+            <article class="map-sequence-card">
+              <span class="map-sequence-step">2</span>
+              <div>
+                <strong>Narrow the map</strong>
+                <p>Use year, group, species, source, and region controls to refine what you see.</p>
+              </div>
+            </article>
+            <article class="map-sequence-card">
+              <span class="map-sequence-step">3</span>
+              <div>
+                <strong>Inspect the whale</strong>
+                <p>Click a sighting, then read the profile panel or open the full profile.</p>
+              </div>
+            </article>
+          </div>
+          <div class="story-bar story-bar-priority">
+            <span class="filter-summary-label">Start with a story</span>
+            <div class="story-chip-row" id="storyPresets"></div>
+          </div>
+          <div class="filter-control-panel">
             <div class="control-row">
               <label class="control">
                 <span>Year Window</span>
@@ -91,23 +136,19 @@
                 <select id="sourceSelect"></select>
               </label>
             </div>
-          </div>
-          <div class="filter-bar">
-            <div class="filter-summary">
-              <span class="filter-summary-label">Active filters</span>
-              <div class="filter-chip-row" id="activeFilters"></div>
+            <div class="filter-bar">
+              <div class="filter-summary">
+                <span class="filter-summary-label">Active filters</span>
+                <div class="filter-chip-row" id="activeFilters"></div>
+              </div>
+              <button class="ghost-button compact-button" id="resetFiltersButton" type="button">
+                Reset Filters
+              </button>
             </div>
-            <button class="ghost-button compact-button" id="resetFiltersButton" type="button">
-              Reset Filters
-            </button>
           </div>
           <div class="region-bar">
             <span class="filter-summary-label">Region presets</span>
             <div class="region-chip-row" id="regionPresets"></div>
-          </div>
-          <div class="story-bar">
-            <span class="filter-summary-label">Start with a story</span>
-            <div class="story-chip-row" id="storyPresets"></div>
           </div>
           <div class="map-stage">
             <div id="leafletMap" aria-label="Interactive whale sightings map"></div>

@@ -133,12 +133,57 @@ body.modal-open {
   line-height: 1.6;
 }
 
+.hero-guide {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.hero-guide-label {
+  color: var(--accent);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.hero-guide-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-guide-step {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(156, 194, 188, 0.16);
+  font-size: 0.92rem;
+}
+
 .hero-side {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.hero-helper-text {
+  margin: 0;
+  max-width: 280px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: right;
 }
 
 .status-pill,
@@ -234,6 +279,50 @@ body.modal-open {
 
 .panel-head-wrap {
   flex-wrap: wrap;
+}
+
+.map-sequence {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.map-sequence-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.12);
+}
+
+.map-sequence-card strong {
+  display: block;
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.map-sequence-card p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.map-sequence-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(124, 224, 205, 0.12);
+  border: 1px solid rgba(124, 224, 205, 0.22);
+  color: var(--accent);
+  font-weight: 700;
+  flex: 0 0 auto;
 }
 
 .chip-row,
@@ -483,6 +572,20 @@ body.modal-open {
   display: grid;
   gap: 10px;
   margin-bottom: 16px;
+}
+
+.story-bar-priority {
+  margin-bottom: 18px;
+}
+
+.filter-control-panel {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.12);
 }
 
 .filter-summary {
@@ -1144,12 +1247,24 @@ body.modal-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .map-sequence {
+    grid-template-columns: 1fr;
+  }
+
   .hero {
     flex-direction: column;
   }
 
   .hero-side {
     align-items: flex-start;
+  }
+
+  .hero-actions {
+    justify-content: flex-start;
+  }
+
+  .hero-helper-text {
+    text-align: left;
   }
 }
 
@@ -1186,6 +1301,10 @@ body.modal-open {
 
   .hero h1 {
     font-size: 2.7rem;
+  }
+
+  .hero-guide-steps {
+    display: grid;
   }
 
   .species-copy-grid {

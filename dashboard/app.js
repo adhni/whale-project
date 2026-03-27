@@ -55,6 +55,8 @@ const state = {
 
 const elements = {
   statusPill: document.getElementById("statusPill"),
+  copyLinkButton: document.getElementById("copyLinkButton"),
+  heroHelperText: document.getElementById("heroHelperText"),
   reloadButton: document.getElementById("reloadButton"),
   statCleanRows: document.getElementById("statCleanRows"),
   statMapRows: document.getElementById("statMapRows"),
@@ -1924,6 +1926,27 @@ async function boot() {
   }
 }
 
+async function copyCurrentViewLink() {
+  const targetUrl = window.location.href;
+  try {
+    await navigator.clipboard.writeText(targetUrl);
+    elements.copyLinkButton.textContent = "Link Copied";
+    elements.heroHelperText.textContent = "Current story, filters, and selected profile copied to your clipboard.";
+    window.setTimeout(() => {
+      elements.copyLinkButton.textContent = "Copy View Link";
+      elements.heroHelperText.textContent = "Share the current filters and selected profile with one link.";
+    }, 1800);
+  } catch (error) {
+    elements.copyLinkButton.textContent = "Copy Failed";
+    elements.heroHelperText.textContent = "Clipboard access was blocked. Copy the URL from your browser address bar instead.";
+    window.setTimeout(() => {
+      elements.copyLinkButton.textContent = "Copy View Link";
+      elements.heroHelperText.textContent = "Share the current filters and selected profile with one link.";
+    }, 2200);
+  }
+}
+
+elements.copyLinkButton.addEventListener("click", copyCurrentViewLink);
 elements.reloadButton.addEventListener("click", boot);
 
 boot();
