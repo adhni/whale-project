@@ -32,6 +32,7 @@ const state = {
   selectedSpecies: "all",
   selectedSource: "all",
   selectedRegion: "all",
+  selectedStoryPreset: null,
   selectedEntryId: null,
   selectedProfileSlug: null,
   mapRows: [],
@@ -75,6 +76,7 @@ const elements = {
   activeFilters: document.getElementById("activeFilters"),
   resetFiltersButton: document.getElementById("resetFiltersButton"),
   regionPresets: document.getElementById("regionPresets"),
+  storyPresets: document.getElementById("storyPresets"),
   leafletMap: document.getElementById("leafletMap"),
   mapLegend: document.getElementById("mapLegend"),
   filteredPoints: document.getElementById("filteredPoints"),
@@ -219,6 +221,58 @@ const REGION_PRESETS = {
     maxZoom: 4,
   },
 };
+const STORY_PRESETS = {
+  "southern-residents": {
+    label: "Southern Residents",
+    note: "Puget Sound population view",
+    year: "all",
+    group: "Southern Resident Orca",
+    species: "Southern Resident Orca",
+    source: "all",
+    region: "Puget Sound",
+    profile: "southern-resident-orca",
+  },
+  "california-migration": {
+    label: "California Migration",
+    note: "Gray whales along the coast",
+    year: "all",
+    group: "Gray Whale",
+    species: "Gray Whale",
+    source: "all",
+    region: "California Coast",
+    profile: "gray-whale",
+  },
+  "east-coast-right-whales": {
+    label: "East Coast Right Whales",
+    note: "Caution-heavy unresolved slice",
+    year: "all",
+    group: "Right Whale",
+    species: "all",
+    source: "all",
+    region: "US East Coast",
+    profile: null,
+  },
+  "offshore-giants": {
+    label: "Offshore Giants",
+    note: "Large offshore baleen sightings",
+    year: "all",
+    group: "Large Baleen Whale",
+    species: "all",
+    source: "all",
+    region: "Offshore Pacific",
+    profile: null,
+  },
+  "recent-activity": {
+    label: "Recent Activity",
+    note: "Latest year across regions",
+    year: "latest",
+    group: "all",
+    species: "all",
+    source: "all",
+    region: "all",
+    profile: null,
+  },
+};
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(Number(value));
@@ -239,6 +293,48 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function getLatestYearOption() {
+  return state.yearOptions.filter((value) => value !== "all").slice(-1)[0] || "all";
+}
+
+function setSelectValue(select, value, fallback = "all") {
+  const available = [...select.options].map((option) => option.value);
+  select.value = available.includes(value) ? value : fallback;
+}
+
+function readUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    story: params.get("story") || null,
+    year: params.get("year") || "all",
+    group: params.get("group") || "all",
+    species: params.get("species") || "all",
+    source: params.get("source") || "all",
+    region: params.get("region") || "all",
+    profile: params.get("profile") || null,
+  };
+}
+
+function syncUrlState() {
+  const url = new URL(window.location.href);
+  url.search = "";
+
+  if (state.selectedStoryPreset) {
+    url.searchParams.set("story", state.selectedStoryPreset);
+  } else {
+    if (state.selectedYear !== "all") url.searchParams.set("year", state.selectedYear);
+    if (state.selectedGroup !== "all") url.searchParams.set("group", state.selectedGroup);
+    if (state.selectedSpecies !== "all") url.searchParams.set("species", state.selectedSpecies);
+    if (state.selectedSource !== "all") url.searchParams.set("source", state.selectedSource);
+    if (state.selectedRegion !== "all") url.searchParams.set("region", state.selectedRegion);
+    if (state.selectedProfileSlug && state.selectedSpecies !== "all") {
+      url.searchParams.set("profile", state.selectedProfileSlug);
+    }
+  }
+
+  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
 }
 
 function parseCsvLine(line) {
@@ -392,6 +488,7 @@ function resetFilters() {
   state.selectedSpecies = "all";
   state.selectedSource = "all";
   state.selectedRegion = "all";
+  state.selectedStoryPreset = null;
   state.selectedEntryId = null;
   elements.groupSelect.value = "all";
   elements.speciesSelect.value = "all";
@@ -461,11 +558,95 @@ function renderRegionPresets() {
   elements.regionPresets.querySelectorAll("[data-region]").forEach((button) => {
     button.onclick = () => {
       state.selectedRegion = button.dataset.region || "all";
+      state.selectedStoryPreset = null;
       state.selectedEntryId = null;
       renderRegionPresets();
+      renderStoryPresets();
       updateMapViews({ fitMode: "region" });
     };
   });
+}
+
+function renderStoryPresets() {
+  elements.storyPresets.innerHTML = Object.entries(STORY_PRESETS)
+    .map(([key, preset]) => {
+      const active = state.selectedStoryPreset === key ? "active" : "";
+      return `
+        <button type="button" class="story-chip ${active}" data-story="${escapeHtml(key)}">
+          <span class="story-chip-title">${escapeHtml(preset.label)}</span>
+          <span class="story-chip-note">${escapeHtml(preset.note)}</span>
+        </button>
+      `;
+    })
+    .join("");
+
+  elements.storyPresets.querySelectorAll("[data-story]").forEach((button) => {
+    button.onclick = () => {
+      applyStoryPreset(button.dataset.story || "");
+    };
+  });
+}
+
+function applyDashboardState(snapshot, options = {}) {
+  const { skipUrlSync = false, fitMode = "auto" } = options;
+
+  state.selectedYear = state.yearOptions.includes(snapshot.year) ? snapshot.year : "all";
+  state.selectedGroup = [...elements.groupSelect.options].some((option) => option.value === snapshot.group)
+    ? snapshot.group
+    : "all";
+  state.selectedSpecies = [...elements.speciesSelect.options].some((option) => option.value === snapshot.species)
+    ? snapshot.species
+    : "all";
+  state.selectedSource = [...elements.sourceSelect.options].some((option) => option.value === snapshot.source)
+    ? snapshot.source
+    : "all";
+  state.selectedRegion = state.regionOptions.includes(snapshot.region) ? snapshot.region : "all";
+  if (snapshot.profile && state.profileLookup.has(snapshot.profile)) {
+    state.selectedProfileSlug = snapshot.profile;
+  } else if (state.selectedSpecies !== "all") {
+    const linkedProfile = state.speciesProfiles.find(
+      (profile) => profile.display_name === state.selectedSpecies,
+    );
+    if (linkedProfile) {
+      state.selectedProfileSlug = linkedProfile.slug;
+    }
+  }
+  state.selectedStoryPreset = snapshot.story || null;
+  state.selectedEntryId = null;
+
+  syncYearSlider();
+  setSelectValue(elements.groupSelect, state.selectedGroup);
+  setSelectValue(elements.speciesSelect, state.selectedSpecies);
+  setSelectValue(elements.sourceSelect, state.selectedSource);
+  if (state.selectedProfileSlug && state.profileLookup.has(state.selectedProfileSlug)) {
+    setSelectValue(elements.profileSelect, state.selectedProfileSlug, elements.profileSelect.options[0]?.value || "");
+  }
+
+  renderRegionPresets();
+  renderStoryPresets();
+  updateMapViews({ skipUrlSync, fitMode });
+}
+
+function applyStoryPreset(presetKey, options = {}) {
+  const { skipUrlSync = false } = options;
+  const preset = STORY_PRESETS[presetKey];
+  if (!preset) {
+    return;
+  }
+
+  const targetYear = preset.year === "latest" ? getLatestYearOption() : preset.year;
+  applyDashboardState(
+    {
+      story: presetKey,
+      year: targetYear,
+      group: preset.group,
+      species: preset.species,
+      source: preset.source,
+      region: preset.region,
+      profile: preset.profile,
+    },
+    { skipUrlSync, fitMode: preset.region !== "all" ? "region" : "auto" },
+  );
 }
 
 function renderStats(cleanSummary, aggregateSummary, monthlyRows, groupRows, mapRows) {
@@ -845,9 +1026,11 @@ function applyProfileSelection(profileSlug, options = {}) {
   if (syncSpeciesFilter) {
     state.selectedSpecies = profile.display_name;
     state.selectedGroup = "all";
+    state.selectedStoryPreset = null;
     state.selectedEntryId = null;
     elements.speciesSelect.value = profile.display_name;
     elements.groupSelect.value = "all";
+    renderStoryPresets();
     updateMapViews();
     return;
   }
@@ -1263,27 +1446,34 @@ function renderMapControls(groupRows, mapRows) {
   state.selectedSpecies = "all";
   state.selectedSource = "all";
   state.selectedRegion = "all";
+  state.selectedStoryPreset = null;
   elements.groupSelect.value = state.selectedGroup;
   elements.speciesSelect.value = state.selectedSpecies;
   elements.sourceSelect.value = state.selectedSource;
   syncYearSlider();
   renderRegionPresets();
+  renderStoryPresets();
 
   elements.yearSlider.oninput = () => {
     const index = Number(elements.yearSlider.value);
     state.selectedYear = state.yearOptions[index] || "all";
+    state.selectedStoryPreset = null;
     syncYearSlider();
+    renderStoryPresets();
     updateMapViews();
   };
 
   elements.groupSelect.onchange = () => {
     state.selectedGroup = elements.groupSelect.value;
+    state.selectedStoryPreset = null;
     state.selectedEntryId = null;
+    renderStoryPresets();
     updateMapViews();
   };
 
   elements.speciesSelect.onchange = () => {
     state.selectedSpecies = elements.speciesSelect.value;
+    state.selectedStoryPreset = null;
     const linkedProfile = state.speciesProfiles.find(
       (profile) => profile.display_name === state.selectedSpecies,
     );
@@ -1292,12 +1482,15 @@ function renderMapControls(groupRows, mapRows) {
       elements.profileSelect.value = linkedProfile.slug;
     }
     state.selectedEntryId = null;
+    renderStoryPresets();
     updateMapViews();
   };
 
   elements.sourceSelect.onchange = () => {
     state.selectedSource = elements.sourceSelect.value;
+    state.selectedStoryPreset = null;
     state.selectedEntryId = null;
+    renderStoryPresets();
     rebuildTrendChart(state.monthlyRows, state.groupRows);
     updateMapViews();
   };
@@ -1308,7 +1501,9 @@ function renderMapControls(groupRows, mapRows) {
     const year = month.slice(0, 4);
     if (state.yearOptions.includes(year)) {
       state.selectedYear = year;
+      state.selectedStoryPreset = null;
       syncYearSlider();
+      renderStoryPresets();
       updateMapViews();
     }
   };
@@ -1504,9 +1699,14 @@ function renderLeafletMap(mapRows, options = {}) {
 }
 
 function updateMapViews(options = {}) {
+  const { skipUrlSync = false } = options;
   renderFilterSummary();
+  renderStoryPresets();
   renderLeafletMap(state.mapRows, options);
   renderMapSidePanels(getFilteredMapRows(state.mapRows));
+  if (!skipUrlSync) {
+    syncUrlState();
+  }
 }
 
 async function renderDashboard() {
@@ -1539,7 +1739,16 @@ async function renderDashboard() {
   renderGroupRankings(groupRows);
   renderProfileSelect();
   renderMapControls(groupRows, mapRows);
-  updateMapViews();
+  const initialState = readUrlState();
+  if (initialState.story && STORY_PRESETS[initialState.story]) {
+    applyStoryPreset(initialState.story, { skipUrlSync: true });
+  } else {
+    applyDashboardState(initialState, {
+      skipUrlSync: true,
+      fitMode: initialState.region && initialState.region !== "all" ? "region" : "auto",
+    });
+  }
+  syncUrlState();
   elements.statusPill.textContent = `Ready • ${formatNumber(mapRows.length)} mapped sightings from ${DASHBOARD_MIN_YEAR}+`;
 }
 

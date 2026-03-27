@@ -105,6 +105,10 @@
             <span class="filter-summary-label">Region presets</span>
             <div class="region-chip-row" id="regionPresets"></div>
           </div>
+          <div class="story-bar">
+            <span class="filter-summary-label">Start with a story</span>
+            <div class="story-chip-row" id="storyPresets"></div>
+          </div>
           <div class="map-stage">
             <div id="leafletMap" aria-label="Interactive whale sightings map"></div>
             <aside class="map-detail-card" id="mapDetailCard">
@@ -294,6 +298,59 @@
             </div>
           </div>
           <div class="recent-list" id="recentList"></div>
+        </section>
+
+        <section class="panel panel-wide">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Method</p>
+              <h2>About the data</h2>
+            </div>
+          </div>
+          <div class="about-grid">
+            <article class="about-card">
+              <h3>What one row means</h3>
+              <p>
+                A row is one recorded sighting event from the underlying feed, not a census of all whales in the area.
+                Some rows report a single whale, while others report a group observed together.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>What counts mean</h3>
+              <p>
+                <code>no_sighted</code> reflects how many animals were reported in that observation when a usable count was present.
+                More rows or more points on the map should not be read as a direct measure of whale abundance.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>What gets filtered out</h3>
+              <p>
+                The dashboard only maps positive sightings with usable coordinates. Blank counts, invalid dates, impossible coordinates,
+                and unresolved source noise are handled in the cleaning pipeline before the public view is built.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>Why some whales stay uncertain</h3>
+              <p>
+                Some source labels are too broad to safely present as a confirmed whale species. Those records stay unresolved or
+                caution-marked so the dashboard does not imply more certainty than the data supports.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>How sources should be read</h3>
+              <p>
+                Source names combine witness channels, apps, and feeds. They help explain where observations came from, but different
+                sources may follow different reporting patterns and should not be treated as equal sampling effort.
+              </p>
+            </article>
+            <article class="about-card">
+              <h3>How to use this responsibly</h3>
+              <p>
+                Use the dashboard to explore patterns, seasonality, and distribution. Treat it as an interpreted sightings atlas,
+                not a population estimate or a complete record of every whale in each region.
+              </p>
+            </article>
+          </div>
         </section>
       </main>
     </div>

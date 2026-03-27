@@ -380,6 +380,36 @@ body.modal-open {
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
 }
 
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.about-card {
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.1);
+}
+
+.about-card h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-family: var(--font-display);
+}
+
+.about-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.about-card code {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 .rank-head,
 .source-head,
 .recent-head {
@@ -449,6 +479,12 @@ body.modal-open {
   margin-bottom: 16px;
 }
 
+.story-bar {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
 .filter-summary {
   display: grid;
   gap: 8px;
@@ -468,6 +504,12 @@ body.modal-open {
 }
 
 .region-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.story-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -506,6 +548,46 @@ body.modal-open {
   color: #03252c;
   border-color: transparent;
   background: linear-gradient(135deg, var(--accent), #ddf6e7);
+}
+
+.story-chip {
+  display: grid;
+  gap: 4px;
+  min-width: 170px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(156, 194, 188, 0.14);
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.story-chip:hover,
+.story-chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(124, 224, 205, 0.34);
+  background: rgba(124, 224, 205, 0.08);
+  outline: none;
+}
+
+.story-chip.active {
+  border-color: rgba(246, 185, 107, 0.48);
+  background:
+    linear-gradient(135deg, rgba(246, 185, 107, 0.12), rgba(124, 224, 205, 0.08)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.story-chip-title {
+  font-weight: 600;
+}
+
+.story-chip-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.35;
 }
 
 .compact-button {
@@ -1022,6 +1104,10 @@ body.modal-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero {
     flex-direction: column;
   }
@@ -1071,6 +1157,10 @@ body.modal-open {
   }
 
   .species-stats-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid {
     grid-template-columns: 1fr;
   }
 
